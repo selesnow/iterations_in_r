@@ -1,0 +1,1671 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Курс `Циклы и функционалы в языке R'},
+  pdfauthor={Алексей Селезнёв},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{Курс `Циклы и функционалы в языке R'}
+\author{Алексей Селезнёв}
+\date{2022-03-30}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{ux432ux432ux435ux434ux435ux43dux438ux435}{%
+\chapter*{Введение}\label{ux432ux432ux435ux434ux435ux43dux438ux435}}
+\addcontentsline{toc}{chapter}{Введение}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ux43e-ux43aux443ux440ux441ux435}{%
+\section*{О курсе}\label{ux43e-ux43aux443ux440ux441ux435}}
+\addcontentsline{toc}{section}{О курсе}
+
+Если вы недавно начали изучать язык R, то наверняка неоднократно слышали от более опытных коллег фразу ``В R не принято использовать циклы''. Связано это негласное правило с тем, что большинство функций в языке R поддерживают векторизацию, т.е. они уже под капотом имеют встроенный механизм итерирования. Даже если нужная вам функция не поддерживает векторизацию, вы всегда можете использовать функциональный стиль программирования.
+
+Циклы, и в целом итерационные конструкции, позволяют избегать излишнего дублирования кода. Основная проблема новичков, которые только начинают учить язык R заключаются в том, что в неумелых руках циклы в R используются не эффективно, и зачастую применяются там, где они вообще не нужны. Цель этого курса научить вас эффективно использовать итерационные конструкции в языке R, и познакомить с функциональным стилем программирования, и многопоточным режимом выполнения скриптов.
+
+Этот курс поможет вам погрузиться в тему итерационных конструкций языка R и разобраться во всём их многообразии. Первая лекция даст вам вводную информацию о базовых циклах языка R: \texttt{for}, \texttt{while}, \texttt{repeate}. Второй урок прольёт свет на обработку ошибок, с которыми могут столкнуться написанные вами циклы. В третьем уроке мы познакомимся с функциональным стилем программирования и семейством функций \texttt{apply()}. Четвёртый урок продолжает тему функционального стиля программирования, в нём мы рассмотрим возможности пакета \texttt{purrr}, который входит в ядро библиотеки \texttt{tidyverse} и предоставляет вам более продвинутые функционалы по сравнению с семейством функций \texttt{apply()}. Следующим шагом мы разберёмся с тем, как перехватывать и обрабатывать ошибки при использовании функционалов. Затем мы узнаем как распараллеливать выполнение итераций ваших циклов и функционалов с помощью многопоточного программирования, изучим конструкцию \texttt{foreach}, пакеты \texttt{pbapply} и \texttt{furrr}. Завершающий урок будет продолжением темы параллельного программирования в R, в котором мы разберём более низкоуровневый интерфейс многопоточности предоставляемый пакетом \texttt{future}.
+
+\hypertarget{ux434ux43bux44f-ux43aux43eux433ux43e-ux44dux442ux43eux442-ux43aux443ux440ux441}{%
+\section*{Для кого этот курс}\label{ux434ux43bux44f-ux43aux43eux433ux43e-ux44dux442ux43eux442-ux43aux443ux440ux441}}
+\addcontentsline{toc}{section}{Для кого этот курс}
+
+Особых требований к уровню подготовки для прохождения данного курса нет, но всё-таки в качестве первого курса для знакомства с языком R я бы его не рекомендовал. Приступать к прохождению курса ``Циклы и функционалы в R'' я советую тем, кто уже имеет базовые навыки работы в R. Т.е. изначально я рекомендую вам пройти курс \href{https://selesnow.github.io/r4excel_users/}{``Язык R для пользователей Excel''}, и потом приступать к прохождению данного курса.
+
+\hypertarget{ux440ux435ux43aux43eux43cux435ux43dux434ux430ux446ux438ux438-ux43fux43e-ux43fux440ux43eux445ux43eux436ux434ux435ux43dux438ux44e-ux43aux443ux440ux441ux430}{%
+\section*{Рекомендации по прохождению курса}\label{ux440ux435ux43aux43eux43cux435ux43dux434ux430ux446ux438ux438-ux43fux43e-ux43fux440ux43eux445ux43eux436ux434ux435ux43dux438ux44e-ux43aux443ux440ux441ux430}}
+\addcontentsline{toc}{section}{Рекомендации по прохождению курса}
+
+Данный курс состоит из 7 видео лекций общей длительность 2 часа 55 минут, и 7 тестов включающих в себя в общей сложности 30 вопросов. Прохождение тестов не является обязательным, тем не менее я крайне советую пройти тест после просмотра лекции. Тесты помогут акцентировать ваше внимание на наиболее важных моментах урока, и проверить как вы усвоили материал. Фиксируйте баллы, которые вы набираете в ходе выполнения каждого теста, в завершении обучения на курсе, по общей сумме баллов полученных за выполнение всех тестов, вы увидите свою общую оценку за курс.
+
+К каждому уроку есть рассмотренный в видео код, это сделано для вашего удобства, скопируйте его и выполняйте по мере просмотра видео лекции. При желании вы можете скачать все примеры кода одним архивом по \href{https://github.com/selesnow/publications/blob/master/code_example/iterations_in_r_scripts.zip?raw=true}{ссылке}.
+
+Также в некоторых уроках вы найдёте раздел с рекомендованными материалами. В данный раздел входят ссылки на различные статьи и видео уроки, которые дополняют изложенные в ходе видео материал. Так же рекомендую не игнорировать этот раздел.
+
+\hypertarget{ux43fux43e-ux43fux43eux432ux43eux434ux443-ux43fux43eux434ux434ux435ux440ux436ux43aux438-ux43eux431ux443ux447ux430ux44eux449ux438ux445ux441ux44f-ux43dux430-ux434ux430ux43dux43dux43eux43c-ux43aux443ux440ux441ux430}{%
+\section*{По поводу поддержки обучающихся на данном курса}\label{ux43fux43e-ux43fux43eux432ux43eux434ux443-ux43fux43eux434ux434ux435ux440ux436ux43aux438-ux43eux431ux443ux447ux430ux44eux449ux438ux445ux441ux44f-ux43dux430-ux434ux430ux43dux43dux43eux43c-ux43aux443ux440ux441ux430}}
+\addcontentsline{toc}{section}{По поводу поддержки обучающихся на данном курса}
+
+\textbf{Важно!} Поддержки учащихся на этом курсе со стороны автора нет. Я не занимаюсь частными консультациями, тем более не консультирую студентов бесплатных курсов. Поэтому не имеет никакого смысла писать мне в личку или на почту просьбы помочь с прохождением этого, или любого другого моего бесплатного курса. Если вы столкнулись с трудностями при прохождении курса и вам нужна помощь, то все вопросы можно адресовать в следующие telegram чаты:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://t.me/rlang_ru}{R (язык программирования)}
+\item
+  \href{https://t.me/hotlineR_EU}{Горячая линия R}
+\end{itemize}
+
+Отдельного чата со студентами непосредственно этого курса не существует, но при желании вы самостоятельно можете его организовать, и я с радостью добавлю на него ссылку.
+
+К тому же, если у вас есть вопросы по одной из лекций курса, вы можете задавать его под видео лекции на YouTube, это приветствуется, и на такие комментарии я с радостью отвечу.
+
+Буду рад любой конструктивной критике, и предложениям по улучшению курса ``Циклы и функционалы в R'', направлять их можно мне на почту \href{mailto:selesnow@gmail.com}{\nolinkurl{selesnow@gmail.com}}. Если вы хотите выразить благодарность мне за курс, то в конце раздела описано как это можно сделать.
+
+\hypertarget{ux43eux431-ux430ux432ux442ux43eux440ux435}{%
+\section*{Об авторе}\label{ux43eux431-ux430ux432ux442ux43eux440ux435}}
+\addcontentsline{toc}{section}{Об авторе}
+
+Меня зовут Алексей Селезнёв, с 2008 года я являюсь практикующим аналитиком. На данный момент основной моей деятельностью является развитие отдела аналитики в агентстве интернет-маркетинга \href{https://https://netpeak.group/}{Netpeak}.
+
+Мною были разработаны такие R пакеты как: \texttt{rgoogleads}, \texttt{ryandexdirect}, \texttt{rfacebookstat}, \texttt{timeperiodsR}, \texttt{rvkstat} и некоторые другие. На данный момент написанные мной пакеты только с CRAN были установленны более 150 000 раз.
+
+Также я являюсь автором курса \href{https://needfordata.ru/r}{``Язык R для интернет-маркетинга''} и лектором академии \href{https://webpromoexperts.net/}{Web Promo Experts}.
+
+Веду свой авторский \href{https://t.me/R4marketing}{Telegram} и \href{https://www.youtube.com/R4marketing/?sub_confirmation=1}{YouTube} канал R4marketing. Буду рад видеть вас в рядах подписчиков.
+
+Периодически публикую статью на различных интернет медиа, зачастую это \href{https://habr.com/ru/users/selesnow/}{Хабр} и \href{https://netpeak.net/ru/blog/user/publication/826/}{Netpeak Journal}.
+
+Неоднократно выступал на профильных конференциях по аналитике и интернет маркетингу, среди которых Матемаркетинг, GoAnalytics, Analyze, eCommerce, 8P и прочие.
+
+Начиная с 2016 года всячески стараюсь популяризировать язык R среди русскоязычных аналитиков и маркетологов. Этот курс также был создан с этой целью.
+
+\hypertarget{ux43aux430ux43dux430ux43bux44b-ux430ux432ux442ux43eux440ux430}{%
+\section*{Каналы автора}\label{ux43aux430ux43dux430ux43bux44b-ux430ux432ux442ux43eux440ux430}}
+\addcontentsline{toc}{section}{Каналы автора}
+
+Если вы интересуетесь языком R, применяете его в работе, или планируете изучать, то думаю вам будут интересны мои каналы, о которых я писал выше. Буду рад видеть вас среди подписчиков:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://t.me/R4marketing}{Telegram канал R4marketing}
+\item
+  \href{https://www.youtube.com/R4marketing/?sub_confirmation=1}{Youtube канал R4marketing}
+\end{itemize}
+
+\hypertarget{ux43fux440ux43eux433ux440ux430ux43cux43cux430-ux43aux443ux440ux441ux430}{%
+\section*{Программа курса}\label{ux43fux440ux43eux433ux440ux430ux43cux43cux430-ux43aux443ux440ux441ux430}}
+\addcontentsline{toc}{section}{Программа курса}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{\%D1\%86\%D0\%B8\%D0\%BA\%D0\%BB\%D1\%8B-for-while-\%D0\%B8-repeat.html\#\%D1\%86\%D0\%B8\%D0\%BA\%D0\%BB\%D1\%8B-for-while-\%D0\%B8-repeat}{Циклы for, while и repeat}
+\item
+  \href{обработка-ошибок-конструкции-try-и-trycatch.html}{Обработка ошибок: конструкции try() и tryCatch()}
+\item
+  \href{\%D1\%84\%D1\%83\%D0\%BD\%D0\%BA\%D1\%86\%D0\%B8\%D0\%B8-\%D1\%81\%D0\%B5\%D0\%BC\%D0\%B5\%D0\%B9\%D1\%81\%D1\%82\%D0\%B2\%D0\%B0-apply.html\#\%D1\%84\%D1\%83\%D0\%BD\%D0\%BA\%D1\%86\%D0\%B8\%D0\%B8-\%D1\%81\%D0\%B5\%D0\%BC\%D0\%B5\%D0\%B9\%D1\%81\%D1\%82\%D0\%B2\%D0\%B0-apply}{Функции семейства apply}
+\item
+  \href{\%D0\%BF\%D0\%B0\%D0\%BA\%D0\%B5\%D1\%82-purrr.html\#\%D0\%BF\%D0\%B0\%D0\%BA\%D0\%B5\%D1\%82-purrr}{Итерирование с помощью функций пакета purrr}
+\item
+  \href{обработка-ошибок-функции-safely-possibly-quietly.html}{Обработка ошибок: функции safely(), possibly(), quietly()}
+\item
+  \href{\%D0\%BC\%D0\%BD\%D0\%BE\%D0\%B3\%D0\%BE\%D0\%BF\%D0\%BE\%D1\%82\%D0\%BE\%D1\%87\%D0\%BD\%D0\%BE\%D1\%81\%D1\%82\%D1\%8C-\%D0\%B2-r.html\#\%D0\%BC\%D0\%BD\%D0\%BE\%D0\%B3\%D0\%BE\%D0\%BF\%D0\%BE\%D1\%82\%D0\%BE\%D1\%87\%D0\%BD\%D0\%BE\%D1\%81\%D1\%82\%D1\%8C-\%D0\%B2-r}{Введение в многопоточность, пакеты: foreach, doFuture, pbapply, furrr}
+\item
+  \href{\%D0\%BF\%D0\%B0\%D0\%BA\%D0\%B5\%D1\%82-future.html\#\%D0\%BF\%D0\%B0\%D0\%BA\%D0\%B5\%D1\%82-future}{Реализация многопоточности с помощью пакета future}
+\end{enumerate}
+
+\hypertarget{ux431ux43bux430ux433ux43eux434ux430ux440ux43dux43eux441ux442ux438-ux430ux432ux442ux43eux440ux443}{%
+\section*{Благодарности автору}\label{ux431ux43bux430ux433ux43eux434ux430ux440ux43dux43eux441ux442ux438-ux430ux432ux442ux43eux440ux443}}
+\addcontentsline{toc}{section}{Благодарности автору}
+
+Курс, и все сопутствующие материалы предоставляются бесплатно, но если у вас есть желание отблагодарить автора за этот видео курс вы можете перечислить любую произвольную сумму на \href{https://secure.wayforpay.com/payment/r4excel_users}{этой странице}.
+
+Либо с помощью кнопки:
+
+{Оплатить}
+
+\hypertarget{ux446ux438ux43aux43bux44b-for-while-ux438-repeat}{%
+\chapter{Циклы for, while и repeat}\label{ux446ux438ux43aux43bux44b-for-while-ux438-repeat}}
+
+\hypertarget{ux43eux43fux438ux441ux430ux43dux438ux435}{%
+\section{Описание}\label{ux43eux43fux438ux441ux430ux43dux438ux435}}
+
+\footnote{Материал из википедии: \url{https://ru.wikipedia.org/wiki/Цикл_(программирование)}}Цикл --- разновидность управляющей конструкции в высокоуровневых языках программирования, предназначенная для организации многократного исполнения набора инструкций.
+
+В повседневной жизни мы тоже ежедневно сталкиваемся с циклами. Например, вам необходимо перенести из кухни в комнату 5 больших коробок с посудой, за один раз вы можете поднть только одну коробку. Т.е. вам понадобится пять раз выполнить одно и тоже дейтсвие, это и есть цикл, а перенос одной коробки это одна итерация цикла.
+
+Первый урок курса поможет вам разобраться с тем:
+
+\begin{itemize}
+\tightlist
+\item
+  Что такое циклы;
+\item
+  Какие циклы есть в базовом синтаксисе языка R;
+\item
+  Как итерироваться циклами по наиболее распространённым структурам данных в R;
+\item
+  Как правильно объединять результаты полученные на разных итерациях цикла;
+\item
+  Как использовать операторы \texttt{next} и \texttt{break}.
+\end{itemize}
+
+Данный урок расчитан на начальный уровень подготовки, и является достаточно базовым.
+
+\hypertarget{ux432ux438ux434ux435ux43e}{%
+\section{Видео}\label{ux432ux438ux434ux435ux43e}}
+
+\hypertarget{ux442ux430ux439ux43c-ux43aux43eux434ux44b}{%
+\section{Тайм коды}\label{ux442ux430ux439ux43c-ux43aux43eux434ux44b}}
+
+00:00 Введение.
+00:28 Что такое циклы
+00:58 Какие циклы есть в языке R.
+01:44 Синтаксис цикла \texttt{for}.
+02:40 Перебираем вектор циклом \texttt{for}.
+03:34 Переход на следующую итерацию цикла с помощью оператора \texttt{next}.
+04:50 Перебираем список циклом \texttt{for}.
+06:52 Перебираем циклом \texttt{for} столбцы и строки таблиц (\texttt{data.frame}).
+09:38 Вложенные циклы \texttt{for}.
+10:55 Как правильно объединять в цикле таблицы. Считываем циклом данные из множества csv файлов и объединяем в один \texttt{data.frame}.
+14:11 Синтаксис цикла \texttt{while}.
+15:25 Выход из цикла с помощью оператора \texttt{break}.
+17:12 Синтаксис цикла \texttt{repeat}.
+18:30 В чём разница между циклами \texttt{while} и \texttt{repeat} в языке R.
+19:47 Почему в R не принято использовать циклы.
+21:17 Заключение.
+
+\hypertarget{ux43aux43eux434}{%
+\section{Код}\label{ux43aux43eux434}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# циклы в базовом синтаксисе R}
+
+
+\CommentTok{\# for {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\DocumentationTok{\#\# выполняется до тех пор,}
+\DocumentationTok{\#\# пока в итерируем оъекте не будут перебраны}
+\DocumentationTok{\#\# все элементы}
+
+\DocumentationTok{\#\# итерирование по вектору}
+\NormalTok{week }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Sunday\textquotesingle{}}\NormalTok{, }
+          \StringTok{\textquotesingle{}Monday\textquotesingle{}}\NormalTok{, }
+          \StringTok{\textquotesingle{}Tuesday\textquotesingle{}}\NormalTok{, }
+          \StringTok{\textquotesingle{}Wednesday\textquotesingle{}}\NormalTok{,}
+          \StringTok{\textquotesingle{}Thursday\textquotesingle{}}\NormalTok{,}
+          \StringTok{\textquotesingle{}Friday\textquotesingle{}}\NormalTok{,}
+          \StringTok{\textquotesingle{}Saturday\textquotesingle{}}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ ( day }\ControlFlowTok{in}\NormalTok{ week ) \{}
+  
+  \FunctionTok{print}\NormalTok{(n)}
+  \FunctionTok{Sys.sleep}\NormalTok{(}\FloatTok{0.25}\NormalTok{)}
+  
+\NormalTok{\}}
+
+\DocumentationTok{\#\# итерирование по списку}
+\NormalTok{persons }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \FunctionTok{list}\NormalTok{(}\AttributeTok{name =} \StringTok{"Alexey"}\NormalTok{, }\AttributeTok{age =} \DecValTok{36}\NormalTok{), }
+  \FunctionTok{list}\NormalTok{(}\AttributeTok{name =} \StringTok{"Justin"}\NormalTok{, }\AttributeTok{age =} \DecValTok{27}\NormalTok{),}
+  \FunctionTok{list}\NormalTok{(}\AttributeTok{name =} \StringTok{"Piter"}\NormalTok{,  }\AttributeTok{age =} \DecValTok{22}\NormalTok{),}
+  \FunctionTok{list}\NormalTok{(}\AttributeTok{name =} \StringTok{"Sergey"}\NormalTok{, }\AttributeTok{age =} \DecValTok{39}\NormalTok{))}
+
+\DocumentationTok{\#\# оператор next позволяет переходить на следующую итерацию}
+\ControlFlowTok{for}\NormalTok{ ( person }\ControlFlowTok{in}\NormalTok{ persons ) \{}
+  
+  \ControlFlowTok{if}\NormalTok{ ( person}\SpecialCharTok{$}\NormalTok{age }\SpecialCharTok{\textless{}} \DecValTok{30}\NormalTok{ ) }\ControlFlowTok{next}
+  
+  \FunctionTok{print}\NormalTok{( }\FunctionTok{paste0}\NormalTok{( person}\SpecialCharTok{$}\NormalTok{name, }\StringTok{" is "}\NormalTok{, person}\SpecialCharTok{$}\NormalTok{age, }\StringTok{" years old"}\NormalTok{) )}
+  
+\NormalTok{\} }
+
+\DocumentationTok{\#\# итерирование по таблицам}
+\ControlFlowTok{for}\NormalTok{ ( col }\ControlFlowTok{in}\NormalTok{ mtcars ) \{}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{mean}\NormalTok{(col))}
+  \FunctionTok{names}\NormalTok{(col)}
+\NormalTok{\}}
+
+\DocumentationTok{\#\# итерирование по строкам таблицы}
+\ControlFlowTok{for}\NormalTok{ ( row }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(mtcars) ) \{}
+  \FunctionTok{print}\NormalTok{(mtcars[row, }\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}cyl\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}gear\textquotesingle{}}\NormalTok{)])}
+\NormalTok{\}}
+
+\DocumentationTok{\#\# вложенные циклы for}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ letters[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
+  
+\ControlFlowTok{for}\NormalTok{ ( int }\ControlFlowTok{in}\NormalTok{ x ) \{}
+  
+  \ControlFlowTok{for}\NormalTok{ ( let }\ControlFlowTok{in}\NormalTok{ y ) \{}
+    
+    \FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(int, }\StringTok{": "}\NormalTok{, let))}
+    
+\NormalTok{  \}}
+  
+\NormalTok{\}}
+
+\DocumentationTok{\#\# как поступить если мне надо на каждой итерации объединять таблицы}
+\FunctionTok{setwd}\NormalTok{(}\StringTok{\textquotesingle{}docs\textquotesingle{}}\NormalTok{)}
+\NormalTok{files }\OtherTok{\textless{}{-}} \FunctionTok{dir}\NormalTok{()}
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+
+\ControlFlowTok{for}\NormalTok{ ( file }\ControlFlowTok{in}\NormalTok{ files ) \{}
+  
+\NormalTok{  temp\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(file)}
+
+\NormalTok{  result }\OtherTok{\textless{}{-}} \FunctionTok{append}\NormalTok{(result, }\FunctionTok{list}\NormalTok{(temp\_df))}
+  
+\NormalTok{\}}
+
+\CommentTok{\# объединяем результаты в одну таблицу}
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{do.call}\NormalTok{(}\StringTok{\textquotesingle{}rbind\textquotesingle{}}\NormalTok{, result)}
+
+
+
+\CommentTok{\# while {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\DocumentationTok{\#\# итерируется до тех пор,}
+\DocumentationTok{\#\# пока истинно заданное условие}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}
+
+\ControlFlowTok{while}\NormalTok{ ( x }\SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{ ) \{}
+  
+  \FunctionTok{print}\NormalTok{(x)}
+\NormalTok{  x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+} \DecValTok{1}
+  
+\NormalTok{\}}
+
+\CommentTok{\# оператор break}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}
+\ControlFlowTok{while}\NormalTok{ ( x }\SpecialCharTok{\textless{}} \DecValTok{20}\NormalTok{ ) \{}
+  
+  \FunctionTok{print}\NormalTok{(x)}
+  
+  \ControlFlowTok{if}\NormalTok{ ( x }\SpecialCharTok{/} \DecValTok{2} \SpecialCharTok{==} \DecValTok{5}\NormalTok{ ) }\ControlFlowTok{break}
+  
+\NormalTok{  x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+} \DecValTok{1}
+  
+\NormalTok{\}}
+
+\CommentTok{\# repeate {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\DocumentationTok{\#\# итерируется до тех пор,}
+\DocumentationTok{\#\# пока не встретит break}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}
+
+\ControlFlowTok{repeat}\NormalTok{ \{}
+  
+  \FunctionTok{print}\NormalTok{(x)}
+  
+  \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{/} \DecValTok{2} \SpecialCharTok{==} \DecValTok{5}\NormalTok{) }\ControlFlowTok{break}
+  
+\NormalTok{  x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f}{%
+\section{Презентация}\label{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f}}
+
+Циклы в R from Алексей Селезнёв
+
+\hypertarget{ux442ux435ux441ux442}{%
+\section{Тест}\label{ux442ux435ux441ux442}}
+
+\hypertarget{ux43eux431ux440ux430ux431ux43eux442ux43aux430-ux43eux448ux438ux431ux43eux43a-ux43aux43eux43dux441ux442ux440ux443ux43aux446ux438ux438-try-ux438-trycatch}{%
+\chapter{Обработка ошибок: конструкции try() и tryCatch()}\label{ux43eux431ux440ux430ux431ux43eux442ux43aux430-ux43eux448ux438ux431ux43eux43a-ux43aux43eux43dux441ux442ux440ux443ux43aux446ux438ux438-try-ux438-trycatch}}
+
+\hypertarget{ux43eux43fux438ux441ux430ux43dux438ux435-1}{%
+\section{Описание}\label{ux43eux43fux438ux441ux430ux43dux438ux435-1}}
+
+На предыдущем уроке мы разобрали всевозможные варианты циклов в языке R, они выполнят сфою функцию, если на одной из итераций не столкнутся с ошибкой, а в противном случае работа цикла не будет завершена и остановится на одной из итераций.
+
+В этом уроке мы разберёмся с конструкциями \texttt{try()} и \texttt{tryCatch()} которые позволяют вам перехватывать и обрабатывать ошибки в R.
+
+\hypertarget{ux432ux438ux434ux435ux43e-1}{%
+\section{Видео}\label{ux432ux438ux434ux435ux43e-1}}
+
+\hypertarget{ux442ux430ux439ux43c-ux43aux43eux434ux44b-1}{%
+\section{Тайм коды}\label{ux442ux430ux439ux43c-ux43aux43eux434ux44b-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Конструкция try() ( 0:37 )
+\item
+  Как использовать try() внутри цикла for ( 2:54 )
+\item
+  Конструкция tryCatch() ( 7:16 )
+\item
+  Обработка ошибок с помощью tryCatch() ( 12:32 )
+\item
+  Как использовать tryCatch() внутри цикла for ( 13:39 )
+\item
+  Блок finally в конструкции tryCatch() (15:27 )
+\item
+  Работа с пользовательскими классами исключений ( 19:09 )
+\item
+  Векторизируем конструкцию tryCatch() с помощью lapply() ( 24:11 )
+\end{enumerate}
+
+\hypertarget{ux43aux43eux434-1}{%
+\section{Код}\label{ux43aux43eux434-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# рабочая директория}
+\FunctionTok{setwd}\NormalTok{(r}\StringTok{\textquotesingle{}(C:\textbackslash{}Users\textbackslash{}Alsey\textbackslash{}Documents}\SpecialCharTok{\textbackslash{}t}\StringTok{ry\_catch\_lesson)\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Конструкция try}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{try}\NormalTok{( }\DecValTok{10} \SpecialCharTok{/} \StringTok{\textquotesingle{}u\textquotesingle{}}\NormalTok{ )}
+
+\CommentTok{\# класс объекта}
+\FunctionTok{class}\NormalTok{(res)}
+
+\CommentTok{\# сообщение}
+\FunctionTok{attr}\NormalTok{(res, }\StringTok{\textquotesingle{}condition\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# пример }
+\NormalTok{values }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{2}\NormalTok{, }\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\StringTok{\textquotesingle{}t\textquotesingle{}}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ ( val }\ControlFlowTok{in}\NormalTok{ values ) \{}
+  
+\NormalTok{  res }\OtherTok{\textless{}{-}} \FunctionTok{try}\NormalTok{( val }\SpecialCharTok{/} \DecValTok{10}\NormalTok{, }\AttributeTok{silent =} \ConstantTok{TRUE}\NormalTok{ )}
+  
+  \ControlFlowTok{if}\NormalTok{ ( }\FunctionTok{class}\NormalTok{(res) }\SpecialCharTok{==} \StringTok{\textquotesingle{}try{-}error\textquotesingle{}}\NormalTok{ ) \{}
+    
+    \FunctionTok{print}\NormalTok{(}\FunctionTok{attr}\NormalTok{(res, }\StringTok{\textquotesingle{}condition\textquotesingle{}}\NormalTok{)) }
+    
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    
+    \FunctionTok{print}\NormalTok{( }\FunctionTok{paste0}\NormalTok{( val, }\StringTok{" / 10 = "}\NormalTok{, res))}
+    
+\NormalTok{  \}}
+  
+\NormalTok{\}}
+
+
+\CommentTok{\# Конструкция tryCatch}
+\DocumentationTok{\#\# обработка ошибок}
+\DocumentationTok{\#\#\# функция}
+\NormalTok{div }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, y) \{}
+  
+  \ControlFlowTok{if}\NormalTok{ ( }\FunctionTok{is.na}\NormalTok{(y) ) \{}
+    
+    \FunctionTok{warning}\NormalTok{(}\StringTok{"Y is NA"}\NormalTok{)}
+    
+\NormalTok{  \} }
+  
+  \FunctionTok{return}\NormalTok{( x }\SpecialCharTok{/}\NormalTok{ y )}
+  
+\NormalTok{\}}
+
+\DocumentationTok{\#\#\# значение}
+\NormalTok{val }\OtherTok{\textless{}{-}} \StringTok{"just text"}
+
+\DocumentationTok{\#\#\# проверка}
+\NormalTok{result }\OtherTok{\textless{}{-}} 
+  \FunctionTok{tryCatch}\NormalTok{( }
+    \AttributeTok{expr =}\NormalTok{ \{}
+      
+\NormalTok{      y }\OtherTok{\textless{}{-}} \FunctionTok{div}\NormalTok{(}\DecValTok{10}\NormalTok{, val)}
+      
+\NormalTok{    \},}
+    \AttributeTok{error =} \ControlFlowTok{function}\NormalTok{(err) \{}
+      
+      \FunctionTok{message}\NormalTok{(err}\SpecialCharTok{$}\NormalTok{message)}
+\NormalTok{      y }\OtherTok{\textless{}{-}} \DecValTok{0}
+      
+\NormalTok{    \},}
+    \AttributeTok{warning =} \ControlFlowTok{function}\NormalTok{(war) \{}
+      
+      \FunctionTok{message}\NormalTok{(war}\SpecialCharTok{$}\NormalTok{message)}
+\NormalTok{      y }\OtherTok{\textless{}{-}} \DecValTok{1}
+      
+\NormalTok{    \})}
+
+
+\DocumentationTok{\#\#\# обработка ошибок}
+\ControlFlowTok{if}\NormalTok{ ( }\StringTok{\textquotesingle{}error\textquotesingle{}} \SpecialCharTok{\%in\%} \FunctionTok{class}\NormalTok{(result)  ) \{}
+  
+  \FunctionTok{message}\NormalTok{(}\StringTok{"Catch"}\NormalTok{)}
+  
+\NormalTok{\}}
+
+\DocumentationTok{\#\#\# в цикле }
+\NormalTok{values }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{8}\NormalTok{, }\StringTok{"text"}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ ( val }\ControlFlowTok{in}\NormalTok{ values ) \{}
+  
+\NormalTok{  temp }\OtherTok{\textless{}{-}}
+    \FunctionTok{tryCatch}\NormalTok{(\{}
+      \FunctionTok{div}\NormalTok{(}\DecValTok{10}\NormalTok{, val)}
+\NormalTok{    \},}
+    \AttributeTok{error =} \ControlFlowTok{function}\NormalTok{(err) \{}
+      
+      \FunctionTok{print}\NormalTok{(err}\SpecialCharTok{$}\NormalTok{message)}
+      
+\NormalTok{    \})}
+  
+  \ControlFlowTok{if}\NormalTok{ ( }\StringTok{\textquotesingle{}error\textquotesingle{}} \SpecialCharTok{\%in\%} \FunctionTok{class}\NormalTok{(temp) ) }\ControlFlowTok{next}
+\NormalTok{\}}
+
+
+\CommentTok{\# блок finnaly}
+\FunctionTok{library}\NormalTok{(DBI)}
+\FunctionTok{library}\NormalTok{(RSQLite)}
+
+\DocumentationTok{\#\# подключение}
+\NormalTok{con }\OtherTok{\textless{}{-}} \FunctionTok{dbConnect}\NormalTok{(}\FunctionTok{SQLite}\NormalTok{(), }\StringTok{\textquotesingle{}my.db\textquotesingle{}}\NormalTok{)}
+\DocumentationTok{\#\# создаём фрейм}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{a =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}
+                 \AttributeTok{b =}\NormalTok{ letters[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{])}
+
+\DocumentationTok{\#\# попытка записать данные}
+\NormalTok{out }\OtherTok{\textless{}{-}} 
+  \FunctionTok{tryCatch}\NormalTok{(}
+\NormalTok{    \{}
+      
+      \FunctionTok{dbWriteTable}\NormalTok{(con, }
+                   \StringTok{\textquotesingle{}my\_data\textquotesingle{}}\NormalTok{,}
+\NormalTok{                   df)}
+      
+\NormalTok{    \},}
+    
+    \AttributeTok{error =} \ControlFlowTok{function}\NormalTok{(err) \{}
+      \FunctionTok{print}\NormalTok{(err}\SpecialCharTok{$}\NormalTok{message)}
+      \FunctionTok{return}\NormalTok{(err)}
+\NormalTok{    \},}
+    
+    \AttributeTok{finally =}\NormalTok{ \{}
+      
+      \FunctionTok{print}\NormalTok{(}\StringTok{"Закрываю соединение"}\NormalTok{)}
+      \FunctionTok{dbDisconnect}\NormalTok{(con)}
+\NormalTok{    \}}
+\NormalTok{  )}
+
+\CommentTok{\# создаём собственные классы исключений}
+\DocumentationTok{\#\# функция дл ягенерации собственных классов исключений}
+\NormalTok{exception }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(class, msg)}
+\NormalTok{  \{}
+    \FunctionTok{stop}\NormalTok{(}\FunctionTok{errorCondition}\NormalTok{(msg, }\AttributeTok{class =}\NormalTok{ class))}
+\NormalTok{  \}}
+
+\DocumentationTok{\#\# функция в которой будем использовать собственные классы исключений}
+\NormalTok{divideByX }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)\{}
+  \CommentTok{\# исключения}
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(x) }\SpecialCharTok{!=} \DecValTok{1}\NormalTok{) \{}
+    \FunctionTok{exception}\NormalTok{(}\StringTok{"NonScalar"}\NormalTok{, }\StringTok{"x is not length 1"}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{is.na}\NormalTok{(x)) \{}
+    \FunctionTok{exception}\NormalTok{(}\StringTok{"IsNA"}\NormalTok{, }\StringTok{"x is NA"}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{==} \DecValTok{0}\NormalTok{) \{}
+    \FunctionTok{exception}\NormalTok{(}\StringTok{"DivByZero"}\NormalTok{, }\StringTok{"divide by zero"}\NormalTok{)}
+\NormalTok{  \}}
+  \CommentTok{\# результат}
+  \DecValTok{10} \SpecialCharTok{/}\NormalTok{ x}
+\NormalTok{\}}
+
+\DocumentationTok{\#\# обработка исключений}
+\NormalTok{val }\OtherTok{\textless{}{-}} \DecValTok{0}
+
+\FunctionTok{tryCatch}\NormalTok{(}
+\NormalTok{  \{}
+    \FunctionTok{divideByX}\NormalTok{(val)}
+\NormalTok{  \}, }
+  \AttributeTok{IsNA =} \ControlFlowTok{function}\NormalTok{(x) \{}
+    \FunctionTok{print}\NormalTok{(}\StringTok{"Catch"}\NormalTok{)}
+\NormalTok{  \},}
+  \AttributeTok{NonScalar =} \ControlFlowTok{function}\NormalTok{(x) \{}
+    \FunctionTok{print}\NormalTok{(}\StringTok{"Catch2"}\NormalTok{)}
+\NormalTok{  \},}
+  \AttributeTok{DivByZero =} \ControlFlowTok{function}\NormalTok{(x) \{}
+    \FunctionTok{print}\NormalTok{(}\StringTok{\textquotesingle{}Catch3\textquotesingle{}}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{)}
+
+\CommentTok{\# векторизируем обработку исключений}
+\FunctionTok{lapply}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{), }
+       \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{tryCatch}\NormalTok{(\{}
+         
+           \FunctionTok{divideByX}\NormalTok{(x)}
+         
+\NormalTok{       \}, }
+       \AttributeTok{IsNA=}\ControlFlowTok{function}\NormalTok{(err) \{}
+            \FunctionTok{warning}\NormalTok{(err)  }\CommentTok{\# signal a warning, return NA}
+            \ConstantTok{NA}
+\NormalTok{       \}, }
+       \AttributeTok{NonScalar=}\ControlFlowTok{function}\NormalTok{(err) \{}
+            \FunctionTok{message}\NormalTok{(err)     }\CommentTok{\# fail}
+\NormalTok{       \},}
+       \AttributeTok{DivByZero=}\ControlFlowTok{function}\NormalTok{(err) \{}
+            \FunctionTok{message}\NormalTok{(err)}
+\NormalTok{       \})}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ux442ux435ux441ux442-1}{%
+\section{Тест}\label{ux442ux435ux441ux442-1}}
+
+\hypertarget{ux444ux443ux43dux43aux446ux438ux438-ux441ux435ux43cux435ux439ux441ux442ux432ux430-apply}{%
+\chapter{Функции семейства apply}\label{ux444ux443ux43dux43aux446ux438ux438-ux441ux435ux43cux435ux439ux441ux442ux432ux430-apply}}
+
+\hypertarget{ux43eux43fux438ux441ux430ux43dux438ux435-2}{%
+\section{Описание}\label{ux43eux43fux438ux441ux430ux43dux438ux435-2}}
+
+На предыдущем уроке мы изучили всевозможные варианты циклов в R, но вам всё время говорят о том, что не надо использовать циклы в R. Возникает вопрос, так что же использовать вместо циклов? На самом деле есть альтернатива в виде функционалов. В этом уроке мы разберёмся с функционалами в базовом синтаксисе R, которые реализованы в семействе функций \texttt{apply()}.
+
+Функционал - это функция, которая перебирает элементы объекта применяя последовательно к каждому элементу заданную функцию.
+
+\hypertarget{ux432ux438ux434ux435ux43e-2}{%
+\section{Видео}\label{ux432ux438ux434ux435ux43e-2}}
+
+\hypertarget{ux442ux430ux439ux43c-ux43aux43eux434ux44b-2}{%
+\section{Тайм коды}\label{ux442ux430ux439ux43c-ux43aux43eux434ux44b-2}}
+
+00:00 Вступление.
+00:48 Какие функции входят в семейство \texttt{apply}.
+02:22 Функция \texttt{apply()}.
+07:57 Передача дополнительных аргументов в применяемую внутри \texttt{apply()} функцию.
+09:05 Функции \texttt{lapply()}, \texttt{sapply()} и \texttt{vapply()}.
+12:09 Как использовать самописную функцию внутри функций семейства \texttt{apply}.
+13:23 Пример чтения данных из множества csv файла функцией \texttt{lapply()}.
+15:40 Функция \texttt{mapply()}.
+18:00 Заключение.
+
+\hypertarget{ux43aux43eux434-2}{%
+\section{Код}\label{ux43aux43eux434-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# apply family}
+
+\CommentTok{\# пример с циклом {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# строки}
+\ControlFlowTok{for}\NormalTok{ ( x }\ControlFlowTok{in} \FunctionTok{seq\_along}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(mtcars)) ) \{}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{rownames}\NormalTok{(mtcars[x,]), }\StringTok{":"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(mtcars[x,]), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{\# столбцы}
+\NormalTok{col\_num }\OtherTok{\textless{}{-}} \DecValTok{1}
+
+\ControlFlowTok{for}\NormalTok{ ( x }\ControlFlowTok{in}\NormalTok{ mtcars ) \{}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{names}\NormalTok{(mtcars)[col\_num], }\StringTok{":"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(x), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  col\_num }\OtherTok{\textless{}{-}}\NormalTok{ col\_num }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{\}}
+
+\CommentTok{\# apply {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# 1 {-} строки}
+\CommentTok{\# 2 {-} столюцы}
+\FunctionTok{apply}\NormalTok{(mtcars, }\DecValTok{1}\NormalTok{, sum)}
+\FunctionTok{apply}\NormalTok{(mtcars, }\DecValTok{2}\NormalTok{, sum)}
+
+\FunctionTok{sum}\NormalTok{(mtcars[}\DecValTok{3}\NormalTok{, ])}
+\FunctionTok{sum}\NormalTok{(mtcars[ ,}\DecValTok{3}\NormalTok{])}
+\CommentTok{\# row operation {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\FunctionTok{rowSums}\NormalTok{(mtcars)}
+\FunctionTok{rowMeans}\NormalTok{(mtcars)}
+\CommentTok{\# передача дополнительных аргументов {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\FunctionTok{apply}\NormalTok{(mtcars, }\DecValTok{2}\NormalTok{, quantile, }\AttributeTok{probs =} \FloatTok{0.25}\NormalTok{)}
+\FunctionTok{quantile}\NormalTok{(mtcars[, }\DecValTok{3}\NormalTok{], }\AttributeTok{probs =} \FloatTok{0.25}\NormalTok{)}
+
+\CommentTok{\# lapply {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{values }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+  \AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{23}\NormalTok{, }\DecValTok{4}\NormalTok{),}
+  \AttributeTok{z =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{)}
+\NormalTok{)}
+
+\FunctionTok{lapply}\NormalTok{(values, sum)}
+\FunctionTok{sapply}\NormalTok{(values, sum)}
+\FunctionTok{vapply}\NormalTok{(values, sum, }\AttributeTok{FUN.VALUE =} \DecValTok{7}\NormalTok{)}
+
+\CommentTok{\# lapply с самописной функцией {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{fl }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  num\_elements }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(x)}
+  \FunctionTok{return}\NormalTok{(x[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ x[num\_elements])}
+\NormalTok{\}}
+
+\FunctionTok{lapply}\NormalTok{(values, fl)}
+
+
+\CommentTok{\# пример чтения файлов {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{directory }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}C:/Users/Alsey/Documents/docs/\textquotesingle{}}
+\NormalTok{files }\OtherTok{\textless{}{-}} \FunctionTok{dir}\NormalTok{(}\AttributeTok{path =}\NormalTok{ directory, }\AttributeTok{pattern =} \StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.csv$\textquotesingle{}}\NormalTok{)}
+\NormalTok{all\_data }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+
+\CommentTok{\# цикл }
+\ControlFlowTok{for}\NormalTok{ ( file }\ControlFlowTok{in}\NormalTok{ files ) \{}
+\NormalTok{  data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(directory, file))}
+\NormalTok{  all\_data }\OtherTok{\textless{}{-}} \FunctionTok{append}\NormalTok{(all\_data, }\FunctionTok{list}\NormalTok{(data))}
+\NormalTok{\}}
+
+\NormalTok{dplyr}\SpecialCharTok{::}\FunctionTok{bind\_rows}\NormalTok{(all\_data)}
+
+\CommentTok{\# lapply}
+\NormalTok{file\_paths }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(directory, files)}
+\NormalTok{all\_data }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(file\_paths, read.csv)}
+\NormalTok{dplyr}\SpecialCharTok{::}\FunctionTok{bind\_rows}\NormalTok{(all\_data)}
+
+
+\CommentTok{\# mapply {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\FunctionTok{mapply}\NormalTok{(rep, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{times=}\DecValTok{4}\SpecialCharTok{:}\DecValTok{1}\NormalTok{)}
+\FunctionTok{mapply}\NormalTok{(rep, }\AttributeTok{times =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{x =} \DecValTok{4}\SpecialCharTok{:}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-1}{%
+\section{Презентация}\label{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-1}}
+
+Функции семейства apply from Алексей Селезнёв
+
+\hypertarget{ux442ux435ux441ux442-2}{%
+\section{Тест}\label{ux442ux435ux441ux442-2}}
+
+\hypertarget{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b}{%
+\section{Дополнительные материалы}\label{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://r-analytics.blogspot.com/2012/11/r-apply.html}{Статья ``Векторизованные вычисления в R с использованием apply-функций''} (Сергей Мастицкий).
+\end{itemize}
+
+\hypertarget{ux43fux430ux43aux435ux442-purrr}{%
+\chapter{Пакет purrr}\label{ux43fux430ux43aux435ux442-purrr}}
+
+\hypertarget{ux43eux43fux438ux441ux430ux43dux438ux435-3}{%
+\section{Описание}\label{ux43eux43fux438ux441ux430ux43dux438ux435-3}}
+
+Рассмотренные в прошлом уроке функции семейства \texttt{apply} действительно полноценно могут заменить цикл \texttt{for}, и повысить производительность вашего кода. Но есть и более продвинутые функционалы, которые пердоставляет пакет \texttt{purrr}.
+
+В этом уроке вы знаете:
+
+\begin{itemize}
+\tightlist
+\item
+  Какие преимущества даёт пакет \texttt{purrr} перед функциями \texttt{apply}.
+\item
+  Познакомитесь с семействами функций \texttt{map}, \texttt{map2}, \texttt{pmap}, \texttt{invoke}.
+\item
+  Узнаете некоторые другие дополнительные функции из пакета \texttt{purrr}.
+\end{itemize}
+
+\hypertarget{ux432ux438ux434ux435ux43e-3}{%
+\section{Видео}\label{ux432ux438ux434ux435ux43e-3}}
+
+\hypertarget{ux442ux430ux439ux43c-ux43aux43eux434ux44b-3}{%
+\section{Тайм коды}\label{ux442ux430ux439ux43c-ux43aux43eux434ux44b-3}}
+
+00:00 Вступление.
+00:57 Какие преимущества даёт пакет \texttt{purrr}.
+02:15 Какие семейства функций есть в \texttt{purrr}.
+03:29 Семейство функций \texttt{map}.
+04:26 Основные аргументы функций пакета \texttt{purrr}.
+05:20 Работа с функциями семейства \texttt{map()}.
+08:23 Пример сравнения \texttt{map()} с циклом \texttt{for}.
+08:56 Функции \texttt{map\_dfr()}, \texttt{map\_dfc()}.
+13:01 Итерирование сразу по нескольким объектам, семейства функций \texttt{map2} и \texttt{pmap}.
+15:01 Синтаксис формул в \texttt{purrr.}
+20:05 Функции семейства \texttt{walk.}
+22:31 Функции \texttt{keep()} и \texttt{discard()}.
+26:27 Итерация по функциям с помощью функций семейства \texttt{invoke}.
+29:12 Функции \texttt{reduce()} и \texttt{accumulate()}.
+34:23 Заключение.
+
+\hypertarget{ux43aux43eux434-3}{%
+\section{Код}\label{ux43aux43eux434-3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages(\textquotesingle{}purrr\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(purrr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# функции map\_*{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\DocumentationTok{\#\# Генерируем случайные выборки с нормальным распределением}
+\NormalTok{v\_sizes }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\FunctionTok{map}\NormalTok{(v\_sizes, rnorm)}
+
+\CommentTok{\# используем доп аргументы}
+\NormalTok{rnd\_list }\OtherTok{\textless{}{-}} \FunctionTok{map}\NormalTok{(v\_sizes, runif, }\AttributeTok{min =} \DecValTok{10}\NormalTok{, }\AttributeTok{max =} \DecValTok{25}\NormalTok{)}
+\CommentTok{\# получаем вектора}
+\FunctionTok{map\_dbl}\NormalTok{(rnd\_list, mean)}
+\CommentTok{\# аналог в цикле}
+\ControlFlowTok{for}\NormalTok{ ( i }\ControlFlowTok{in}\NormalTok{ rnd\_list ) }\FunctionTok{cat}\NormalTok{(}\FunctionTok{mean}\NormalTok{(i), }\StringTok{" "}\NormalTok{)}
+
+\CommentTok{\# пример с таблицами}
+\NormalTok{products }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{product\_id =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{,}
+  \AttributeTok{name =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Notebook\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}Smarthphone\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}Smart watch\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}PC\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}Playstation\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}TV\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}XBox\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}Wifi router\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}Air conditioning\textquotesingle{}}\NormalTok{,}
+           \StringTok{\textquotesingle{}Tablet\textquotesingle{}}\NormalTok{),}
+  \AttributeTok{price =} \FunctionTok{c}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{850}\NormalTok{, }\DecValTok{380}\NormalTok{, }\DecValTok{1500}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{700}\NormalTok{, }\DecValTok{870}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{150}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{managers }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Svetlana"}\NormalTok{, }\StringTok{"Andrey"}\NormalTok{, }\StringTok{"Ivan"}\NormalTok{)}
+\NormalTok{clients  }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}client \textquotesingle{}}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{)}
+
+\NormalTok{create\_transaction }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}
+\NormalTok{  transaction\_id,}
+  \AttributeTok{products\_number =} \DecValTok{3}\NormalTok{,}
+\NormalTok{  product\_dict,}
+  \AttributeTok{counts =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{),}
+  \AttributeTok{dates =} \FunctionTok{c}\NormalTok{(}\FunctionTok{Sys.Date}\NormalTok{() }\SpecialCharTok{{-}} \DecValTok{30}\NormalTok{, }\FunctionTok{Sys.Date}\NormalTok{()),}
+\NormalTok{  managers,}
+\NormalTok{  clients}
+\NormalTok{) \{}
+
+\NormalTok{  transaction }\OtherTok{\textless{}{-}} \FunctionTok{sample\_n}\NormalTok{(product\_dict, }\AttributeTok{size =}\NormalTok{ products\_number, }\AttributeTok{replace =}\NormalTok{ F) }\SpecialCharTok{\%\textgreater{}\%}
+                  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{date =} \FunctionTok{sample}\NormalTok{( }\FunctionTok{seq}\NormalTok{(dates[}\DecValTok{1}\NormalTok{], dates[}\DecValTok{2}\NormalTok{], }\AttributeTok{by =} \StringTok{\textquotesingle{}day\textquotesingle{}}\NormalTok{), }\AttributeTok{size =} \DecValTok{1}\NormalTok{ ),}
+                         \AttributeTok{manager  =} \FunctionTok{sample}\NormalTok{(managers, }\DecValTok{1}\NormalTok{),}
+                         \AttributeTok{clients  =} \FunctionTok{sample}\NormalTok{(clients, }\DecValTok{1}\NormalTok{),}
+                         \AttributeTok{count    =} \FunctionTok{sample}\NormalTok{(}\FunctionTok{seq}\NormalTok{(counts[}\DecValTok{1}\NormalTok{], counts[}\DecValTok{2}\NormalTok{]), products\_number, }\AttributeTok{replace =}\NormalTok{ T),}
+                         \AttributeTok{sale\_sum =}\NormalTok{ price }\SpecialCharTok{*}\NormalTok{ count,}
+\NormalTok{                         transaction\_id)}
+
+  \FunctionTok{return}\NormalTok{(transaction)}
+
+\NormalTok{\}}
+
+\CommentTok{\# генерируем 5 транзакций}
+\FunctionTok{map\_dfr}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}
+\NormalTok{        create\_transaction,}
+            \AttributeTok{products\_number =} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+            \AttributeTok{product\_dict =}\NormalTok{ products,}
+            \AttributeTok{counts =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{),}
+            \AttributeTok{dates =} \FunctionTok{c}\NormalTok{(}\FunctionTok{Sys.Date}\NormalTok{() }\SpecialCharTok{{-}} \DecValTok{30}\NormalTok{, }\FunctionTok{Sys.Date}\NormalTok{()),}
+            \AttributeTok{managers =}\NormalTok{ managers,}
+            \AttributeTok{clients =}\NormalTok{ clients,}
+        \AttributeTok{.id =} \StringTok{\textquotesingle{}transaction\_id\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# функции pmap\_* {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# для итерации по двум объектам можно использовтаь функции map2\_*}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+
+\FunctionTok{map2}\NormalTok{(x, y, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ .x }\SpecialCharTok{+}\NormalTok{ .y)}
+
+\CommentTok{\# если необходимо итерировать более чем по двум объектам используйте pmap\_*}
+\NormalTok{params }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{transaction\_id  =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{,}
+  \AttributeTok{products\_number =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{),}
+  \AttributeTok{product\_dict    =} \FunctionTok{list}\NormalTok{(products, products, products),}
+  \AttributeTok{counts          =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{7}\NormalTok{)),}
+  \AttributeTok{dates           =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{\textquotesingle{}2021{-}11{-}01\textquotesingle{}}\NormalTok{), }\FunctionTok{as.Date}\NormalTok{(}\StringTok{\textquotesingle{}2021{-}11{-}04\textquotesingle{}}\NormalTok{)),}
+                         \FunctionTok{c}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{\textquotesingle{}2021{-}11{-}05\textquotesingle{}}\NormalTok{), }\FunctionTok{as.Date}\NormalTok{(}\StringTok{\textquotesingle{}2021{-}11{-}08\textquotesingle{}}\NormalTok{)),}
+                         \FunctionTok{c}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{\textquotesingle{}2021{-}11{-}09\textquotesingle{}}\NormalTok{), }\FunctionTok{as.Date}\NormalTok{(}\StringTok{\textquotesingle{}2021{-}11{-}14\textquotesingle{}}\NormalTok{))),}
+  \AttributeTok{managers        =} \FunctionTok{list}\NormalTok{(managers, managers, managers),}
+  \AttributeTok{clients         =} \FunctionTok{list}\NormalTok{(clients, clients, clients)}
+\NormalTok{)}
+
+\NormalTok{tranaction\_df }\OtherTok{\textless{}{-}} \FunctionTok{pmap\_df}\NormalTok{(params, create\_transaction)}
+
+\CommentTok{\# функции walk {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# генерируем 7 транзакций}
+\NormalTok{transactions }\OtherTok{\textless{}{-}} \FunctionTok{map}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{,}
+\NormalTok{                    create\_transaction,}
+                    \AttributeTok{products\_number =} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+                    \AttributeTok{product\_dict =}\NormalTok{ products,}
+                    \AttributeTok{counts =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{),}
+                    \AttributeTok{dates =} \FunctionTok{c}\NormalTok{(}\FunctionTok{Sys.Date}\NormalTok{() }\SpecialCharTok{{-}} \DecValTok{30}\NormalTok{, }\FunctionTok{Sys.Date}\NormalTok{()),}
+                    \AttributeTok{managers =}\NormalTok{ managers,}
+                    \AttributeTok{clients =}\NormalTok{ clients)}
+
+\NormalTok{file\_names }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}transaction\_\textquotesingle{}}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }\StringTok{".csv"}\NormalTok{)}
+
+\FunctionTok{walk2}\NormalTok{(}
+  \AttributeTok{.x =}\NormalTok{ transactions,}
+  \AttributeTok{.y =}\NormalTok{ file\_names,}
+\NormalTok{  write.csv}
+\NormalTok{)}
+
+\CommentTok{\# функции keep и discard {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# смотрим количество товаров в транзакциях}
+\FunctionTok{map\_dbl}\NormalTok{(transactions, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(.x}\SpecialCharTok{$}\NormalTok{sale\_sum))}
+\CommentTok{\# оставить транзакции с суммой более 3000}
+\NormalTok{transactions }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{keep}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(.x}\SpecialCharTok{$}\NormalTok{sale\_sum) }\SpecialCharTok{\textgreater{}=} \DecValTok{3000}\NormalTok{)}
+\CommentTok{\# исключить транзакции с суммой более 4000}
+\NormalTok{transactions }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{discard}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(.x}\SpecialCharTok{$}\NormalTok{sale\_sum) }\SpecialCharTok{\textgreater{}=} \DecValTok{4000}\NormalTok{)}
+
+\CommentTok{\# теперь используем в конвейере функции keep и walk}
+\NormalTok{transactions }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{keep}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(.x}\SpecialCharTok{$}\NormalTok{sale\_sum) }\SpecialCharTok{\textgreater{}=} \DecValTok{3000}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{walk2}\NormalTok{(}
+    \AttributeTok{.x =}\NormalTok{ .,}
+    \AttributeTok{.y =} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}transaction\_3k\_\textquotesingle{}}\NormalTok{, }\FunctionTok{seq\_along}\NormalTok{(.), }\StringTok{".csv"}\NormalTok{),}
+\NormalTok{    write.csv}
+\NormalTok{  )}
+
+
+\CommentTok{\# применяем несколько функций к объекту invoke {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{fun }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}mean\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}sum\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}length\textquotesingle{}}\NormalTok{)}
+\NormalTok{params }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \FunctionTok{list}\NormalTok{(}\AttributeTok{x   =}\NormalTok{ tranaction\_df}\SpecialCharTok{$}\NormalTok{sale\_sum),}
+  \FunctionTok{list}\NormalTok{(}\AttributeTok{... =}\NormalTok{ tranaction\_df}\SpecialCharTok{$}\NormalTok{sale\_sum),}
+  \FunctionTok{list}\NormalTok{(}\AttributeTok{x   =}\NormalTok{ tranaction\_df}\SpecialCharTok{$}\NormalTok{sale\_sum)}
+\NormalTok{)}
+
+\FunctionTok{invoke\_map\_dbl}\NormalTok{(fun, params)}
+
+
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ tibble}\SpecialCharTok{::}\FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{f =} \FunctionTok{c}\NormalTok{(}\StringTok{"runif"}\NormalTok{, }\StringTok{"rpois"}\NormalTok{, }\StringTok{"rnorm"}\NormalTok{),}
+  \AttributeTok{params =} \FunctionTok{list}\NormalTok{(}
+    \FunctionTok{list}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{),}
+    \FunctionTok{list}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{, }\AttributeTok{lambda =} \DecValTok{10}\NormalTok{),}
+    \FunctionTok{list}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{, }\AttributeTok{mean =} \SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{df}
+
+\FunctionTok{invoke\_map}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{f, df}\SpecialCharTok{$}\NormalTok{params)}
+
+
+\CommentTok{\# функции reduce и accumulate {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# допустим что у нас каждый менеджер имеет индивидуальный процент от продаж}
+\CommentTok{\# А каждый клиент персональную скидку по договору}
+\NormalTok{managers\_dict }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{manager =}\NormalTok{ managers,}
+  \AttributeTok{department =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Sale\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Sale\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Marketing\textquotesingle{}}\NormalTok{),}
+  \AttributeTok{salary\_percent =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.12}\NormalTok{, }\FloatTok{0.2}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{clients\_dict }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{clients =}\NormalTok{ clients,}
+  \AttributeTok{discount =} \FunctionTok{runif}\NormalTok{(}\FunctionTok{length}\NormalTok{(clients), }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \FloatTok{0.4}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{data\_model }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(tranaction\_df, managers\_dict, clients\_dict)}
+
+\FunctionTok{reduce}\NormalTok{(transaction\_data, left\_join) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{manager\_bonus =}\NormalTok{ sale\_sum }\SpecialCharTok{*}\NormalTok{ salary\_percent,}
+         \AttributeTok{total\_sum =}\NormalTok{ sale\_sum }\SpecialCharTok{{-}}\NormalTok{ (sale\_sum }\SpecialCharTok{*}\NormalTok{ discount),}
+         \AttributeTok{cumulate\_minuses =} \FunctionTok{accumulate}\NormalTok{(sale\_sum }\SpecialCharTok{{-}}\NormalTok{ total\_sum }\SpecialCharTok{+}\NormalTok{ manager\_bonus, sum))}
+
+\CommentTok{\# эквивалент на чистом dplyr}
+\NormalTok{tranaction\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(managers\_dict) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(clients\_dict) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{manager\_bonus =}\NormalTok{ sale\_sum }\SpecialCharTok{*}\NormalTok{ salary\_percent,}
+         \AttributeTok{total\_sum =}\NormalTok{ sale\_sum }\SpecialCharTok{{-}}\NormalTok{ (sale\_sum }\SpecialCharTok{*}\NormalTok{ discount),}
+         \AttributeTok{cumulate\_minuses =} \FunctionTok{cumsum}\NormalTok{(sale\_sum }\SpecialCharTok{{-}}\NormalTok{ total\_sum }\SpecialCharTok{+}\NormalTok{ manager\_bonus))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-2}{%
+\section{Презентация}\label{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-2}}
+
+Пакет purrr from Алексей Селезнёв
+
+\hypertarget{ux442ux435ux441ux442-3}{%
+\section{Тест}\label{ux442ux435ux441ux442-3}}
+
+\hypertarget{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b-1}{%
+\section{Дополнительные материалы}\label{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Крайне рекомендую ознакомится с 17 главой книги \href{http://www.williamspublishing.com/Books/978-5-9909446-8-8.html}{``Язык R в задачах науки о данных''}.
+\end{itemize}
+
+\hypertarget{ux43eux431ux440ux430ux431ux43eux442ux43aux430-ux43eux448ux438ux431ux43eux43a-ux444ux443ux43dux43aux446ux438ux438-safely-possibly-quietly}{%
+\chapter{Обработка ошибок: функции safely(), possibly(), quietly()}\label{ux43eux431ux440ux430ux431ux43eux442ux43aux430-ux43eux448ux438ux431ux43eux43a-ux444ux443ux43dux43aux446ux438ux438-safely-possibly-quietly}}
+
+\hypertarget{ux43eux43fux438ux441ux430ux43dux438ux435-4}{%
+\section{Описание}\label{ux43eux43fux438ux441ux430ux43dux438ux435-4}}
+
+В этом уроке мы продолжаем обсуждать варианты обработки ошибок на языке R. В этот раз мы рассмотрим возможности пакета \texttt{retry}, а так же познакомимся с некоторыми функциями из пакета \texttt{purrr}, которые так же помогут отловить ошибки и предупреждения.
+
+\hypertarget{ux432ux438ux434ux435ux43e-4}{%
+\section{Видео}\label{ux432ux438ux434ux435ux43e-4}}
+
+\hypertarget{ux442ux430ux439ux43c-ux43aux43eux434ux44b-4}{%
+\section{Тайм коды}\label{ux442ux430ux439ux43c-ux43aux43eux434ux44b-4}}
+
+Тайм коды:
+1. Обработка ошибок с помощью пакета retry (0:36)
+2. Обработка ошибок с помощью пакета purrr (5:58)
+3. Функция safely() (8:05)
+4. Функция possibly() (9:40)
+5. Функция quietly() (10:53)
+6. Заключение (12:50)
+
+\hypertarget{ux43aux43eux434-4}{%
+\section{Код}\label{ux43aux43eux434-4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(retry)}
+
+\CommentTok{\# тестовая функция }
+\NormalTok{fun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{p =} \DecValTok{0}\NormalTok{) \{}
+  
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+  
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textless{}} \FloatTok{0.9}\NormalTok{) \{}
+    
+    \FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}X = \textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{} is Error!\textquotesingle{}}\NormalTok{))}
+    
+    \FunctionTok{Sys.sleep}\NormalTok{(p)}
+          
+    \FunctionTok{stop}\NormalTok{(}\StringTok{"random error"}\NormalTok{)}
+\NormalTok{  \}}
+  \StringTok{"Excellent"}
+\NormalTok{\}}
+
+\CommentTok{\# повторяем функци до тех пор пока она не выполнится}
+\FunctionTok{retry}\NormalTok{(}\FunctionTok{fun}\NormalTok{(), }\AttributeTok{when =} \StringTok{"random error"}\NormalTok{)}
+
+\CommentTok{\# добавим временной интервал между попытками}
+\FunctionTok{retry}\NormalTok{(}\FunctionTok{fun}\NormalTok{(), }\AttributeTok{when =} \StringTok{"random error"}\NormalTok{, }\AttributeTok{interval =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# ограничим количество попыток выполнения функции}
+\FunctionTok{retry}\NormalTok{(}\FunctionTok{fun}\NormalTok{(), }\AttributeTok{when =} \StringTok{"random error"}\NormalTok{, }\AttributeTok{max\_tries =} \DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# ограничим время выполнения функции}
+\FunctionTok{retry}\NormalTok{(}\FunctionTok{fun}\NormalTok{(}\DecValTok{4}\NormalTok{), }\AttributeTok{when =} \StringTok{"random error"}\NormalTok{, }\AttributeTok{timeout =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# проверяем результат выполнения выражения}
+\CommentTok{\# val это выражение которое мы проверяем}
+\CommentTok{\# cnd результат вычисления val}
+\FunctionTok{retry}\NormalTok{(}\FunctionTok{fun}\NormalTok{(), }\AttributeTok{until =} \ControlFlowTok{function}\NormalTok{(val, cnd) val }\SpecialCharTok{==} \StringTok{"Excellent"}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(purrr)}
+
+\CommentTok{\# тестовая функция}
+\NormalTok{div }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, y) \{}
+  
+  \ControlFlowTok{if}\NormalTok{ ( }\FunctionTok{is.na}\NormalTok{(x) ) }\FunctionTok{warning}\NormalTok{(}\StringTok{"X is NA"}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{(x }\SpecialCharTok{/}\NormalTok{ y)}
+
+\NormalTok{\}}
+
+\CommentTok{\# пробуем обработку через lapply}
+\NormalTok{val }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{3}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{\textquotesingle{}k\textquotesingle{}}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\CommentTok{\# тест}
+\FunctionTok{lapply}\NormalTok{(val, div, }\AttributeTok{y =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# \#\#\#\#\#\#\#\#\# \#}
+\CommentTok{\# safely    \#}
+\CommentTok{\# \#\#\#\#\#\#\#\#\# \#}
+\CommentTok{\# разделит успешные результаты и ошибки}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(val, }\FunctionTok{safely}\NormalTok{(div), }\AttributeTok{y =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# разбить ошибкии корректные результаты по векторам}
+\NormalTok{res }\OtherTok{\textless{}{-}}\NormalTok{ res }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{transpose}\NormalTok{()}
+
+\NormalTok{res}\SpecialCharTok{$}\NormalTok{result }\CommentTok{\# успешные результаты}
+\NormalTok{res}\SpecialCharTok{$}\NormalTok{error  }\CommentTok{\# ошибки}
+
+\CommentTok{\# \#\#\#\#\#\#\#\#\# \#}
+\CommentTok{\# possibly  \#}
+\CommentTok{\# \#\#\#\#\#\#\#\#\# \#}
+\CommentTok{\# данная функция заменит ошибки заданным значением}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(val, }\FunctionTok{possibly}\NormalTok{(div, }\DecValTok{0}\NormalTok{), }\AttributeTok{y =} \DecValTok{2}\NormalTok{) }
+
+\CommentTok{\# \#\#\#\#\#\#\#\#\# \#}
+\CommentTok{\# quietly   \#}
+\CommentTok{\# \#\#\#\#\#\#\#\#\# \#}
+\CommentTok{\# перехватыет выводимые результаты, сообщения и предупреждения}
+\NormalTok{val }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{3}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{map}\NormalTok{(val, }\FunctionTok{quietly}\NormalTok{(div), }\AttributeTok{y =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ str}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ux442ux435ux441ux442-4}{%
+\section{Тест}\label{ux442ux435ux441ux442-4}}
+
+\hypertarget{ux43cux43dux43eux433ux43eux43fux43eux442ux43eux447ux43dux43eux441ux442ux44c-ux432-r}{%
+\chapter{Многопоточность в R}\label{ux43cux43dux43eux433ux43eux43fux43eux442ux43eux447ux43dux43eux441ux442ux44c-ux432-r}}
+
+\hypertarget{ux43eux43fux438ux441ux430ux43dux438ux435-5}{%
+\section{Описание}\label{ux43eux43fux438ux441ux430ux43dux438ux435-5}}
+
+Давайте представим ситуацию, что вам необходимо доствить 8 адресатам посылки. Если вы будете доставлять их одним курьером, то ему придётся по очереди посетить все 8 адресов, собрать подписи в качестве подтверждения о получении посылки, и принести вам подписанные документы. но если у вас в распоряжении будет 4 курьера, то вы сможете распределить каждому курьеру всего по 2 адреса, и процесс доставки займёт в 4 раза меньше времени.
+
+Ок, а при чём тут вообще курьеры спросите вы. Во всех предыдущих уроках мы выполняли итерирование по элементов объектов в последовательном режиме, т.е. использовали одного курьера. Это преемлемый способ итерирования, но не самый эффективный. В этом уроке мы с вами разберёмся с тем, как задействовать сразу 4ёх курьеров, т.е. выполнять итерации в параллеьном, многопоточном режиме.
+
+Так же мы можем сделать этот процесс ещё более эффективным, если будем не рандомно раздавать курьерам адресатов, а например распредим каждому курьеру по одному району, это балансировка нагрузки, её мы тоже затронем в этом уроке.
+
+\hypertarget{ux432ux438ux434ux435ux43e-5}{%
+\section{Видео}\label{ux432ux438ux434ux435ux43e-5}}
+
+\hypertarget{ux442ux430ux439ux43c-ux43aux43eux434ux44b-5}{%
+\section{Тайм коды}\label{ux442ux430ux439ux43c-ux43aux43eux434ux44b-5}}
+
+00:00 Вступление.
+00:51 Что такое многопоточность.
+02:20 Какие пакеты мы будем использовать в ходе урока.
+03:25 Используем \texttt{foreach} в последовательном режиме.
+07:42 Аргументы конструкции \texttt{foreach.}
+10:05 Управление объединением результатов итераций цикла \texttt{foreach.}
+11:05 Выполнение \texttt{foreach} в многопоточном режиме.
+12:41 Схема реализации многопоточности.
+13:52 Возвращение к последовательному выполнению и ID процесса.
+14:56 Бекенды к \texttt{foreach.}
+15:38 Оператор \texttt{\%dorng\%}.
+18:10 Параллельная реализация функций семейства \texttt{apply.}
+20:52 Список функций пакетов \texttt{parallel} и \texttt{pbapply.}
+21:54 Пакет \texttt{furrr}.
+23:10 Соответствие функций пакета \texttt{purrr} и \texttt{furrr}.
+23:50 Заключение.
+
+\hypertarget{ux43aux43eux434-5}{%
+\section{Код}\label{ux43aux43eux434-5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# многопоточные циклы {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# install.packages("doSNOW")}
+\CommentTok{\# library(doSNOW)}
+\CommentTok{\# library(doParallel)}
+\FunctionTok{library}\NormalTok{(doFuture)}
+
+\CommentTok{\# функция длительного выполнения}
+\NormalTok{pause }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{min =} \DecValTok{1}\NormalTok{, }\AttributeTok{max =} \DecValTok{3}\NormalTok{) \{}
+\NormalTok{  ptime }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{, min, max)}
+
+  \FunctionTok{Sys.sleep}\NormalTok{(ptime)}
+
+\NormalTok{  out }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+    \AttributeTok{pid =} \FunctionTok{Sys.getpid}\NormalTok{(),}
+    \AttributeTok{pause\_sec =}\NormalTok{ ptime}
+\NormalTok{  )}
+\NormalTok{\}}
+
+\NormalTok{test }\OtherTok{\textless{}{-}} \FunctionTok{pause}\NormalTok{()}
+
+\CommentTok{\# используем foreach }
+\CommentTok{\# итерируемся сразу по двум объектам}
+\FunctionTok{system.time}\NormalTok{ (}
+\NormalTok{  \{test2 }\OtherTok{\textless{}{-}} \FunctionTok{foreach}\NormalTok{(}\AttributeTok{min =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\AttributeTok{max =} \DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) }\SpecialCharTok{\%do\%} \FunctionTok{pause}\NormalTok{(min, max)\}}
+\NormalTok{)}
+
+\CommentTok{\# сумма длительностей пауз}
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{sapply}\NormalTok{(test2, }\StringTok{\textquotesingle{}[[\textquotesingle{}}\NormalTok{, }\AttributeTok{i =} \StringTok{\textquotesingle{}pause\_sec\textquotesingle{}}\NormalTok{))}
+
+\CommentTok{\# меняем функцию собирающую результаты каждой итерации}
+\NormalTok{test3 }\OtherTok{\textless{}{-}} \FunctionTok{foreach}\NormalTok{(}\AttributeTok{min =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\AttributeTok{max =} \DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{.combine =}\NormalTok{ dplyr}\SpecialCharTok{::}\NormalTok{bind\_rows) }\SpecialCharTok{\%do\%} \FunctionTok{pause}\NormalTok{(min, max)}
+
+\CommentTok{\# параллельный режим выполнения}
+\CommentTok{\# создаём кластер из четырёх ядер}
+\CommentTok{\#cl \textless{}{-} makeCluster(4)}
+\CommentTok{\#registerDoSNOW(cl)}
+
+\FunctionTok{options}\NormalTok{(}\AttributeTok{future.rng.onMisuse =} \StringTok{"ignore"}\NormalTok{)}
+\FunctionTok{registerDoFuture}\NormalTok{()}
+\FunctionTok{plan}\NormalTok{(}\StringTok{\textquotesingle{}multisession\textquotesingle{}}\NormalTok{, }\AttributeTok{workers =} \DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# выполняем тот же код но в параллельном режиме}
+\FunctionTok{system.time}\NormalTok{ (}
+\NormalTok{  \{}
+\NormalTok{    par\_test1 }\OtherTok{\textless{}{-}} 
+      \FunctionTok{foreach}\NormalTok{(}\AttributeTok{min =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\AttributeTok{max =} \DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{.combine =}\NormalTok{ dplyr}\SpecialCharTok{::}\NormalTok{bind\_rows) }\SpecialCharTok{\%dopar\%}\NormalTok{ \{}
+      \FunctionTok{pause}\NormalTok{(min, max)}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{)}
+
+\CommentTok{\# останавливаем кластер}
+\FunctionTok{plan}\NormalTok{(}\StringTok{\textquotesingle{}sequential\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{par\_test1}
+
+
+\CommentTok{\# многопоточный вариант функций apply {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\FunctionTok{library}\NormalTok{(pbapply)}
+\FunctionTok{library}\NormalTok{(parallel)}
+
+\CommentTok{\# создаём кластер из четырёх ядер}
+\NormalTok{cl }\OtherTok{\textless{}{-}} \FunctionTok{makeCluster}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# пример с pbapply}
+\NormalTok{par\_test2 }\OtherTok{\textless{}{-}} \FunctionTok{pblapply}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\AttributeTok{FUN =}\NormalTok{ pause, }\AttributeTok{max =} \DecValTok{3}\NormalTok{, }\AttributeTok{cl =}\NormalTok{ cl)}
+\CommentTok{\# пример с parallel}
+\NormalTok{par\_test3 }\OtherTok{\textless{}{-}} \FunctionTok{parLapply}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\AttributeTok{fun =}\NormalTok{ pause, }\AttributeTok{max =} \DecValTok{3}\NormalTok{, }\AttributeTok{cl =}\NormalTok{ cl)}
+
+\CommentTok{\# останавливаем кластер}
+\FunctionTok{stopCluster}\NormalTok{(cl)}
+
+\CommentTok{\# многопоточный purrr {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\FunctionTok{library}\NormalTok{(furrr)}
+
+\FunctionTok{plan}\NormalTok{(}\StringTok{\textquotesingle{}multisession\textquotesingle{}}\NormalTok{, }\AttributeTok{workers =} \DecValTok{3}\NormalTok{)}
+
+\NormalTok{par\_test4 }\OtherTok{\textless{}{-}} \FunctionTok{future\_map2}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, pause)}
+
+\CommentTok{\# останавливаем кластер}
+\FunctionTok{plan}\NormalTok{(}\StringTok{\textquotesingle{}sequential\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-3}{%
+\section{Презентация}\label{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-3}}
+
+Многопоточность в R from Алексей Селезнёв
+
+\hypertarget{ux442ux435ux441ux442-5}{%
+\section{Тест}\label{ux442ux435ux441ux442-5}}
+
+\hypertarget{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b-2}{%
+\section{Дополнительные материалы}\label{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Статья \href{https://habr.com/ru/post/437078/}{``Как ускорить работу с API на языке R с помощью параллельных вычислений, на примере API Яндекс.Директ (Часть 1)''}
+\end{itemize}
+
+\hypertarget{ux43fux430ux43aux435ux442-future}{%
+\chapter{Пакет future}\label{ux43fux430ux43aux435ux442-future}}
+
+\hypertarget{ux43eux43fux438ux441ux430ux43dux438ux435-6}{%
+\section{Описание}\label{ux43eux43fux438ux441ux430ux43dux438ux435-6}}
+
+В заключительном уроке этого курса мы познакомимся с наиболее продвинутым интерйесом параллельного программирования на языке R, который предоставляет пакет \texttt{future}.
+
+\hypertarget{ux432ux438ux434ux435ux43e-6}{%
+\section{Видео}\label{ux432ux438ux434ux435ux43e-6}}
+
+\hypertarget{ux442ux430ux439ux43c-ux43aux43eux434ux44b-6}{%
+\section{Тайм коды}\label{ux442ux430ux439ux43c-ux43aux43eux434ux44b-6}}
+
+00:00 Вступление.
+01:15 Явное и неявное объявление фьючерсов.
+04:33 Аргументы функции ё.
+05:40 Локальное окружение фьючерса.
+06:42 Стратегии выполнения вычислений в пакете \texttt{future}.
+08:20 Как менять стратегию выполнения кода с помощью \texttt{future}.
+10:42 Настройка плана \texttt{cluster}.
+12:09 Вложенные друг в друга фьючерсы.
+18:00 Отладка ошибок в фьючерсах.
+19:03 Многопоточное итерирование с помощью \texttt{future}.
+21:58 Пример использования \texttt{future} в многопоточном режиме.
+26:07 Опции и переменные среды пакета \texttt{future}.
+28:00 Другие пакеты входящие в библиотеку \texttt{futureverse}.
+29:10 Заключение.
+
+\hypertarget{ux43aux43eux434-6}{%
+\section{Код}\label{ux43aux43eux434-6}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(future)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# явное и неявное объявление фьючерсов {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# обычное выражение}
+\NormalTok{v }\OtherTok{\textless{}{-}}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Hello world!}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FloatTok{3.14}
+\NormalTok{\}}
+
+\CommentTok{\# неявное объявление фьчерса}
+\NormalTok{v }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Hello world!}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FloatTok{3.14}
+\NormalTok{\}}
+
+\CommentTok{\# явное объявления фьючерса}
+\NormalTok{f }\OtherTok{\textless{}{-}} \FunctionTok{future}\NormalTok{(\{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Hello world!}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FloatTok{3.14}
+\NormalTok{\})}
+\NormalTok{v }\OtherTok{\textless{}{-}} \FunctionTok{value}\NormalTok{(f)}
+\FunctionTok{resolved}\NormalTok{(f)}
+\CommentTok{\# фьючерс выполняет все вычисления в собственном окружении {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{1}
+
+\NormalTok{x }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+\NormalTok{  a }\OtherTok{\textless{}{-}} \DecValTok{2}
+  \DecValTok{2} \SpecialCharTok{*}\NormalTok{ a}
+\NormalTok{\}}
+
+\NormalTok{x}
+
+\NormalTok{a}
+
+\CommentTok{\# изменяем план выполнения фьючерса {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\DocumentationTok{\#\# последовательное выполнение}
+\FunctionTok{plan}\NormalTok{(sequential)}
+\NormalTok{pid }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{pid}
+
+\NormalTok{a }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+\NormalTok{  pid }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getpid}\NormalTok{()}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}a\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FloatTok{3.14}
+\NormalTok{  \}}
+\NormalTok{b }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}b\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{  \}}
+\NormalTok{c }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}c\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \DecValTok{2} \SpecialCharTok{*}\NormalTok{ a}
+\NormalTok{  \}}
+
+\NormalTok{b}
+\NormalTok{c}
+\NormalTok{a}
+\NormalTok{pid}
+
+\DocumentationTok{\#\# ассинхронное выполнение}
+\DocumentationTok{\#\#\# режим параллельно запущенных сеансов R}
+\FunctionTok{plan}\NormalTok{(multisession)}
+\NormalTok{pid }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{pid}
+
+\NormalTok{a }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+\NormalTok{  pid }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getpid}\NormalTok{()}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}a\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{\textquotesingle{}pid: \textquotesingle{}}\NormalTok{, pid)}
+  \FloatTok{3.14}
+\NormalTok{  \}}
+\NormalTok{b }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}b\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{  \}}
+\NormalTok{c }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}c\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \DecValTok{2} \SpecialCharTok{*}\NormalTok{ a}
+\NormalTok{\}}
+
+\NormalTok{b}
+
+\NormalTok{c}
+
+\NormalTok{a}
+
+\NormalTok{pid}
+
+\FunctionTok{plan}\NormalTok{(sequential)}
+
+\CommentTok{\# просмотрт доступного количества потоков}
+\FunctionTok{availableCores}\NormalTok{()}
+
+\DocumentationTok{\#\#\# кластерное развёртывание}
+\FunctionTok{library}\NormalTok{(parallel)}
+\NormalTok{cl }\OtherTok{\textless{}{-}}\NormalTok{ parallel}\SpecialCharTok{::}\FunctionTok{makeCluster}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\FunctionTok{plan}\NormalTok{(cluster, }\AttributeTok{workers =}\NormalTok{ cl)}
+
+\NormalTok{pid }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{pid}
+
+\NormalTok{a }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+\NormalTok{  pid }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getpid}\NormalTok{()}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}a\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{\textquotesingle{}pid: \textquotesingle{}}\NormalTok{, pid)}
+  \FloatTok{3.14}
+\NormalTok{\}}
+\NormalTok{b }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}b\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{\}}
+\NormalTok{c }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}c\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \DecValTok{2} \SpecialCharTok{*}\NormalTok{ a}
+\NormalTok{\}}
+
+\NormalTok{b}
+
+\NormalTok{c}
+
+\NormalTok{a}
+
+\NormalTok{pid}
+
+\NormalTok{parallel}\SpecialCharTok{::}\FunctionTok{stopCluster}\NormalTok{(cl)}
+
+
+\CommentTok{\# вложенные фьчерсы {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\FunctionTok{plan}\NormalTok{(}\FunctionTok{list}\NormalTok{(multisession, sequential))}
+\CommentTok{\# plan(list(sequential, multisession))}
+
+\CommentTok{\# указываем количество ядер для каждого процесса}
+\CommentTok{\# plan(list(tweak(multisession, workers = 2), tweak(multisession, workers = 2)))}
+\NormalTok{pid }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{a }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}a\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{  \}}
+\NormalTok{b }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}b\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  b1 }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}b1\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+    \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{    \}}
+\NormalTok{  b2 }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}b2\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+    \FunctionTok{Sys.getpid}\NormalTok{()}
+\NormalTok{    \}}
+  \FunctionTok{c}\NormalTok{(}\AttributeTok{b.pid =} \FunctionTok{Sys.getpid}\NormalTok{(), }\AttributeTok{b1.pid =}\NormalTok{ b1, }\AttributeTok{b2.pid =}\NormalTok{ b2)}
+\NormalTok{  \}}
+
+\NormalTok{pid}
+
+\NormalTok{a}
+\NormalTok{b}
+
+\FunctionTok{plan}\NormalTok{(sequential)}
+
+
+\CommentTok{\# обработка ошибок в фьючерсах {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\FunctionTok{plan}\NormalTok{(sequential)}
+\NormalTok{b }\OtherTok{\textless{}{-}} \StringTok{"hello"}
+\NormalTok{a }\SpecialCharTok{\%\textless{}{-}\%}\NormalTok{ \{}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Future \textquotesingle{}a\textquotesingle{} ...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{log}\NormalTok{(b)}
+\NormalTok{  \} }\SpecialCharTok{\%lazy\%} \ConstantTok{TRUE}
+
+\NormalTok{a}
+
+\CommentTok{\# смотрим где именно была ошибка}
+\FunctionTok{backtrace}\NormalTok{(a)}
+
+\CommentTok{\# используем итерирование в параллельныъ процессах {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# тестовая функция}
+\NormalTok{manual\_pause }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+  \FunctionTok{Sys.sleep}\NormalTok{(x)}
+\NormalTok{  out }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{pid =} \FunctionTok{Sys.getpid}\NormalTok{(), }\AttributeTok{pause =}\NormalTok{ x)}
+  \FunctionTok{return}\NormalTok{(out)}
+\NormalTok{\} }
+
+\CommentTok{\# паузы}
+\NormalTok{pauses }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{2.5}\NormalTok{) }
+
+\CommentTok{\# тест}
+\FunctionTok{manual\_pause}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# активируем параллельные вычисления}
+\FunctionTok{plan}\NormalTok{(}\StringTok{"multisession"}\NormalTok{, }\AttributeTok{workers =} \DecValTok{4}\NormalTok{)}
+\CommentTok{\# итерируемся}
+\NormalTok{futs }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(pauses, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{future}\NormalTok{(\{ }\FunctionTok{manual\_pause}\NormalTok{(i) \}))}
+\CommentTok{\# проверяем статус выполнения фьючерсов}
+\FunctionTok{sapply}\NormalTok{(futs, resolved) }
+\CommentTok{\# собираем результаты}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(futs, value)    }
+
+\NormalTok{dplyr}\SpecialCharTok{::}\FunctionTok{bind\_rows}\NormalTok{(res)}
+
+
+\CommentTok{\# используем future совместно с promises {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\FunctionTok{library}\NormalTok{(cli)}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{cli.progress\_show\_after =} \DecValTok{0}\NormalTok{, }
+        \AttributeTok{cli.spinner =} \StringTok{"dots"}\NormalTok{)}
+
+\CommentTok{\# паузы}
+\NormalTok{pauses}\FloatTok{.1} \OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{replace =}\NormalTok{ T)}
+\NormalTok{pauses}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{replace =}\NormalTok{ T)}
+\NormalTok{pauses}\FloatTok{.3} \OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{4}\NormalTok{, }\AttributeTok{replace =}\NormalTok{ T)}
+
+\CommentTok{\# первое длительное вычисление}
+\FunctionTok{plan}\NormalTok{(}\FunctionTok{list}\NormalTok{(}
+  \FunctionTok{tweak}\NormalTok{(multisession, }\AttributeTok{workers =} \DecValTok{3}\NormalTok{), }
+  \FunctionTok{tweak}\NormalTok{(multisession, }\AttributeTok{workers =} \DecValTok{4}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{val1 }\OtherTok{\textless{}{-}} \FunctionTok{future}\NormalTok{(}
+\NormalTok{  \{}
+\NormalTok{    futs }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(pauses}\FloatTok{.1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{future}\NormalTok{(\{ }\FunctionTok{manual\_pause}\NormalTok{(i) \}))}
+\NormalTok{    res  }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(futs, value) }
+\NormalTok{    res  }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{bind\_rows}\NormalTok{(res)}
+\NormalTok{  \}}
+\NormalTok{) }
+
+\NormalTok{val2 }\OtherTok{\textless{}{-}} \FunctionTok{future}\NormalTok{(}
+\NormalTok{  \{}
+\NormalTok{    futs }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(pauses}\FloatTok{.2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{future}\NormalTok{(\{ }\FunctionTok{manual\_pause}\NormalTok{(i) \}))}
+\NormalTok{    res  }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(futs, value) }
+\NormalTok{    res  }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{bind\_rows}\NormalTok{(res)}
+\NormalTok{  \}}
+\NormalTok{) }
+
+\NormalTok{val3 }\OtherTok{\textless{}{-}} \FunctionTok{future}\NormalTok{(}
+\NormalTok{  \{}
+\NormalTok{    futs }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(pauses}\FloatTok{.3}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(i) }\FunctionTok{future}\NormalTok{(\{ }\FunctionTok{manual\_pause}\NormalTok{(i) \}))}
+\NormalTok{    res  }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(futs, value) }
+\NormalTok{    res  }\OtherTok{\textless{}{-}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{bind\_rows}\NormalTok{(res)}
+\NormalTok{  \}}
+\NormalTok{) }
+
+\CommentTok{\# ждём выполнения всех фьючерсов}
+\FunctionTok{cli\_progress\_bar}\NormalTok{(}\StringTok{"Waiting"}\NormalTok{)}
+\ControlFlowTok{while}\NormalTok{ ( }\SpecialCharTok{!}\NormalTok{ (}\FunctionTok{resolved}\NormalTok{(val1) }\SpecialCharTok{|} \FunctionTok{resolved}\NormalTok{(val2) }\SpecialCharTok{|} \FunctionTok{resolved}\NormalTok{(val3)) ) \{}
+  \FunctionTok{cli\_progress\_update}\NormalTok{()}
+\NormalTok{\}}
+
+\FunctionTok{cli\_progress\_update}\NormalTok{(}\AttributeTok{force =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# result table}
+\FunctionTok{lapply}\NormalTok{(}\FunctionTok{list}\NormalTok{(val1, val2, val3), value) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{bind\_rows}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{main\_pid =} \FunctionTok{Sys.getpid}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{print}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(pause) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{sum}\NormalTok{()  }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\StringTok{"Sum of all pauses: "}\NormalTok{, ., }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+\FunctionTok{plan}\NormalTok{(sequential)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-4}{%
+\section{Презентация}\label{ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux44f-4}}
+
+Пакет future from Алексей Селезнёв
+
+\hypertarget{ux442ux435ux441ux442-6}{%
+\section{Тест}\label{ux442ux435ux441ux442-6}}
+
+\hypertarget{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b-3}{%
+\section{Дополнительные материалы}\label{ux434ux43eux43fux43eux43bux43dux438ux442ux435ux43bux44cux43dux44bux435-ux43cux430ux442ux435ux440ux438ux430ux43bux44b-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  Статья \href{https://habr.com/ru/post/448404/}{``Как ускорить работу с API на языке R с помощью параллельных вычислений, на примере API Яндекс.Директ (Часть 2)''}.
+\end{itemize}
+
+\hypertarget{ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}{%
+\chapter*{Заключение}\label{ux437ux430ux43aux43bux44eux447ux435ux43dux438ux435}}
+\addcontentsline{toc}{chapter}{Заключение}
+
+Поздравляю вас с завершением мини курса ``Циклы и функционалы в языке R''!
+
+\hypertarget{ux43eux431ux449ux430ux44f-ux43eux446ux435ux43dux43aux430-ux437ux430-ux43aux443ux440ux441}{%
+\section*{Общая оценка за курс}\label{ux43eux431ux449ux430ux44f-ux43eux446ux435ux43dux43aux430-ux437ux430-ux43aux443ux440ux441}}
+\addcontentsline{toc}{section}{Общая оценка за курс}
+
+Максимальное количество баллов, которое можно было набрать при прохождении тестов 42. В связи с чем можете самостоятельно оценить насколько хорошо вы усвоили материал:
+
+\begin{itemize}
+\tightlist
+\item
+  менее 24 баллов: К сожалению этот курс вам ничего не дал, рекомендую начинать с курса \href{https://selesnow.github.io/r4excel_users/}{``Язык R для пользователей Excel''}, и после его прохождения повторить попытку изучения курса ``Циклы и функционалы в языке R''. Общая оценка по курсу \textbf{Оценка 2}.
+\item
+  24 - 29 балла: Скорее всего вам следуюет пересмотреть лекции, т.к. вы не усвоили практически половину изложенного материала. Общая оценка по курсу \textbf{Оценка 3}.
+\item
+  30 - 34 баллов: Вы усвоили большую часть материала, тем не менее остались важные моменты, которые пока, что судя по всему вам не понятны. Пересмотрите урок, по которому вы получили низкую оценку. Общая оценка по курсу \textbf{Оценка 4}.
+\item
+  35 - 42 балла: Поздравляю, вы успешно ответили на подавляющее большинство вопросов в тестах, те вопросы на которые вы ответили неправильно возможно были непонятно сформулированы. Общая оценка по курсу \textbf{Оценка 5}.
+\end{itemize}
+
+Не зависимо от колличества набранных баллов я рекомендую вам не останавливаться на достингнутом, и продолжать прокачивать навыки работы в R.
+
+\hypertarget{ux43fux43eux431ux43bux430ux433ux43eux434ux430ux440ux438ux442ux44c-ux430ux432ux442ux43eux440ux430-ux437ux430-ux43aux443ux440ux441}{%
+\section*{Поблагодарить автора за курс}\label{ux43fux43eux431ux43bux430ux433ux43eux434ux430ux440ux438ux442ux44c-ux430ux432ux442ux43eux440ux430-ux437ux430-ux43aux443ux440ux441}}
+\addcontentsline{toc}{section}{Поблагодарить автора за курс}
+
+Если этот курс был вам полезен, и у вас есть желание выразить за него благодарность, вы можете перевести любую сумму на \href{https://secure.wayforpay.com/payment/iteractions_in_r}{этой странице}, либо использовать кнопку:
+
+{Оплатить}
+
+Буду рад видеть вас в числе подписчиков моего канала в \href{https://t.me/R4marketing}{Telegram} и на \href{https://www.youtube.com/R4marketing/?sub_confirmation=1}{YouTube}. В канале вы найдёте очень много полезной информации по R.
+
+Удачи вам!
+
+\emph{Алексей Селезнёв}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ux43aux43eux43dux442ux430ux43aux442ux44b-ux430ux432ux442ux43eux440ux430}{%
+\section*{Контакты автора}\label{ux43aux43eux43dux442ux430ux43aux442ux44b-ux430ux432ux442ux43eux440ux430}}
+\addcontentsline{toc}{section}{Контакты автора}
+
+\begin{itemize}
+\tightlist
+\item
+  email: \href{mailto:selesnow@gmail.com}{\nolinkurl{selesnow@gmail.com}}
+\item
+  telegram канал: \href{https://t.me/R4marketing}{R4marketing}
+\item
+  youtube канал: \href{https://www.youtube.com/R4marketing/?sub_confirmation=1}{R4marketing}
+\item
+  telegram: \href{https://t.me/AlexeySeleznev}{AlexeySeleznev}
+\item
+  facebook: \href{https://facebook.com/selesnow}{selesnow}
+\item
+  github: \href{https://github.com/selesnow/}{selesnow}
+\item
+  linkedin: \href{linkedin.com/in/selesnow}{selesnow}
+\item
+  блог: \href{https://alexeyseleznev.wordpress.com/}{alexeyseleznev.wordpress.com}
+\end{itemize}
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}

@@ -1,0 +1,99 @@
+# Обработка ошибок: функции safely(), possibly(), quietly()
+
+## Описание
+В этом уроке мы продолжаем обсуждать варианты обработки ошибок на языке R. В этот раз мы рассмотрим возможности пакета `retry`, а так же познакомимся с некоторыми функциями из пакета `purrr`, которые так же помогут отловить ошибки и предупреждения.
+
+## Видео
+<iframe width="560" height="315" src="https://www.youtube.com/embed/11rzRVMJchw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Тайм коды
+Тайм коды:
+1. Обработка ошибок с помощью пакета retry (0:36)
+2. Обработка ошибок с помощью пакета purrr (5:58)
+3. Функция safely() (8:05)
+4. Функция possibly() (9:40)
+5. Функция quietly() (10:53)
+6. Заключение (12:50)
+
+## Код
+
+```r
+library(retry)
+
+# тестовая функция 
+fun <- function(p = 0) {
+  
+  x <- runif(1)
+  
+  if (runif(1) < 0.9) {
+    
+    print(paste0('X = ', x, ' is Error!'))
+    
+    Sys.sleep(p)
+          
+    stop("random error")
+  }
+  "Excellent"
+}
+
+# повторяем функци до тех пор пока она не выполнится
+retry(fun(), when = "random error")
+
+# добавим временной интервал между попытками
+retry(fun(), when = "random error", interval = 2)
+
+# ограничим количество попыток выполнения функции
+retry(fun(), when = "random error", max_tries = 3)
+
+# ограничим время выполнения функции
+retry(fun(4), when = "random error", timeout = 2)
+
+# проверяем результат выполнения выражения
+# val это выражение которое мы проверяем
+# cnd результат вычисления val
+retry(fun(), until = function(val, cnd) val == "Excellent")
+
+library(purrr)
+
+# тестовая функция
+div <- function(x, y) {
+  
+  if ( is.na(x) ) warning("X is NA")
+  return(x / y)
+
+}
+
+# пробуем обработку через lapply
+val <- list(1, 6, 3, NA, 'k', 3)
+# тест
+lapply(val, div, y = 2)
+
+# ######### #
+# safely    #
+# ######### #
+# разделит успешные результаты и ошибки
+res <- lapply(val, safely(div), y = 2)
+
+# разбить ошибкии корректные результаты по векторам
+res <- res %>% transpose()
+
+res$result # успешные результаты
+res$error  # ошибки
+
+# ######### #
+# possibly  #
+# ######### #
+# данная функция заменит ошибки заданным значением
+res <- lapply(val, possibly(div, 0), y = 2) 
+
+# ######### #
+# quietly   #
+# ######### #
+# перехватыет выводимые результаты, сообщения и предупреждения
+val <- list(1, 6, 3, NA, 3)
+res <- map(val, quietly(div), y = 2) %>% str
+```
+
+## Тест
+<iframe id="otp_wgt_ku674zbtit7ou" src="https://onlinetestpad.com/ku674zbtit7ou" frameborder="0" style="width:100%;" onload="var f = document.getElementById('otp_wgt_ku674zbtit7ou'); var h = 0; var listener = function (event) { if (event.origin.indexOf('onlinetestpad') == -1) { return; }; h = parseInt(event.data); if (!isNaN(h)) f.style.height = h + 'px'; }; function addEvent(elem, evnt, func) { if (elem.addEventListener) { elem.addEventListener(evnt, func, false); } else if (elem.attachEvent) { elem.attachEvent('on' + evnt, func); } else { elem['on' + evnt] = func; } }; addEvent(window, 'message', listener);" scrolling="no">
+</iframe>

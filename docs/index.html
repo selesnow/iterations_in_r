@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Введение | Курс ‘Циклы и функционалы в языке R’</title>
+<meta name="author" content="Алексей Селезнёв">
+<meta name="description" content="Бесплатный видео мини курс по итерационным операциям и многопоточности в языке R">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Введение | Курс ‘Циклы и функционалы в языке R’">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/img/cover.png">
+<meta property="og:description" content="Бесплатный видео мини курс по итерационным операциям и многопоточности в языке R">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Введение | Курс ‘Циклы и функционалы в языке R’">
+<meta name="twitter:description" content="Бесплатный видео мини курс по итерационным операциям и многопоточности в языке R">
+<meta name="twitter:image" content="/img/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-114798296-1');
+    </script><link rel="shortcut icon" href="img/favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Курс ‘Циклы и функционалы в языке R’</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Введение</a></li>
+<li><a class="" href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html"><span class="header-section-number">1</span> Циклы for, while и repeat</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch.html"><span class="header-section-number">2</span> Обработка ошибок: конструкции try() и tryCatch()</a></li>
+<li><a class="" href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html"><span class="header-section-number">3</span> Функции семейства apply</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr.html"><span class="header-section-number">4</span> Пакет purrr</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html"><span class="header-section-number">5</span> Обработка ошибок: функции safely(), possibly(), quietly()</a></li>
+<li><a class="" href="%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r.html"><span class="header-section-number">6</span> Многопоточность в R</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future.html"><span class="header-section-number">7</span> Пакет future</a></li>
+<li><a class="" href="%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.html">Заключение</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/selesnow/iterations_in_r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="введение" class="section level1 unnumbered">
+<h1>Введение<a class="anchor" aria-label="anchor" href="#%D0%B2%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<div id="о-курсе" class="section level2 unnumbered">
+<h2>О курсе<a class="anchor" aria-label="anchor" href="#%D0%BE-%D0%BA%D1%83%D1%80%D1%81%D0%B5"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://selesnow.github.io"><img src="img/cover.png" align="right" alt="Cover image" class="cover" width="230" height="366"></a>Если вы недавно начали изучать язык R, то наверняка неоднократно слышали от более опытных коллег фразу “В R не принято использовать циклы”. Связано это негласное правило с тем, что большинство функций в языке R поддерживают векторизацию, т.е. они уже под капотом имеют встроенный механизм итерирования. Даже если нужная вам функция не поддерживает векторизацию, вы всегда можете использовать функциональный стиль программирования.</p>
+<p>Циклы, и в целом итерационные конструкции, позволяют избегать излишнего дублирования кода. Основная проблема новичков, которые только начинают учить язык R заключаются в том, что в неумелых руках циклы в R используются не эффективно, и зачастую применяются там, где они вообще не нужны. Цель этого курса научить вас эффективно использовать итерационные конструкции в языке R, и познакомить с функциональным стилем программирования, и многопоточным режимом выполнения скриптов.</p>
+<p>Этот курс поможет вам погрузиться в тему итерационных конструкций языка R и разобраться во всём их многообразии. Первая лекция даст вам вводную информацию о базовых циклах языка R: <code>for</code>, <code>while</code>, <code>repeate</code>. Второй урок прольёт свет на обработку ошибок, с которыми могут столкнуться написанные вами циклы. В третьем уроке мы познакомимся с функциональным стилем программирования и семейством функций <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>. Четвёртый урок продолжает тему функционального стиля программирования, в нём мы рассмотрим возможности пакета <code>purrr</code>, который входит в ядро библиотеки <code>tidyverse</code> и предоставляет вам более продвинутые функционалы по сравнению с семейством функций <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>. Следующим шагом мы разберёмся с тем, как перехватывать и обрабатывать ошибки при использовании функционалов. Затем мы узнаем как распараллеливать выполнение итераций ваших циклов и функционалов с помощью многопоточного программирования, изучим конструкцию <code>foreach</code>, пакеты <code>pbapply</code> и <code>furrr</code>. Завершающий урок будет продолжением темы параллельного программирования в R, в котором мы разберём более низкоуровневый интерфейс многопоточности предоставляемый пакетом <code>future</code>.</p>
+</div>
+<div id="для-кого-этот-курс" class="section level2 unnumbered">
+<h2>Для кого этот курс<a class="anchor" aria-label="anchor" href="#%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D0%B3%D0%BE-%D1%8D%D1%82%D0%BE%D1%82-%D0%BA%D1%83%D1%80%D1%81"><i class="fas fa-link"></i></a>
+</h2>
+<p>Особых требований к уровню подготовки для прохождения данного курса нет, но всё-таки в качестве первого курса для знакомства с языком R я бы его не рекомендовал. Приступать к прохождению курса “Циклы и функционалы в R” я советую тем, кто уже имеет базовые навыки работы в R. Т.е. изначально я рекомендую вам пройти курс <a href="https://selesnow.github.io/r4excel_users/">“Язык R для пользователей Excel”</a>, и потом приступать к прохождению данного курса.</p>
+</div>
+<div id="рекомендации-по-прохождению-курса" class="section level2 unnumbered">
+<h2>Рекомендации по прохождению курса<a class="anchor" aria-label="anchor" href="#%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D0%B8-%D0%BF%D0%BE-%D0%BF%D1%80%D0%BE%D1%85%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BA%D1%83%D1%80%D1%81%D0%B0"><i class="fas fa-link"></i></a>
+</h2>
+<p>Данный курс состоит из 7 видео лекций общей длительность 2 часа 55 минут, и 7 тестов включающих в себя в общей сложности 30 вопросов. Прохождение тестов не является обязательным, тем не менее я крайне советую пройти тест после просмотра лекции. Тесты помогут акцентировать ваше внимание на наиболее важных моментах урока, и проверить как вы усвоили материал. Фиксируйте баллы, которые вы набираете в ходе выполнения каждого теста, в завершении обучения на курсе, по общей сумме баллов полученных за выполнение всех тестов, вы увидите свою общую оценку за курс.</p>
+<p>К каждому уроку есть рассмотренный в видео код, это сделано для вашего удобства, скопируйте его и выполняйте по мере просмотра видео лекции. При желании вы можете скачать все примеры кода одним архивом по <a href="https://github.com/selesnow/publications/blob/master/code_example/iterations_in_r_scripts.zip?raw=true">ссылке</a>.</p>
+<p>Также в некоторых уроках вы найдёте раздел с рекомендованными материалами. В данный раздел входят ссылки на различные статьи и видео уроки, которые дополняют изложенные в ходе видео материал. Так же рекомендую не игнорировать этот раздел.</p>
+</div>
+<div id="по-поводу-поддержки-обучающихся-на-данном-курса" class="section level2 unnumbered">
+<h2>По поводу поддержки обучающихся на данном курса<a class="anchor" aria-label="anchor" href="#%D0%BF%D0%BE-%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83-%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B8-%D0%BE%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B8%D1%85%D1%81%D1%8F-%D0%BD%D0%B0-%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D0%BC-%D0%BA%D1%83%D1%80%D1%81%D0%B0"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Важно!</strong> Поддержки учащихся на этом курсе со стороны автора нет. Я не занимаюсь частными консультациями, тем более не консультирую студентов бесплатных курсов. Поэтому не имеет никакого смысла писать мне в личку или на почту просьбы помочь с прохождением этого, или любого другого моего бесплатного курса. Если вы столкнулись с трудностями при прохождении курса и вам нужна помощь, то все вопросы можно адресовать в следующие telegram чаты:</p>
+<ul>
+<li><a href="https://t.me/rlang_ru">R (язык программирования)</a></li>
+<li><a href="https://t.me/hotlineR_EU">Горячая линия R</a></li>
+</ul>
+<p>Отдельного чата со студентами непосредственно этого курса не существует, но при желании вы самостоятельно можете его организовать, и я с радостью добавлю на него ссылку.</p>
+<p>К тому же, если у вас есть вопросы по одной из лекций курса, вы можете задавать его под видео лекции на YouTube, это приветствуется, и на такие комментарии я с радостью отвечу.</p>
+<p>Буду рад любой конструктивной критике, и предложениям по улучшению курса “Циклы и функционалы в R”, направлять их можно мне на почту <a href="mailto:selesnow@gmail.com" class="email">selesnow@gmail.com</a>. Если вы хотите выразить благодарность мне за курс, то в конце раздела описано как это можно сделать.</p>
+</div>
+<div id="об-авторе" class="section level2 unnumbered">
+<h2>Об авторе<a class="anchor" aria-label="anchor" href="#%D0%BE%D0%B1-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B5"><i class="fas fa-link"></i></a>
+</h2>
+<p>Меня зовут Алексей Селезнёв, с 2008 года я являюсь практикующим аналитиком. На данный момент основной моей деятельностью является развитие отдела аналитики в агентстве интернет-маркетинга <a href="https://https://netpeak.group/">Netpeak</a>.
+<a href="https://selesnow.github.io"><img src="img/author.png" width="200" height="200" align="left" alt="Алексей Селезнёв" hspace="20" vspace="7"></a></p>
+<p>Мною были разработаны такие R пакеты как: <code>rgoogleads</code>, <code>ryandexdirect</code>, <code>rfacebookstat</code>, <code>timeperiodsR</code>, <code>rvkstat</code> и некоторые другие. На данный момент написанные мной пакеты только с CRAN были установленны более 150 000 раз.</p>
+<p>Также я являюсь автором курса <a href="https://needfordata.ru/r">“Язык R для интернет-маркетинга”</a> и лектором академии <a href="https://webpromoexperts.net/">Web Promo Experts</a>.</p>
+<p>Веду свой авторский <a href="https://t.me/R4marketing">Telegram</a> и <a href="https://www.youtube.com/R4marketing/?sub_confirmation=1">YouTube</a> канал R4marketing. Буду рад видеть вас в рядах подписчиков.</p>
+<p>Периодически публикую статью на различных интернет медиа, зачастую это <a href="https://habr.com/ru/users/selesnow/">Хабр</a> и <a href="https://netpeak.net/ru/blog/user/publication/826/">Netpeak Journal</a>.</p>
+<p>Неоднократно выступал на профильных конференциях по аналитике и интернет маркетингу, среди которых Матемаркетинг, GoAnalytics, Analyze, eCommerce, 8P и прочие.</p>
+<p>Начиная с 2016 года всячески стараюсь популяризировать язык R среди русскоязычных аналитиков и маркетологов. Этот курс также был создан с этой целью.</p>
+</div>
+<div id="каналы-автора" class="section level2 unnumbered">
+<h2>Каналы автора<a class="anchor" aria-label="anchor" href="#%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D1%8B-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0"><i class="fas fa-link"></i></a>
+</h2>
+<p>Если вы интересуетесь языком R, применяете его в работе, или планируете изучать, то думаю вам будут интересны мои каналы, о которых я писал выше. Буду рад видеть вас среди подписчиков:</p>
+<ul>
+<li><a href="https://t.me/R4marketing">Telegram канал R4marketing</a></li>
+<li><a href="https://www.youtube.com/R4marketing/?sub_confirmation=1">Youtube канал R4marketing</a></li>
+</ul>
+</div>
+<div id="программа-курса" class="section level2 unnumbered">
+<h2>Программа курса<a class="anchor" aria-label="anchor" href="#%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BA%D1%83%D1%80%D1%81%D0%B0"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><a href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html#%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat">Циклы for, while и repeat</a></li>
+<li><a href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch.html">Обработка ошибок: конструкции try() и tryCatch()</a></li>
+<li><a href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html#%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply">Функции семейства apply</a></li>
+<li><a href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr.html#%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr">Итерирование с помощью функций пакета purrr</a></li>
+<li><a href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html">Обработка ошибок: функции safely(), possibly(), quietly()</a></li>
+<li><a href="%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r.html#%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r">Введение в многопоточность, пакеты: foreach, doFuture, pbapply, furrr</a></li>
+<li><a href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future.html#%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future">Реализация многопоточности с помощью пакета future</a></li>
+</ol>
+</div>
+<div id="благодарности-автору" class="section level2 unnumbered">
+<h2>Благодарности автору<a class="anchor" aria-label="anchor" href="#%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D1%83"><i class="fas fa-link"></i></a>
+</h2>
+<p>Курс, и все сопутствующие материалы предоставляются бесплатно, но если у вас есть желание отблагодарить автора за этот видео курс вы можете перечислить любую произвольную сумму на <a href="https://secure.wayforpay.com/payment/r4excel_users">этой странице</a>.</p>
+Либо с помощью кнопки:
+<center>
+<script type="text/javascript" id="widget-wfp-script" src="https://secure.wayforpay.com/server/pay-widget.js?ref=button"></script><script type="text/javascript">function runWfpWdgt(url){var wayforpay=new Wayforpay();wayforpay.invoice(url);}</script><button type="button" onclick="runWfpWdgt('https://secure.wayforpay.com/button/b9c8a14345975');" style="display:inline-block!important;background:#2B3160 url('https://s3.eu-central-1.amazonaws.com/w4p-merch/button/bg2x2.png') no-repeat center right;background-size:cover;width: 256px!important;height:54px!important;border:none!important;border-radius:14px!important;padding:18px!important;box-shadow:3px 2px 8px rgba(71,66,66,0.22)!important;text-align:left!important;box-sizing:border-box!important;" onmouseover="this.style.opacity='0.8';" onmouseout="this.style.opacity='1';"><span style="font-family:Verdana,Arial,sans-serif!important;font-weight:bold!important;font-size:14px!important;color:#ffffff!important;line-height:18px!important;vertical-align:middle!important;">Оплатить</span></button>
+</center>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html"><span class="header-section-number">1</span> Циклы for, while и repeat</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%D0%B2%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5">Введение</a></li>
+<li><a class="nav-link" href="#%D0%BE-%D0%BA%D1%83%D1%80%D1%81%D0%B5">О курсе</a></li>
+<li><a class="nav-link" href="#%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D0%B3%D0%BE-%D1%8D%D1%82%D0%BE%D1%82-%D0%BA%D1%83%D1%80%D1%81">Для кого этот курс</a></li>
+<li><a class="nav-link" href="#%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D0%B8-%D0%BF%D0%BE-%D0%BF%D1%80%D0%BE%D1%85%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BA%D1%83%D1%80%D1%81%D0%B0">Рекомендации по прохождению курса</a></li>
+<li><a class="nav-link" href="#%D0%BF%D0%BE-%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83-%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B8-%D0%BE%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B8%D1%85%D1%81%D1%8F-%D0%BD%D0%B0-%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D0%BC-%D0%BA%D1%83%D1%80%D1%81%D0%B0">По поводу поддержки обучающихся на данном курса</a></li>
+<li><a class="nav-link" href="#%D0%BE%D0%B1-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B5">Об авторе</a></li>
+<li><a class="nav-link" href="#%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D1%8B-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0">Каналы автора</a></li>
+<li><a class="nav-link" href="#%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BA%D1%83%D1%80%D1%81%D0%B0">Программа курса</a></li>
+<li><a class="nav-link" href="#%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D1%83">Благодарности автору</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/selesnow/iterations_in_r/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/selesnow/iterations_in_r/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-03-30.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

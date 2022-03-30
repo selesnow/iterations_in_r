@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Урок 1 Циклы for, while и repeat | Курс ‘Циклы и функционалы в языке R’</title>
+<meta name="author" content="Алексей Селезнёв">
+<meta name="description" content="1.1 Описание 1Цикл — разновидность управляющей конструкции в высокоуровневых языках программирования, предназначенная для организации многократного исполнения набора инструкций. В повседневной...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Урок 1 Циклы for, while и repeat | Курс ‘Циклы и функционалы в языке R’">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/img/cover.png">
+<meta property="og:description" content="1.1 Описание 1Цикл — разновидность управляющей конструкции в высокоуровневых языках программирования, предназначенная для организации многократного исполнения набора инструкций. В повседневной...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Урок 1 Циклы for, while и repeat | Курс ‘Циклы и функционалы в языке R’">
+<meta name="twitter:description" content="1.1 Описание 1Цикл — разновидность управляющей конструкции в высокоуровневых языках программирования, предназначенная для организации многократного исполнения набора инструкций. В повседневной...">
+<meta name="twitter:image" content="/img/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-114798296-1');
+    </script><link rel="shortcut icon" href="img/favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Курс ‘Циклы и функционалы в языке R’</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Введение</a></li>
+<li><a class="active" href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html"><span class="header-section-number">1</span> Циклы for, while и repeat</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch.html"><span class="header-section-number">2</span> Обработка ошибок: конструкции try() и tryCatch()</a></li>
+<li><a class="" href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html"><span class="header-section-number">3</span> Функции семейства apply</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr.html"><span class="header-section-number">4</span> Пакет purrr</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html"><span class="header-section-number">5</span> Обработка ошибок: функции safely(), possibly(), quietly()</a></li>
+<li><a class="" href="%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r.html"><span class="header-section-number">6</span> Многопоточность в R</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future.html"><span class="header-section-number">7</span> Пакет future</a></li>
+<li><a class="" href="%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.html">Заключение</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/selesnow/iterations_in_r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="циклы-for-while-и-repeat" class="section level1" number="1">
+<h1>
+<span class="header-section-number">Урок 1</span> Циклы for, while и repeat<a class="anchor" aria-label="anchor" href="#%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat"><i class="fas fa-link"></i></a>
+</h1>
+<div id="описание" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Описание<a class="anchor" aria-label="anchor" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5"><i class="fas fa-link"></i></a>
+</h2>
+<p><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Материал из википедии: &lt;a href="https://ru.wikipedia.org/wiki/%D0%A6%D0%B8%D0%BA%D0%BB_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)" class="uri"&gt;https://ru.wikipedia.org/wiki/Цикл_(программирование)&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a>Цикл — разновидность управляющей конструкции в высокоуровневых языках программирования, предназначенная для организации многократного исполнения набора инструкций.</p>
+<p>В повседневной жизни мы тоже ежедневно сталкиваемся с циклами. Например, вам необходимо перенести из кухни в комнату 5 больших коробок с посудой, за один раз вы можете поднть только одну коробку. Т.е. вам понадобится пять раз выполнить одно и тоже дейтсвие, это и есть цикл, а перенос одной коробки это одна итерация цикла.</p>
+<p>Первый урок курса поможет вам разобраться с тем:</p>
+<ul>
+<li>Что такое циклы;</li>
+<li>Какие циклы есть в базовом синтаксисе языка R;</li>
+<li>Как итерироваться циклами по наиболее распространённым структурам данных в R;</li>
+<li>Как правильно объединять результаты полученные на разных итерациях цикла;</li>
+<li>Как использовать операторы <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> и <code><a href="https://rdrr.io/r/base/Control.html">break</a></code>.</li>
+</ul>
+<p>Данный урок расчитан на начальный уровень подготовки, и является достаточно базовым.</p>
+</div>
+<div id="видео" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Видео<a class="anchor" aria-label="anchor" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE"><i class="fas fa-link"></i></a>
+</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w3v-Gqwxzcc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="тайм-коды" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Тайм коды<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B"><i class="fas fa-link"></i></a>
+</h2>
+<p>00:00 Введение.<br>
+00:28 Что такое циклы<br>
+00:58 Какие циклы есть в языке R.<br>
+01:44 Синтаксис цикла <code>for</code>.<br>
+02:40 Перебираем вектор циклом <code>for</code>.<br>
+03:34 Переход на следующую итерацию цикла с помощью оператора <code><a href="https://rdrr.io/r/base/Control.html">next</a></code>.<br>
+04:50 Перебираем список циклом <code>for</code>.<br>
+06:52 Перебираем циклом <code>for</code> столбцы и строки таблиц (<code>data.frame</code>).<br>
+09:38 Вложенные циклы <code>for</code>.<br>
+10:55 Как правильно объединять в цикле таблицы. Считываем циклом данные из множества csv файлов и объединяем в один <code>data.frame</code>.<br>
+14:11 Синтаксис цикла <code>while</code>.<br>
+15:25 Выход из цикла с помощью оператора <code><a href="https://rdrr.io/r/base/Control.html">break</a></code>.<br>
+17:12 Синтаксис цикла <code>repeat</code>.<br>
+18:30 В чём разница между циклами <code>while</code> и <code>repeat</code> в языке R.<br>
+19:47 Почему в R не принято использовать циклы.<br>
+21:17 Заключение.<br></p>
+</div>
+<div id="код" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Код<a class="anchor" aria-label="anchor" href="#%D0%BA%D0%BE%D0%B4"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># циклы в базовом синтаксисе R</span>
+
+
+<span class="co"># for ---------------------------------------------------------------------</span>
+<span class="co">## выполняется до тех пор,</span>
+<span class="co">## пока в итерируем оъекте не будут перебраны</span>
+<span class="co">## все элементы</span>
+
+<span class="co">## итерирование по вектору</span>
+<span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Sunday'</span>, 
+          <span class="st">'Monday'</span>, 
+          <span class="st">'Tuesday'</span>, 
+          <span class="st">'Wednesday'</span>,
+          <span class="st">'Thursday'</span>,
+          <span class="st">'Friday'</span>,
+          <span class="st">'Saturday'</span><span class="op">)</span>
+
+<span class="kw">for</span> <span class="op">(</span> <span class="va">day</span> <span class="kw">in</span> <span class="va">week</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.25</span><span class="op">)</span>
+  
+<span class="op">}</span>
+
+<span class="co">## итерирование по списку</span>
+<span class="va">persons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Alexey"</span>, age <span class="op">=</span> <span class="fl">36</span><span class="op">)</span>, 
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Justin"</span>, age <span class="op">=</span> <span class="fl">27</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Piter"</span>,  age <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Sergey"</span>, age <span class="op">=</span> <span class="fl">39</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co">## оператор next позволяет переходить на следующую итерацию</span>
+<span class="kw">for</span> <span class="op">(</span> <span class="va">person</span> <span class="kw">in</span> <span class="va">persons</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="kw">if</span> <span class="op">(</span> <span class="va">person</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;</span> <span class="fl">30</span> <span class="op">)</span> <span class="kw">next</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span> <span class="va">person</span><span class="op">$</span><span class="va">name</span>, <span class="st">" is "</span>, <span class="va">person</span><span class="op">$</span><span class="va">age</span>, <span class="st">" years old"</span><span class="op">)</span> <span class="op">)</span>
+  
+<span class="op">}</span> 
+
+<span class="co">## итерирование по таблицам</span>
+<span class="kw">for</span> <span class="op">(</span> <span class="va">col</span> <span class="kw">in</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co">## итерирование по строкам таблицы</span>
+<span class="kw">for</span> <span class="op">(</span> <span class="va">row</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="va">row</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'cyl'</span>, <span class="st">'gear'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="co">## вложенные циклы for</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
+  
+<span class="kw">for</span> <span class="op">(</span> <span class="va">int</span> <span class="kw">in</span> <span class="va">x</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="kw">for</span> <span class="op">(</span> <span class="va">let</span> <span class="kw">in</span> <span class="va">y</span> <span class="op">)</span> <span class="op">{</span>
+    
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">int</span>, <span class="st">": "</span>, <span class="va">let</span><span class="op">)</span><span class="op">)</span>
+    
+  <span class="op">}</span>
+  
+<span class="op">}</span>
+
+<span class="co">## как поступить если мне надо на каждой итерации объединять таблицы</span>
+<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">'docs'</span><span class="op">)</span>
+<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="kw">for</span> <span class="op">(</span> <span class="va">file</span> <span class="kw">in</span> <span class="va">files</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="va">temp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
+
+  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="va">result</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">temp_df</span><span class="op">)</span><span class="op">)</span>
+  
+<span class="op">}</span>
+
+<span class="co"># объединяем результаты в одну таблицу</span>
+<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">'rbind'</span>, <span class="va">result</span><span class="op">)</span>
+
+
+
+<span class="co"># while -------------------------------------------------------------------</span>
+<span class="co">## итерируется до тех пор,</span>
+<span class="co">## пока истинно заданное условие</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+
+<span class="kw">while</span> <span class="op">(</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">10</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
+  
+<span class="op">}</span>
+
+<span class="co"># оператор break</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="kw">while</span> <span class="op">(</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">20</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  
+  <span class="kw">if</span> <span class="op">(</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span> <span class="op">)</span> <span class="kw">break</span>
+  
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
+  
+<span class="op">}</span>
+
+<span class="co"># repeate -----------------------------------------------------------------</span>
+<span class="co">## итерируется до тех пор,</span>
+<span class="co">## пока не встретит break</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+
+<span class="kw">repeat</span> <span class="op">{</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  
+  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span> <span class="kw">break</span>
+  
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="op">}</span></code></pre></div>
+</div>
+<div id="презентация" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Презентация<a class="anchor" aria-label="anchor" href="#%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F"><i class="fas fa-link"></i></a>
+</h2>
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/MsxVJOZlhKXz7L" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
+</iframe>
+<div style="margin-bottom:5px">
+<strong> <a href="https://www.slideshare.net/ssuser459d25/r-250846317" title="Циклы в R" target="_blank">Циклы в R</a> </strong> from <strong><a href="https://www.slideshare.net/ssuser459d25" target="_blank">Алексей Селезнёв</a></strong>
+</div>
+</div>
+<div id="тест" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Тест<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B5%D1%81%D1%82"><i class="fas fa-link"></i></a>
+</h2>
+<iframe id="otp_wgt_d3ufq77hqi6de" src="https://onlinetestpad.com/d3ufq77hqi6de" frameborder="0" style="width:100%;" onload="var f = document.getElementById('otp_wgt_d3ufq77hqi6de'); var h = 0; var listener = function (event) { if (event.origin.indexOf('onlinetestpad') == -1) { return; }; h = parseInt(event.data); if (!isNaN(h)) f.style.height = h + 'px'; }; function addEvent(elem, evnt, func) { if (elem.addEventListener) { elem.addEventListener(evnt, func, false); } else if (elem.attachEvent) { elem.attachEvent('on' + evnt, func); } else { elem['on' + evnt] = func; } }; addEvent(window, 'message', listener);" scrolling="no">
+</iframe>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Введение</a></div>
+<div class="next"><a href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch.html"><span class="header-section-number">2</span> Обработка ошибок: конструкции try() и tryCatch()</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat"><span class="header-section-number">1</span> Циклы for, while и repeat</a></li>
+<li><a class="nav-link" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5"><span class="header-section-number">1.1</span> Описание</a></li>
+<li><a class="nav-link" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE"><span class="header-section-number">1.2</span> Видео</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B"><span class="header-section-number">1.3</span> Тайм коды</a></li>
+<li><a class="nav-link" href="#%D0%BA%D0%BE%D0%B4"><span class="header-section-number">1.4</span> Код</a></li>
+<li><a class="nav-link" href="#%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F"><span class="header-section-number">1.5</span> Презентация</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B5%D1%81%D1%82"><span class="header-section-number">1.6</span> Тест</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/selesnow/iterations_in_r/blob/master/1-for-while-repeat.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/selesnow/iterations_in_r/edit/master/1-for-while-repeat.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-03-30.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

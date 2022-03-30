@@ -1,0 +1,216 @@
+# Обработка ошибок: конструкции try() и tryCatch()
+
+## Описание
+На предыдущем уроке мы разобрали всевозможные варианты циклов в языке R, они выполнят сфою функцию, если на одной из итераций не столкнутся с ошибкой, а в противном случае работа цикла не будет завершена и остановится на одной из итераций. 
+
+В этом уроке мы разберёмся с конструкциями `try()` и `tryCatch()` которые позволяют вам перехватывать и обрабатывать ошибки в R.
+
+## Видео
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GvmjW34IHu8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Тайм коды
+1. Конструкция try() ( 0:37 )
+2. Как использовать try() внутри цикла for  ( 2:54 )
+3. Конструкция tryCatch() ( 7:16 )
+4. Обработка ошибок с помощью tryCatch() ( 12:32 )
+5. Как использовать tryCatch() внутри цикла for ( 13:39 )
+6. Блок finally в конструкции tryCatch() (15:27 )
+7. Работа с пользовательскими классами исключений ( 19:09 )
+8. Векторизируем конструкцию tryCatch() с помощью lapply() ( 24:11 )
+
+## Код
+
+```r
+# рабочая директория
+setwd(r'(C:\Users\Alsey\Documents\try_catch_lesson)')
+
+# Конструкция try
+res <- try( 10 / 'u' )
+
+# класс объекта
+class(res)
+
+# сообщение
+attr(res, 'condition')
+
+# пример 
+values <- list(3, 6, 2, 'x', 7, 3, 't', 9)
+
+for ( val in values ) {
+  
+  res <- try( val / 10, silent = TRUE )
+  
+  if ( class(res) == 'try-error' ) {
+    
+    print(attr(res, 'condition')) 
+    
+  } else {
+    
+    print( paste0( val, " / 10 = ", res))
+    
+  }
+  
+}
+
+
+# Конструкция tryCatch
+## обработка ошибок
+### функция
+div <- function(x, y) {
+  
+  if ( is.na(y) ) {
+    
+    warning("Y is NA")
+    
+  } 
+  
+  return( x / y )
+  
+}
+
+### значение
+val <- "just text"
+
+### проверка
+result <- 
+  tryCatch( 
+    expr = {
+      
+      y <- div(10, val)
+      
+    },
+    error = function(err) {
+      
+      message(err$message)
+      y <- 0
+      
+    },
+    warning = function(war) {
+      
+      message(war$message)
+      y <- 1
+      
+    })
+
+
+### обработка ошибок
+if ( 'error' %in% class(result)  ) {
+  
+  message("Catch")
+  
+}
+
+### в цикле 
+values <- list(1, 3, NA, 8, "text")
+
+for ( val in values ) {
+  
+  temp <-
+    tryCatch({
+      div(10, val)
+    },
+    error = function(err) {
+      
+      print(err$message)
+      
+    })
+  
+  if ( 'error' %in% class(temp) ) next
+}
+
+
+# блок finnaly
+library(DBI)
+library(RSQLite)
+
+## подключение
+con <- dbConnect(SQLite(), 'my.db')
+## создаём фрейм
+df <- data.frame(a = 1:5,
+                 b = letters[1:5])
+
+## попытка записать данные
+out <- 
+  tryCatch(
+    {
+      
+      dbWriteTable(con, 
+                   'my_data',
+                   df)
+      
+    },
+    
+    error = function(err) {
+      print(err$message)
+      return(err)
+    },
+    
+    finally = {
+      
+      print("Закрываю соединение")
+      dbDisconnect(con)
+    }
+  )
+
+# создаём собственные классы исключений
+## функция дл ягенерации собственных классов исключений
+exception <- function(class, msg)
+  {
+    stop(errorCondition(msg, class = class))
+  }
+
+## функция в которой будем использовать собственные классы исключений
+divideByX <- function(x){
+  # исключения
+  if (length(x) != 1) {
+    exception("NonScalar", "x is not length 1")
+  } else if (is.na(x)) {
+    exception("IsNA", "x is NA")
+  } else if (x == 0) {
+    exception("DivByZero", "divide by zero")
+  }
+  # результат
+  10 / x
+}
+
+## обработка исключений
+val <- 0
+
+tryCatch(
+  {
+    divideByX(val)
+  }, 
+  IsNA = function(x) {
+    print("Catch")
+  },
+  NonScalar = function(x) {
+    print("Catch2")
+  },
+  DivByZero = function(x) {
+    print('Catch3')
+  }
+)
+
+# векторизируем обработку исключений
+lapply(list(NA, 3:5, 0, 4, 7), 
+       function(x) tryCatch({
+         
+           divideByX(x)
+         
+       }, 
+       IsNA=function(err) {
+            warning(err)  # signal a warning, return NA
+            NA
+       }, 
+       NonScalar=function(err) {
+            message(err)     # fail
+       },
+       DivByZero=function(err) {
+            message(err)
+       })
+)
+```
+
+## Тест
+<iframe id="otp_wgt_mzdrk6jdooizg" src="https://onlinetestpad.com/mzdrk6jdooizg" frameborder="0" style="width:100%;" onload="var f = document.getElementById('otp_wgt_mzdrk6jdooizg'); var h = 0; var listener = function (event) { if (event.origin.indexOf('onlinetestpad') == -1) { return; }; h = parseInt(event.data); if (!isNaN(h)) f.style.height = h + 'px'; }; function addEvent(elem, evnt, func) { if (elem.addEventListener) { elem.addEventListener(evnt, func, false); } else if (elem.attachEvent) { elem.attachEvent('on' + evnt, func); } else { elem['on' + evnt] = func; } }; addEvent(window, 'message', listener);" scrolling="no">
+</iframe>

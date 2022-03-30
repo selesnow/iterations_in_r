@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Урок 6 Многопоточность в R | Курс ‘Циклы и функционалы в языке R’</title>
+<meta name="author" content="Алексей Селезнёв">
+<meta name="description" content="6.1 Описание Давайте представим ситуацию, что вам необходимо доствить 8 адресатам посылки. Если вы будете доставлять их одним курьером, то ему придётся по очереди посетить все 8 адресов, собрать...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Урок 6 Многопоточность в R | Курс ‘Циклы и функционалы в языке R’">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/img/cover.png">
+<meta property="og:description" content="6.1 Описание Давайте представим ситуацию, что вам необходимо доствить 8 адресатам посылки. Если вы будете доставлять их одним курьером, то ему придётся по очереди посетить все 8 адресов, собрать...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Урок 6 Многопоточность в R | Курс ‘Циклы и функционалы в языке R’">
+<meta name="twitter:description" content="6.1 Описание Давайте представим ситуацию, что вам необходимо доствить 8 адресатам посылки. Если вы будете доставлять их одним курьером, то ему придётся по очереди посетить все 8 адресов, собрать...">
+<meta name="twitter:image" content="/img/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-114798296-1');
+    </script><link rel="shortcut icon" href="img/favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Курс ‘Циклы и функционалы в языке R’</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Введение</a></li>
+<li><a class="" href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html"><span class="header-section-number">1</span> Циклы for, while и repeat</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch.html"><span class="header-section-number">2</span> Обработка ошибок: конструкции try() и tryCatch()</a></li>
+<li><a class="" href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html"><span class="header-section-number">3</span> Функции семейства apply</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr.html"><span class="header-section-number">4</span> Пакет purrr</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html"><span class="header-section-number">5</span> Обработка ошибок: функции safely(), possibly(), quietly()</a></li>
+<li><a class="active" href="%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r.html"><span class="header-section-number">6</span> Многопоточность в R</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future.html"><span class="header-section-number">7</span> Пакет future</a></li>
+<li><a class="" href="%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.html">Заключение</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/selesnow/iterations_in_r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="многопоточность-в-r" class="section level1" number="6">
+<h1>
+<span class="header-section-number">Урок 6</span> Многопоточность в R<a class="anchor" aria-label="anchor" href="#%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r"><i class="fas fa-link"></i></a>
+</h1>
+<div id="описание-5" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Описание<a class="anchor" aria-label="anchor" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-5"><i class="fas fa-link"></i></a>
+</h2>
+<p>Давайте представим ситуацию, что вам необходимо доствить 8 адресатам посылки. Если вы будете доставлять их одним курьером, то ему придётся по очереди посетить все 8 адресов, собрать подписи в качестве подтверждения о получении посылки, и принести вам подписанные документы. но если у вас в распоряжении будет 4 курьера, то вы сможете распределить каждому курьеру всего по 2 адреса, и процесс доставки займёт в 4 раза меньше времени.</p>
+<p>Ок, а при чём тут вообще курьеры спросите вы. Во всех предыдущих уроках мы выполняли итерирование по элементов объектов в последовательном режиме, т.е. использовали одного курьера. Это преемлемый способ итерирования, но не самый эффективный. В этом уроке мы с вами разберёмся с тем, как задействовать сразу 4ёх курьеров, т.е. выполнять итерации в параллеьном, многопоточном режиме.</p>
+<p>Так же мы можем сделать этот процесс ещё более эффективным, если будем не рандомно раздавать курьерам адресатов, а например распредим каждому курьеру по одному району, это балансировка нагрузки, её мы тоже затронем в этом уроке.</p>
+</div>
+<div id="видео-5" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Видео<a class="anchor" aria-label="anchor" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-5"><i class="fas fa-link"></i></a>
+</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/im7tKu9XgB0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="тайм-коды-5" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Тайм коды<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B-5"><i class="fas fa-link"></i></a>
+</h2>
+<p>00:00 Вступление.<br>
+00:51 Что такое многопоточность.<br>
+02:20 Какие пакеты мы будем использовать в ходе урока.<br>
+03:25 Используем <code>foreach</code> в последовательном режиме.<br>
+07:42 Аргументы конструкции <code>foreach.</code><br>
+10:05 Управление объединением результатов итераций цикла <code>foreach.</code><br>
+11:05 Выполнение <code>foreach</code> в многопоточном режиме.<br>
+12:41 Схема реализации многопоточности.<br>
+13:52 Возвращение к последовательному выполнению и ID процесса.<br>
+14:56 Бекенды к <code>foreach.</code><br>
+15:38 Оператор <code>%dorng%</code>.<br>
+18:10 Параллельная реализация функций семейства <code>apply.</code><br>
+20:52 Список функций пакетов <code>parallel</code> и <code>pbapply.</code><br>
+21:54 Пакет <code>furrr</code>.<br>
+23:10 Соответствие функций пакета <code>purrr</code> и <code>furrr</code>.<br>
+23:50 Заключение.<br></p>
+</div>
+<div id="код-5" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> Код<a class="anchor" aria-label="anchor" href="#%D0%BA%D0%BE%D0%B4-5"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># многопоточные циклы -----------------------------------------------------</span>
+<span class="co"># install.packages("doSNOW")</span>
+<span class="co"># library(doSNOW)</span>
+<span class="co"># library(doParallel)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HenrikBengtsson/doFuture">doFuture</a></span><span class="op">)</span>
+
+<span class="co"># функция длительного выполнения</span>
+<span class="va">pause</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">min</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">ptime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">min</span>, <span class="va">max</span><span class="op">)</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="va">ptime</span><span class="op">)</span>
+
+  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    pid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getpid.html">Sys.getpid</a></span><span class="op">(</span><span class="op">)</span>,
+    pause_sec <span class="op">=</span> <span class="va">ptime</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">test</span> <span class="op">&lt;-</span> <span class="fu">pause</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># используем foreach </span>
+<span class="co"># итерируемся сразу по двум объектам</span>
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> <span class="op">(</span>
+  <span class="op">{</span><span class="va">test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreach/man/foreach.html">foreach</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, max <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/foreach/man/foreach.html">%do%</a></span> <span class="fu">pause</span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span><span class="op">}</span>
+<span class="op">)</span>
+
+<span class="co"># сумма длительностей пауз</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">test2</span>, <span class="st">'[['</span>, i <span class="op">=</span> <span class="st">'pause_sec'</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># меняем функцию собирающую результаты каждой итерации</span>
+<span class="va">test3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreach/man/foreach.html">foreach</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, max <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, .combine <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="va"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/foreach/man/foreach.html">%do%</a></span> <span class="fu">pause</span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span>
+
+<span class="co"># параллельный режим выполнения</span>
+<span class="co"># создаём кластер из четырёх ядер</span>
+<span class="co">#cl &lt;- makeCluster(4)</span>
+<span class="co">#registerDoSNOW(cl)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>future.rng.onMisuse <span class="op">=</span> <span class="st">"ignore"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/doFuture/man/registerDoFuture.html">registerDoFuture</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="st">'multisession'</span>, workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+
+<span class="co"># выполняем тот же код но в параллельном режиме</span>
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span> <span class="op">(</span>
+  <span class="op">{</span>
+    <span class="va">par_test1</span> <span class="op">&lt;-</span> 
+      <span class="fu"><a href="https://rdrr.io/pkg/foreach/man/foreach.html">foreach</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, max <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, .combine <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="va"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/foreach/man/foreach.html">%dopar%</a></span> <span class="op">{</span>
+      <span class="fu">pause</span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">)</span>
+
+<span class="co"># останавливаем кластер</span>
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="st">'sequential'</span><span class="op">)</span>
+
+<span class="va">par_test1</span>
+
+
+<span class="co"># многопоточный вариант функций apply -------------------------------------</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/psolymos/pbapply">pbapply</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
+
+<span class="co"># создаём кластер из четырёх ядер</span>
+<span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
+
+<span class="co"># пример с pbapply</span>
+<span class="va">par_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pbapply/man/pbapply.html">pblapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, FUN <span class="op">=</span> <span class="va">pause</span>, max <span class="op">=</span> <span class="fl">3</span>, cl <span class="op">=</span> <span class="va">cl</span><span class="op">)</span>
+<span class="co"># пример с parallel</span>
+<span class="va">par_test3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/clusterApply.html">parLapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">pause</span>, max <span class="op">=</span> <span class="fl">3</span>, cl <span class="op">=</span> <span class="va">cl</span><span class="op">)</span>
+
+<span class="co"># останавливаем кластер</span>
+<span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span>
+
+<span class="co"># многопоточный purrr -----------------------------------------------------</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>
+
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="st">'multisession'</span>, workers <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+
+<span class="va">par_test4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map2.html">future_map2</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="va">pause</span><span class="op">)</span>
+
+<span class="co"># останавливаем кластер</span>
+<span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="st">'sequential'</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="презентация-3" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> Презентация<a class="anchor" aria-label="anchor" href="#%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-3"><i class="fas fa-link"></i></a>
+</h2>
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/LqdDlr12lIhmuG" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
+</iframe>
+<div style="margin-bottom:5px">
+<strong> <a href="https://www.slideshare.net/ssuser459d25/r-250850079" title="Многопоточность в R" target="_blank">Многопоточность в R</a> </strong> from <strong><a href="https://www.slideshare.net/ssuser459d25" target="_blank">Алексей Селезнёв</a></strong>
+</div>
+</div>
+<div id="тест-5" class="section level2" number="6.6">
+<h2>
+<span class="header-section-number">6.6</span> Тест<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B5%D1%81%D1%82-5"><i class="fas fa-link"></i></a>
+</h2>
+<iframe id="otp_wgt_b46rrysox22bc" src="https://onlinetestpad.com/b46rrysox22bc" frameborder="0" style="width:100%;" onload="var f = document.getElementById('otp_wgt_b46rrysox22bc'); var h = 0; var listener = function (event) { if (event.origin.indexOf('onlinetestpad') == -1) { return; }; h = parseInt(event.data); if (!isNaN(h)) f.style.height = h + 'px'; }; function addEvent(elem, evnt, func) { if (elem.addEventListener) { elem.addEventListener(evnt, func, false); } else if (elem.attachEvent) { elem.attachEvent('on' + evnt, func); } else { elem['on' + evnt] = func; } }; addEvent(window, 'message', listener);" scrolling="no">
+</iframe>
+</div>
+<div id="дополнительные-материалы-2" class="section level2" number="6.7">
+<h2>
+<span class="header-section-number">6.7</span> Дополнительные материалы<a class="anchor" aria-label="anchor" href="#%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B-2"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Статья <a href="https://habr.com/ru/post/437078/">“Как ускорить работу с API на языке R с помощью параллельных вычислений, на примере API Яндекс.Директ (Часть 1)”</a>
+</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html"><span class="header-section-number">5</span> Обработка ошибок: функции safely(), possibly(), quietly()</a></div>
+<div class="next"><a href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future.html"><span class="header-section-number">7</span> Пакет future</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r"><span class="header-section-number">6</span> Многопоточность в R</a></li>
+<li><a class="nav-link" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-5"><span class="header-section-number">6.1</span> Описание</a></li>
+<li><a class="nav-link" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-5"><span class="header-section-number">6.2</span> Видео</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B-5"><span class="header-section-number">6.3</span> Тайм коды</a></li>
+<li><a class="nav-link" href="#%D0%BA%D0%BE%D0%B4-5"><span class="header-section-number">6.4</span> Код</a></li>
+<li><a class="nav-link" href="#%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-3"><span class="header-section-number">6.5</span> Презентация</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B5%D1%81%D1%82-5"><span class="header-section-number">6.6</span> Тест</a></li>
+<li><a class="nav-link" href="#%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B-2"><span class="header-section-number">6.7</span> Дополнительные материалы</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/selesnow/iterations_in_r/blob/master/6-foreach.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/selesnow/iterations_in_r/edit/master/6-foreach.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-03-30.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

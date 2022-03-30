@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Урок 4 Пакет purrr | Курс ‘Циклы и функционалы в языке R’</title>
+<meta name="author" content="Алексей Селезнёв">
+<meta name="description" content="4.1 Описание Рассмотренные в прошлом уроке функции семейства apply действительно полноценно могут заменить цикл for, и повысить производительность вашего кода. Но есть и более продвинутые...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Урок 4 Пакет purrr | Курс ‘Циклы и функционалы в языке R’">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/img/cover.png">
+<meta property="og:description" content="4.1 Описание Рассмотренные в прошлом уроке функции семейства apply действительно полноценно могут заменить цикл for, и повысить производительность вашего кода. Но есть и более продвинутые...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Урок 4 Пакет purrr | Курс ‘Циклы и функционалы в языке R’">
+<meta name="twitter:description" content="4.1 Описание Рассмотренные в прошлом уроке функции семейства apply действительно полноценно могут заменить цикл for, и повысить производительность вашего кода. Но есть и более продвинутые...">
+<meta name="twitter:image" content="/img/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-114798296-1');
+    </script><link rel="shortcut icon" href="img/favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Курс ‘Циклы и функционалы в языке R’</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Введение</a></li>
+<li><a class="" href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html"><span class="header-section-number">1</span> Циклы for, while и repeat</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch.html"><span class="header-section-number">2</span> Обработка ошибок: конструкции try() и tryCatch()</a></li>
+<li><a class="" href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html"><span class="header-section-number">3</span> Функции семейства apply</a></li>
+<li><a class="active" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr.html"><span class="header-section-number">4</span> Пакет purrr</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html"><span class="header-section-number">5</span> Обработка ошибок: функции safely(), possibly(), quietly()</a></li>
+<li><a class="" href="%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r.html"><span class="header-section-number">6</span> Многопоточность в R</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future.html"><span class="header-section-number">7</span> Пакет future</a></li>
+<li><a class="" href="%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.html">Заключение</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/selesnow/iterations_in_r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="пакет-purrr" class="section level1" number="4">
+<h1>
+<span class="header-section-number">Урок 4</span> Пакет purrr<a class="anchor" aria-label="anchor" href="#%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr"><i class="fas fa-link"></i></a>
+</h1>
+<div id="описание-3" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Описание<a class="anchor" aria-label="anchor" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>Рассмотренные в прошлом уроке функции семейства <code>apply</code> действительно полноценно могут заменить цикл <code>for</code>, и повысить производительность вашего кода. Но есть и более продвинутые функционалы, которые пердоставляет пакет <code>purrr</code>.</p>
+<p>В этом уроке вы знаете:</p>
+<ul>
+<li>Какие преимущества даёт пакет <code>purrr</code> перед функциями <code>apply</code>.</li>
+<li>Познакомитесь с семействами функций <code>map</code>, <code>map2</code>, <code>pmap</code>, <code>invoke</code>.</li>
+<li>Узнаете некоторые другие дополнительные функции из пакета <code>purrr</code>.</li>
+</ul>
+</div>
+<div id="видео-3" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Видео<a class="anchor" aria-label="anchor" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-3"><i class="fas fa-link"></i></a>
+</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tFXYQwVUXY8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="тайм-коды-3" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Тайм коды<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>00:00 Вступление.<br>
+00:57 Какие преимущества даёт пакет <code>purrr</code>.<br>
+02:15 Какие семейства функций есть в <code>purrr</code>.<br>
+03:29 Семейство функций <code>map</code>.<br>
+04:26 Основные аргументы функций пакета <code>purrr</code>.<br>
+05:20 Работа с функциями семейства <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>.<br>
+08:23 Пример сравнения <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> с циклом <code>for</code>.<br>
+08:56 Функции <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dfc()</a></code>.<br>
+13:01 Итерирование сразу по нескольким объектам, семейства функций <code>map2</code> и <code>pmap</code>.<br>
+15:01 Синтаксис формул в <code>purrr.</code><br>
+20:05 Функции семейства <code>walk.</code><br>
+22:31 Функции <code><a href="https://purrr.tidyverse.org/reference/keep.html">keep()</a></code> и <code><a href="https://purrr.tidyverse.org/reference/keep.html">discard()</a></code>.<br>
+26:27 Итерация по функциям с помощью функций семейства <code>invoke</code>.<br>
+29:12 Функции <code><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce()</a></code> и <code><a href="https://purrr.tidyverse.org/reference/accumulate.html">accumulate()</a></code>.<br>
+34:23 Заключение.<br></p>
+</div>
+<div id="код-3" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Код<a class="anchor" aria-label="anchor" href="#%D0%BA%D0%BE%D0%B4-3"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages('purrr')</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+
+<span class="co"># функции map_*------------------------------------------------------------</span>
+<span class="co">## Генерируем случайные выборки с нормальным распределением</span>
+<span class="va">v_sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">v_sizes</span>, <span class="va">rnorm</span><span class="op">)</span>
+
+<span class="co"># используем доп аргументы</span>
+<span class="va">rnd_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">v_sizes</span>, <span class="va">runif</span>, min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">25</span><span class="op">)</span>
+<span class="co"># получаем вектора</span>
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">rnd_list</span>, <span class="va">mean</span><span class="op">)</span>
+<span class="co"># аналог в цикле</span>
+<span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="va">rnd_list</span> <span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>, <span class="st">" "</span><span class="op">)</span>
+
+<span class="co"># пример с таблицами</span>
+<span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  product_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,
+  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Notebook'</span>,
+           <span class="st">'Smarthphone'</span>,
+           <span class="st">'Smart watch'</span>,
+           <span class="st">'PC'</span>,
+           <span class="st">'Playstation'</span>,
+           <span class="st">'TV'</span>,
+           <span class="st">'XBox'</span>,
+           <span class="st">'Wifi router'</span>,
+           <span class="st">'Air conditioning'</span>,
+           <span class="st">'Tablet'</span><span class="op">)</span>,
+  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">850</span>, <span class="fl">380</span>, <span class="fl">1500</span>, <span class="fl">1000</span>, <span class="fl">700</span>, <span class="fl">870</span>, <span class="fl">80</span>, <span class="fl">500</span>, <span class="fl">150</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">managers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Svetlana"</span>, <span class="st">"Andrey"</span>, <span class="st">"Ivan"</span><span class="op">)</span>
+<span class="va">clients</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'client '</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span>
+
+<span class="va">create_transaction</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
+  <span class="va">transaction_id</span>,
+  <span class="va">products_number</span> <span class="op">=</span> <span class="fl">3</span>,
+  <span class="va">product_dict</span>,
+  <span class="va">counts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,
+  <span class="va">dates</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
+  <span class="va">managers</span>,
+  <span class="va">clients</span>
+<span class="op">)</span> <span class="op">{</span>
+
+  <span class="va">transaction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html">sample_n</a></span><span class="op">(</span><span class="va">product_dict</span>, size <span class="op">=</span> <span class="va">products_number</span>, replace <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">dates</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">'day'</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1</span> <span class="op">)</span>,
+                         manager  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">managers</span>, <span class="fl">1</span><span class="op">)</span>,
+                         clients  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">clients</span>, <span class="fl">1</span><span class="op">)</span>,
+                         count    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">counts</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="va">products_number</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,
+                         sale_sum <span class="op">=</span> <span class="va">price</span> <span class="op">*</span> <span class="va">count</span>,
+                         <span class="va">transaction_id</span><span class="op">)</span>
+
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">transaction</span><span class="op">)</span>
+
+<span class="op">}</span>
+
+<span class="co"># генерируем 5 транзакций</span>
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,
+        <span class="va">create_transaction</span>,
+            products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,
+            product_dict <span class="op">=</span> <span class="va">products</span>,
+            counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,
+            dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
+            managers <span class="op">=</span> <span class="va">managers</span>,
+            clients <span class="op">=</span> <span class="va">clients</span>,
+        .id <span class="op">=</span> <span class="st">'transaction_id'</span><span class="op">)</span>
+
+<span class="co"># функции pmap_* ----------------------------------------------------------</span>
+<span class="co"># для итерации по двум объектам можно использовтаь функции map2_*</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>
+
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">+</span> <span class="va">.y</span><span class="op">)</span>
+
+<span class="co"># если необходимо итерировать более чем по двум объектам используйте pmap_*</span>
+<span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  transaction_id  <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,
+  products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span>,
+  product_dict    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">products</span>, <span class="va">products</span>, <span class="va">products</span><span class="op">)</span>,
+  counts          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span>,
+  dates           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-01'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-04'</span><span class="op">)</span><span class="op">)</span>,
+                         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-05'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-08'</span><span class="op">)</span><span class="op">)</span>,
+                         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-09'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-14'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
+  managers        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">managers</span>, <span class="va">managers</span>, <span class="va">managers</span><span class="op">)</span>,
+  clients         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">clients</span>, <span class="va">clients</span>, <span class="va">clients</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">tranaction_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">create_transaction</span><span class="op">)</span>
+
+<span class="co"># функции walk ------------------------------------------------------------</span>
+<span class="co"># генерируем 7 транзакций</span>
+<span class="va">transactions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>,
+                    <span class="va">create_transaction</span>,
+                    products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,
+                    product_dict <span class="op">=</span> <span class="va">products</span>,
+                    counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,
+                    dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
+                    managers <span class="op">=</span> <span class="va">managers</span>,
+                    clients <span class="op">=</span> <span class="va">clients</span><span class="op">)</span>
+
+<span class="va">file_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'transaction_'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="st">".csv"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">walk2</a></span><span class="op">(</span>
+  .x <span class="op">=</span> <span class="va">transactions</span>,
+  .y <span class="op">=</span> <span class="va">file_names</span>,
+  <span class="va">write.csv</span>
+<span class="op">)</span>
+
+<span class="co"># функции keep и discard --------------------------------------------------</span>
+<span class="co"># смотрим количество товаров в транзакциях</span>
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">transactions</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span><span class="op">)</span>
+<span class="co"># оставить транзакции с суммой более 3000</span>
+<span class="va">transactions</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">3000</span><span class="op">)</span>
+<span class="co"># исключить транзакции с суммой более 4000</span>
+<span class="va">transactions</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">discard</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">4000</span><span class="op">)</span>
+
+<span class="co"># теперь используем в конвейере функции keep и walk</span>
+<span class="va">transactions</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">3000</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">walk2</a></span><span class="op">(</span>
+    .x <span class="op">=</span> <span class="va">.</span>,
+    .y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'transaction_3k_'</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="st">".csv"</span><span class="op">)</span>,
+    <span class="va">write.csv</span>
+  <span class="op">)</span>
+
+
+<span class="co"># применяем несколько функций к объекту invoke ----------------------------</span>
+<span class="va">fun</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'mean'</span>, <span class="st">'sum'</span>, <span class="st">'length'</span><span class="op">)</span>
+<span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x   <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>... <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x   <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map_dbl</a></span><span class="op">(</span><span class="va">fun</span>, <span class="va">params</span><span class="op">)</span>
+
+
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"runif"</span>, <span class="st">"rpois"</span>, <span class="st">"rnorm"</span><span class="op">)</span>,
+  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, lambda <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">df</span>
+
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">f</span>, <span class="va">df</span><span class="op">$</span><span class="va">params</span><span class="op">)</span>
+
+
+<span class="co"># функции reduce и accumulate ---------------------------------------------</span>
+<span class="co"># допустим что у нас каждый менеджер имеет индивидуальный процент от продаж</span>
+<span class="co"># А каждый клиент персональную скидку по договору</span>
+<span class="va">managers_dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  manager <span class="op">=</span> <span class="va">managers</span>,
+  department <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Sale'</span>, <span class="st">'Sale'</span>, <span class="st">'Marketing'</span><span class="op">)</span>,
+  salary_percent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.12</span>, <span class="fl">0.2</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">clients_dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  clients <span class="op">=</span> <span class="va">clients</span>,
+  discount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">clients</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">data_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">tranaction_df</span>, <span class="va">managers_dict</span>, <span class="va">clients_dict</span><span class="op">)</span>
+
+<span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">transaction_data</span>, <span class="va">left_join</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>manager_bonus <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">*</span> <span class="va">salary_percent</span>,
+         total_sum <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">-</span> <span class="op">(</span><span class="va">sale_sum</span> <span class="op">*</span> <span class="va">discount</span><span class="op">)</span>,
+         cumulate_minuses <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/accumulate.html">accumulate</a></span><span class="op">(</span><span class="va">sale_sum</span> <span class="op">-</span> <span class="va">total_sum</span> <span class="op">+</span> <span class="va">manager_bonus</span>, <span class="va">sum</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># эквивалент на чистом dplyr</span>
+<span class="va">tranaction_df</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">managers_dict</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">clients_dict</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>manager_bonus <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">*</span> <span class="va">salary_percent</span>,
+         total_sum <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">-</span> <span class="op">(</span><span class="va">sale_sum</span> <span class="op">*</span> <span class="va">discount</span><span class="op">)</span>,
+         cumulate_minuses <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">sale_sum</span> <span class="op">-</span> <span class="va">total_sum</span> <span class="op">+</span> <span class="va">manager_bonus</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="презентация-2" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Презентация<a class="anchor" aria-label="anchor" href="#%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-2"><i class="fas fa-link"></i></a>
+</h2>
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/faQQQTIOyMN5EO" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
+</iframe>
+<div style="margin-bottom:5px">
+<strong> <a href="https://www.slideshare.net/ssuser459d25/purrr" title="Пакет purrr" target="_blank">Пакет purrr</a> </strong> from <strong><a href="https://www.slideshare.net/ssuser459d25" target="_blank">Алексей Селезнёв</a></strong>
+</div>
+</div>
+<div id="тест-3" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> Тест<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B5%D1%81%D1%82-3"><i class="fas fa-link"></i></a>
+</h2>
+<iframe id="otp_wgt_tyqfj4qmcv6ag" src="https://onlinetestpad.com/tyqfj4qmcv6ag" frameborder="0" style="width:100%;" onload="var f = document.getElementById('otp_wgt_tyqfj4qmcv6ag'); var h = 0; var listener = function (event) { if (event.origin.indexOf('onlinetestpad') == -1) { return; }; h = parseInt(event.data); if (!isNaN(h)) f.style.height = h + 'px'; }; function addEvent(elem, evnt, func) { if (elem.addEventListener) { elem.addEventListener(evnt, func, false); } else if (elem.attachEvent) { elem.attachEvent('on' + evnt, func); } else { elem['on' + evnt] = func; } }; addEvent(window, 'message', listener);" scrolling="no">
+</iframe>
+</div>
+<div id="дополнительные-материалы-1" class="section level2" number="4.7">
+<h2>
+<span class="header-section-number">4.7</span> Дополнительные материалы<a class="anchor" aria-label="anchor" href="#%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B-1"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Крайне рекомендую ознакомится с 17 главой книги <a href="http://www.williamspublishing.com/Books/978-5-9909446-8-8.html">“Язык R в задачах науки о данных”</a>.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html"><span class="header-section-number">3</span> Функции семейства apply</a></div>
+<div class="next"><a href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html"><span class="header-section-number">5</span> Обработка ошибок: функции safely(), possibly(), quietly()</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr"><span class="header-section-number">4</span> Пакет purrr</a></li>
+<li><a class="nav-link" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-3"><span class="header-section-number">4.1</span> Описание</a></li>
+<li><a class="nav-link" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-3"><span class="header-section-number">4.2</span> Видео</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B-3"><span class="header-section-number">4.3</span> Тайм коды</a></li>
+<li><a class="nav-link" href="#%D0%BA%D0%BE%D0%B4-3"><span class="header-section-number">4.4</span> Код</a></li>
+<li><a class="nav-link" href="#%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-2"><span class="header-section-number">4.5</span> Презентация</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B5%D1%81%D1%82-3"><span class="header-section-number">4.6</span> Тест</a></li>
+<li><a class="nav-link" href="#%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B-1"><span class="header-section-number">4.7</span> Дополнительные материалы</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/selesnow/iterations_in_r/blob/master/4-purrr.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/selesnow/iterations_in_r/edit/master/4-purrr.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-03-30.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

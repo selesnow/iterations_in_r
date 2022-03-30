@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Урок 2 Обработка ошибок: конструкции try() и tryCatch() | Курс ‘Циклы и функционалы в языке R’</title>
+<meta name="author" content="Алексей Селезнёв">
+<meta name="description" content="2.1 Описание На предыдущем уроке мы разобрали всевозможные варианты циклов в языке R, они выполнят сфою функцию, если на одной из итераций не столкнутся с ошибкой, а в противном случае работа...">
+<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta property="og:title" content="Урок 2 Обработка ошибок: конструкции try() и tryCatch() | Курс ‘Циклы и функционалы в языке R’">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/img/cover.png">
+<meta property="og:description" content="2.1 Описание На предыдущем уроке мы разобрали всевозможные варианты циклов в языке R, они выполнят сфою функцию, если на одной из итераций не столкнутся с ошибкой, а в противном случае работа...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Урок 2 Обработка ошибок: конструкции try() и tryCatch() | Курс ‘Циклы и функционалы в языке R’">
+<meta name="twitter:description" content="2.1 Описание На предыдущем уроке мы разобрали всевозможные варианты циклов в языке R, они выполнят сфою функцию, если на одной из итераций не столкнутся с ошибкой, а в противном случае работа...">
+<meta name="twitter:image" content="/img/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-114798296-1');
+    </script><link rel="shortcut icon" href="img/favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Курс ‘Циклы и функционалы в языке R’</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Введение</a></li>
+<li><a class="" href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html"><span class="header-section-number">1</span> Циклы for, while и repeat</a></li>
+<li><a class="active" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch.html"><span class="header-section-number">2</span> Обработка ошибок: конструкции try() и tryCatch()</a></li>
+<li><a class="" href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html"><span class="header-section-number">3</span> Функции семейства apply</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-purrr.html"><span class="header-section-number">4</span> Пакет purrr</a></li>
+<li><a class="" href="%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-safely-possibly-quietly.html"><span class="header-section-number">5</span> Обработка ошибок: функции safely(), possibly(), quietly()</a></li>
+<li><a class="" href="%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BF%D0%BE%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B2-r.html"><span class="header-section-number">6</span> Многопоточность в R</a></li>
+<li><a class="" href="%D0%BF%D0%B0%D0%BA%D0%B5%D1%82-future.html"><span class="header-section-number">7</span> Пакет future</a></li>
+<li><a class="" href="%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5.html">Заключение</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/selesnow/iterations_in_r">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="обработка-ошибок-конструкции-try-и-trycatch" class="section level1" number="2">
+<h1>
+<span class="header-section-number">Урок 2</span> Обработка ошибок: конструкции try() и tryCatch()<a class="anchor" aria-label="anchor" href="#%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch"><i class="fas fa-link"></i></a>
+</h1>
+<div id="описание-1" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Описание<a class="anchor" aria-label="anchor" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>На предыдущем уроке мы разобрали всевозможные варианты циклов в языке R, они выполнят сфою функцию, если на одной из итераций не столкнутся с ошибкой, а в противном случае работа цикла не будет завершена и остановится на одной из итераций.</p>
+<p>В этом уроке мы разберёмся с конструкциями <code><a href="https://rdrr.io/r/base/try.html">try()</a></code> и <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code> которые позволяют вам перехватывать и обрабатывать ошибки в R.</p>
+</div>
+<div id="видео-1" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Видео<a class="anchor" aria-label="anchor" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-1"><i class="fas fa-link"></i></a>
+</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GvmjW34IHu8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="тайм-коды-1" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Тайм коды<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B-1"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Конструкция try() ( 0:37 )</li>
+<li>Как использовать try() внутри цикла for ( 2:54 )</li>
+<li>Конструкция tryCatch() ( 7:16 )</li>
+<li>Обработка ошибок с помощью tryCatch() ( 12:32 )</li>
+<li>Как использовать tryCatch() внутри цикла for ( 13:39 )</li>
+<li>Блок finally в конструкции tryCatch() (15:27 )</li>
+<li>Работа с пользовательскими классами исключений ( 19:09 )</li>
+<li>Векторизируем конструкцию tryCatch() с помощью lapply() ( 24:11 )</li>
+</ol>
+</div>
+<div id="код-1" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Код<a class="anchor" aria-label="anchor" href="#%D0%BA%D0%BE%D0%B4-1"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># рабочая директория</span>
+<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">r'(C:\Users\Alsey\Documents\try_catch_lesson)'</span><span class="op">)</span>
+
+<span class="co"># Конструкция try</span>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span> <span class="fl">10</span> <span class="op">/</span> <span class="st">'u'</span> <span class="op">)</span>
+
+<span class="co"># класс объекта</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+
+<span class="co"># сообщение</span>
+<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">'condition'</span><span class="op">)</span>
+
+<span class="co"># пример </span>
+<span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">2</span>, <span class="st">'x'</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="st">'t'</span>, <span class="fl">9</span><span class="op">)</span>
+
+<span class="kw">for</span> <span class="op">(</span> <span class="va">val</span> <span class="kw">in</span> <span class="va">values</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="va">res</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span> <span class="va">val</span> <span class="op">/</span> <span class="fl">10</span>, silent <span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span>
+  
+  <span class="kw">if</span> <span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">==</span> <span class="st">'try-error'</span> <span class="op">)</span> <span class="op">{</span>
+    
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">'condition'</span><span class="op">)</span><span class="op">)</span> 
+    
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span> <span class="va">val</span>, <span class="st">" / 10 = "</span>, <span class="va">res</span><span class="op">)</span><span class="op">)</span>
+    
+  <span class="op">}</span>
+  
+<span class="op">}</span>
+
+
+<span class="co"># Конструкция tryCatch</span>
+<span class="co">## обработка ошибок</span>
+<span class="co">### функция</span>
+<span class="va">div</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
+  
+  <span class="kw">if</span> <span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span>
+    
+    <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Y is NA"</span><span class="op">)</span>
+    
+  <span class="op">}</span> 
+  
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span> <span class="va">x</span> <span class="op">/</span> <span class="va">y</span> <span class="op">)</span>
+  
+<span class="op">}</span>
+
+<span class="co">### значение</span>
+<span class="va">val</span> <span class="op">&lt;-</span> <span class="st">"just text"</span>
+
+<span class="co">### проверка</span>
+<span class="va">result</span> <span class="op">&lt;-</span> 
+  <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span> 
+    expr <span class="op">=</span> <span class="op">{</span>
+      
+      <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">div</span><span class="op">(</span><span class="fl">10</span>, <span class="va">val</span><span class="op">)</span>
+      
+    <span class="op">}</span>,
+    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">err</span><span class="op">)</span> <span class="op">{</span>
+      
+      <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="va">err</span><span class="op">$</span><span class="va">message</span><span class="op">)</span>
+      <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+      
+    <span class="op">}</span>,
+    warning <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">war</span><span class="op">)</span> <span class="op">{</span>
+      
+      <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="va">war</span><span class="op">$</span><span class="va">message</span><span class="op">)</span>
+      <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+      
+    <span class="op">}</span><span class="op">)</span>
+
+
+<span class="co">### обработка ошибок</span>
+<span class="kw">if</span> <span class="op">(</span> <span class="st">'error'</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span>  <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"Catch"</span><span class="op">)</span>
+  
+<span class="op">}</span>
+
+<span class="co">### в цикле </span>
+<span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">8</span>, <span class="st">"text"</span><span class="op">)</span>
+
+<span class="kw">for</span> <span class="op">(</span> <span class="va">val</span> <span class="kw">in</span> <span class="va">values</span> <span class="op">)</span> <span class="op">{</span>
+  
+  <span class="va">temp</span> <span class="op">&lt;-</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span><span class="op">{</span>
+      <span class="fu">div</span><span class="op">(</span><span class="fl">10</span>, <span class="va">val</span><span class="op">)</span>
+    <span class="op">}</span>,
+    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">err</span><span class="op">)</span> <span class="op">{</span>
+      
+      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">err</span><span class="op">$</span><span class="va">message</span><span class="op">)</span>
+      
+    <span class="op">}</span><span class="op">)</span>
+  
+  <span class="kw">if</span> <span class="op">(</span> <span class="st">'error'</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span> <span class="op">)</span> <span class="kw">next</span>
+<span class="op">}</span>
+
+
+<span class="co"># блок finnaly</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org">DBI</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rsqlite.r-dbi.org">RSQLite</a></span><span class="op">)</span>
+
+<span class="co">## подключение</span>
+<span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">'my.db'</span><span class="op">)</span>
+<span class="co">## создаём фрейм</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,
+                 b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
+
+<span class="co">## попытка записать данные</span>
+<span class="va">out</span> <span class="op">&lt;-</span> 
+  <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span>
+    <span class="op">{</span>
+      
+      <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, 
+                   <span class="st">'my_data'</span>,
+                   <span class="va">df</span><span class="op">)</span>
+      
+    <span class="op">}</span>,
+    
+    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">err</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">err</span><span class="op">$</span><span class="va">message</span><span class="op">)</span>
+      <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">err</span><span class="op">)</span>
+    <span class="op">}</span>,
+    
+    finally <span class="op">=</span> <span class="op">{</span>
+      
+      <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Закрываю соединение"</span><span class="op">)</span>
+      <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">)</span>
+
+<span class="co"># создаём собственные классы исключений</span>
+<span class="co">## функция дл ягенерации собственных классов исключений</span>
+<span class="va">exception</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">class</span>, <span class="va">msg</span><span class="op">)</span>
+  <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/conditions.html">errorCondition</a></span><span class="op">(</span><span class="va">msg</span>, class <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">}</span>
+
+<span class="co">## функция в которой будем использовать собственные классы исключений</span>
+<span class="va">divideByX</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
+  <span class="co"># исключения</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">exception</span><span class="op">(</span><span class="st">"NonScalar"</span>, <span class="st">"x is not length 1"</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">exception</span><span class="op">(</span><span class="st">"IsNA"</span>, <span class="st">"x is NA"</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">exception</span><span class="op">(</span><span class="st">"DivByZero"</span>, <span class="st">"divide by zero"</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="co"># результат</span>
+  <span class="fl">10</span> <span class="op">/</span> <span class="va">x</span>
+<span class="op">}</span>
+
+<span class="co">## обработка исключений</span>
+<span class="va">val</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span>
+  <span class="op">{</span>
+    <span class="fu">divideByX</span><span class="op">(</span><span class="va">val</span><span class="op">)</span>
+  <span class="op">}</span>, 
+  IsNA <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Catch"</span><span class="op">)</span>
+  <span class="op">}</span>,
+  NonScalar <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Catch2"</span><span class="op">)</span>
+  <span class="op">}</span>,
+  DivByZero <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">'Catch3'</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">)</span>
+
+<span class="co"># векторизируем обработку исключений</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span>, 
+       <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span><span class="op">{</span>
+         
+           <span class="fu">divideByX</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+         
+       <span class="op">}</span>, 
+       IsNA<span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">err</span><span class="op">)</span> <span class="op">{</span>
+            <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="va">err</span><span class="op">)</span>  <span class="co"># signal a warning, return NA</span>
+            <span class="cn">NA</span>
+       <span class="op">}</span>, 
+       NonScalar<span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">err</span><span class="op">)</span> <span class="op">{</span>
+            <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="va">err</span><span class="op">)</span>     <span class="co"># fail</span>
+       <span class="op">}</span>,
+       DivByZero<span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">err</span><span class="op">)</span> <span class="op">{</span>
+            <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="va">err</span><span class="op">)</span>
+       <span class="op">}</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+</div>
+<div id="тест-1" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Тест<a class="anchor" aria-label="anchor" href="#%D1%82%D0%B5%D1%81%D1%82-1"><i class="fas fa-link"></i></a>
+</h2>
+<iframe id="otp_wgt_mzdrk6jdooizg" src="https://onlinetestpad.com/mzdrk6jdooizg" frameborder="0" style="width:100%;" onload="var f = document.getElementById('otp_wgt_mzdrk6jdooizg'); var h = 0; var listener = function (event) { if (event.origin.indexOf('onlinetestpad') == -1) { return; }; h = parseInt(event.data); if (!isNaN(h)) f.style.height = h + 'px'; }; function addEvent(elem, evnt, func) { if (elem.addEventListener) { elem.addEventListener(evnt, func, false); } else if (elem.attachEvent) { elem.attachEvent('on' + evnt, func); } else { elem['on' + evnt] = func; } }; addEvent(window, 'message', listener);" scrolling="no">
+</iframe>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%D1%86%D0%B8%D0%BA%D0%BB%D1%8B-for-while-%D0%B8-repeat.html"><span class="header-section-number">1</span> Циклы for, while и repeat</a></div>
+<div class="next"><a href="%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-apply.html"><span class="header-section-number">3</span> Функции семейства apply</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8-try-%D0%B8-trycatch"><span class="header-section-number">2</span> Обработка ошибок: конструкции try() и tryCatch()</a></li>
+<li><a class="nav-link" href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-1"><span class="header-section-number">2.1</span> Описание</a></li>
+<li><a class="nav-link" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-1"><span class="header-section-number">2.2</span> Видео</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B0%D0%B9%D0%BC-%D0%BA%D0%BE%D0%B4%D1%8B-1"><span class="header-section-number">2.3</span> Тайм коды</a></li>
+<li><a class="nav-link" href="#%D0%BA%D0%BE%D0%B4-1"><span class="header-section-number">2.4</span> Код</a></li>
+<li><a class="nav-link" href="#%D1%82%D0%B5%D1%81%D1%82-1"><span class="header-section-number">2.5</span> Тест</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/selesnow/iterations_in_r/blob/master/2-tryCatch.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/selesnow/iterations_in_r/edit/master/2-tryCatch.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-03-30.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

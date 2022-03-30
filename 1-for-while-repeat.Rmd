@@ -1,0 +1,170 @@
+# Циклы for, while и repeat
+
+## Описание
+^[Материал из википедии: https://ru.wikipedia.org/wiki/Цикл_(программирование)]Цикл — разновидность управляющей конструкции в высокоуровневых языках программирования, предназначенная для организации многократного исполнения набора инструкций. 
+
+В повседневной жизни мы тоже ежедневно сталкиваемся с циклами. Например, вам необходимо перенести из кухни в комнату 5 больших коробок с посудой, за один раз вы можете поднть только одну коробку. Т.е. вам понадобится пять раз выполнить одно и тоже дейтсвие, это и есть цикл, а перенос одной коробки это одна итерация цикла.
+
+Первый урок курса поможет вам разобраться с тем:
+
+* Что такое циклы;
+* Какие циклы есть в базовом синтаксисе языка R;
+* Как итерироваться циклами по наиболее распространённым структурам данных в R;
+* Как правильно объединять результаты полученные на разных итерациях цикла;
+* Как использовать операторы `next` и `break`.
+
+Данный урок расчитан на начальный уровень подготовки, и является достаточно базовым.
+
+## Видео
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w3v-Gqwxzcc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Тайм коды
+00:00 Введение.<Br>
+00:28 Что такое циклы<Br>
+00:58 Какие циклы есть в языке R.<Br>
+01:44 Синтаксис цикла `for`.<Br>
+02:40 Перебираем вектор циклом `for`.<Br>
+03:34 Переход на следующую итерацию цикла с помощью оператора `next`.<Br>
+04:50 Перебираем список циклом `for`.<Br>
+06:52 Перебираем циклом `for` столбцы и строки таблиц (`data.frame`).<Br>
+09:38 Вложенные циклы `for`.<Br>
+10:55 Как правильно объединять в цикле таблицы. Считываем циклом данные из множества csv файлов и объединяем в один `data.frame`.<Br>
+14:11 Синтаксис цикла `while`.<Br>
+15:25 Выход из цикла с помощью оператора `break`.<Br>
+17:12 Синтаксис цикла `repeat`.<Br>
+18:30 В чём разница между циклами `while` и `repeat` в языке R.<Br>
+19:47 Почему в R не принято использовать циклы.<Br>
+21:17 Заключение.<Br>
+
+## Код
+```{r, eval=FALSE}
+# циклы в базовом синтаксисе R
+
+
+# for ---------------------------------------------------------------------
+## выполняется до тех пор,
+## пока в итерируем оъекте не будут перебраны
+## все элементы
+
+## итерирование по вектору
+week <- c('Sunday', 
+          'Monday', 
+          'Tuesday', 
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday')
+
+for ( day in week ) {
+  
+  print(n)
+  Sys.sleep(0.25)
+  
+}
+
+## итерирование по списку
+persons <- list(
+  list(name = "Alexey", age = 36), 
+  list(name = "Justin", age = 27),
+  list(name = "Piter",  age = 22),
+  list(name = "Sergey", age = 39))
+
+## оператор next позволяет переходить на следующую итерацию
+for ( person in persons ) {
+  
+  if ( person$age < 30 ) next
+  
+  print( paste0( person$name, " is ", person$age, " years old") )
+  
+} 
+
+## итерирование по таблицам
+for ( col in mtcars ) {
+  print(mean(col))
+  names(col)
+}
+
+## итерирование по строкам таблицы
+for ( row in 1:nrow(mtcars) ) {
+  print(mtcars[row, c('cyl', 'gear')])
+}
+
+## вложенные циклы for
+x <- 1:5
+y <- letters[1:5]
+  
+for ( int in x ) {
+  
+  for ( let in y ) {
+    
+    print(paste0(int, ": ", let))
+    
+  }
+  
+}
+
+## как поступить если мне надо на каждой итерации объединять таблицы
+setwd('docs')
+files <- dir()
+result <- list()
+
+for ( file in files ) {
+  
+  temp_df <- read.csv(file)
+
+  result <- append(result, list(temp_df))
+  
+}
+
+# объединяем результаты в одну таблицу
+result <- do.call('rbind', result)
+
+
+
+# while -------------------------------------------------------------------
+## итерируется до тех пор,
+## пока истинно заданное условие
+x <- 1
+
+while ( x < 10 ) {
+  
+  print(x)
+  x <- x + 1
+  
+}
+
+# оператор break
+x <- 1
+while ( x < 20 ) {
+  
+  print(x)
+  
+  if ( x / 2 == 5 ) break
+  
+  x <- x + 1
+  
+}
+
+# repeate -----------------------------------------------------------------
+## итерируется до тех пор,
+## пока не встретит break
+x <- 1
+
+repeat {
+  
+  print(x)
+  
+  if (x / 2 == 5) break
+  
+  x <- x + 1
+}
+
+```
+
+## Презентация
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/MsxVJOZlhKXz7L" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/ssuser459d25/r-250846317" title="Циклы в R" target="_blank">Циклы в R</a> </strong> from <strong><a href="https://www.slideshare.net/ssuser459d25" target="_blank">Алексей Селезнёв</a></strong> </div>
+
+## Тест
+<iframe id="otp_wgt_d3ufq77hqi6de" src="https://onlinetestpad.com/d3ufq77hqi6de" frameborder="0" style="width:100%;" onload="var f = document.getElementById('otp_wgt_d3ufq77hqi6de'); var h = 0; var listener = function (event) { if (event.origin.indexOf('onlinetestpad') == -1) { return; }; h = parseInt(event.data); if (!isNaN(h)) f.style.height = h + 'px'; }; function addEvent(elem, evnt, func) { if (elem.addEventListener) { elem.addEventListener(evnt, func, false); } else if (elem.attachEvent) { elem.attachEvent('on' + evnt, func); } else { elem['on' + evnt] = func; } }; addEvent(window, 'message', listener);" scrolling="no">
+</iframe>
+
