@@ -1,7 +1,7 @@
 --- 
 title: "Курс 'Циклы и функционалы в языке R'"
 author: "Алексей Селезнёв"
-date: "2022-03-30"
+date: "2022-08-26"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

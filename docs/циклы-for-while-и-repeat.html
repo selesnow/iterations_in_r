@@ -7,7 +7,7 @@
 <title>Урок 1 Циклы for, while и repeat | Курс ‘Циклы и функционалы в языке R’</title>
 <meta name="author" content="Алексей Селезнёв">
 <meta name="description" content="1.1 Описание 1Цикл — разновидность управляющей конструкции в высокоуровневых языках программирования, предназначенная для организации многократного исполнения набора инструкций. В повседневной...">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
 <meta property="og:title" content="Урок 1 Циклы for, while и repeat | Курс ‘Циклы и функционалы в языке R’">
 <meta property="og:type" content="book">
 <meta property="og:image" content="/img/cover.png">
@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="/img/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -92,7 +92,7 @@
 <h2>
 <span class="header-section-number">1.2</span> Видео<a class="anchor" aria-label="anchor" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE"><i class="fas fa-link"></i></a>
 </h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/w3v-Gqwxzcc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w3v-Gqwxzcc?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
 </div>
 <div id="тайм-коды" class="section level2" number="1.3">
@@ -121,126 +121,126 @@
 <span class="header-section-number">1.4</span> Код<a class="anchor" aria-label="anchor" href="#%D0%BA%D0%BE%D0%B4"><i class="fas fa-link"></i></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># циклы в базовом синтаксисе R</span>
-
-
-<span class="co"># for ---------------------------------------------------------------------</span>
-<span class="co">## выполняется до тех пор,</span>
-<span class="co">## пока в итерируем оъекте не будут перебраны</span>
-<span class="co">## все элементы</span>
-
-<span class="co">## итерирование по вектору</span>
-<span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Sunday'</span>, 
-          <span class="st">'Monday'</span>, 
-          <span class="st">'Tuesday'</span>, 
-          <span class="st">'Wednesday'</span>,
-          <span class="st">'Thursday'</span>,
-          <span class="st">'Friday'</span>,
-          <span class="st">'Saturday'</span><span class="op">)</span>
-
-<span class="kw">for</span> <span class="op">(</span> <span class="va">day</span> <span class="kw">in</span> <span class="va">week</span> <span class="op">)</span> <span class="op">{</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.25</span><span class="op">)</span>
-  
-<span class="op">}</span>
-
-<span class="co">## итерирование по списку</span>
-<span class="va">persons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Alexey"</span>, age <span class="op">=</span> <span class="fl">36</span><span class="op">)</span>, 
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Justin"</span>, age <span class="op">=</span> <span class="fl">27</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Piter"</span>,  age <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Sergey"</span>, age <span class="op">=</span> <span class="fl">39</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">## оператор next позволяет переходить на следующую итерацию</span>
-<span class="kw">for</span> <span class="op">(</span> <span class="va">person</span> <span class="kw">in</span> <span class="va">persons</span> <span class="op">)</span> <span class="op">{</span>
-  
-  <span class="kw">if</span> <span class="op">(</span> <span class="va">person</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;</span> <span class="fl">30</span> <span class="op">)</span> <span class="kw">next</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span> <span class="va">person</span><span class="op">$</span><span class="va">name</span>, <span class="st">" is "</span>, <span class="va">person</span><span class="op">$</span><span class="va">age</span>, <span class="st">" years old"</span><span class="op">)</span> <span class="op">)</span>
-  
-<span class="op">}</span> 
-
-<span class="co">## итерирование по таблицам</span>
-<span class="kw">for</span> <span class="op">(</span> <span class="va">col</span> <span class="kw">in</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">## итерирование по строкам таблицы</span>
-<span class="kw">for</span> <span class="op">(</span> <span class="va">row</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="va">row</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'cyl'</span>, <span class="st">'gear'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">## вложенные циклы for</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-  
-<span class="kw">for</span> <span class="op">(</span> <span class="va">int</span> <span class="kw">in</span> <span class="va">x</span> <span class="op">)</span> <span class="op">{</span>
-  
-  <span class="kw">for</span> <span class="op">(</span> <span class="va">let</span> <span class="kw">in</span> <span class="va">y</span> <span class="op">)</span> <span class="op">{</span>
-    
-    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">int</span>, <span class="st">": "</span>, <span class="va">let</span><span class="op">)</span><span class="op">)</span>
-    
-  <span class="op">}</span>
-  
-<span class="op">}</span>
-
-<span class="co">## как поступить если мне надо на каждой итерации объединять таблицы</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">'docs'</span><span class="op">)</span>
-<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="kw">for</span> <span class="op">(</span> <span class="va">file</span> <span class="kw">in</span> <span class="va">files</span> <span class="op">)</span> <span class="op">{</span>
-  
-  <span class="va">temp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
-
-  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="va">result</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">temp_df</span><span class="op">)</span><span class="op">)</span>
-  
-<span class="op">}</span>
-
-<span class="co"># объединяем результаты в одну таблицу</span>
-<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">'rbind'</span>, <span class="va">result</span><span class="op">)</span>
-
-
-
-<span class="co"># while -------------------------------------------------------------------</span>
-<span class="co">## итерируется до тех пор,</span>
-<span class="co">## пока истинно заданное условие</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-
-<span class="kw">while</span> <span class="op">(</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">10</span> <span class="op">)</span> <span class="op">{</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
-  
-<span class="op">}</span>
-
-<span class="co"># оператор break</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="kw">while</span> <span class="op">(</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">20</span> <span class="op">)</span> <span class="op">{</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  
-  <span class="kw">if</span> <span class="op">(</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span> <span class="op">)</span> <span class="kw">break</span>
-  
-  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
-  
-<span class="op">}</span>
-
-<span class="co"># repeate -----------------------------------------------------------------</span>
-<span class="co">## итерируется до тех пор,</span>
-<span class="co">## пока не встретит break</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-
-<span class="kw">repeat</span> <span class="op">{</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  
-  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span> <span class="kw">break</span>
-  
-  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># циклы в базовом синтаксисе R</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># for ---------------------------------------------------------------------</span></span>
+<span><span class="co">## выполняется до тех пор,</span></span>
+<span><span class="co">## пока в итерируем оъекте не будут перебраны</span></span>
+<span><span class="co">## все элементы</span></span>
+<span></span>
+<span><span class="co">## итерирование по вектору</span></span>
+<span><span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Sunday'</span>, </span>
+<span>          <span class="st">'Monday'</span>, </span>
+<span>          <span class="st">'Tuesday'</span>, </span>
+<span>          <span class="st">'Wednesday'</span>,</span>
+<span>          <span class="st">'Thursday'</span>,</span>
+<span>          <span class="st">'Friday'</span>,</span>
+<span>          <span class="st">'Saturday'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">day</span> <span class="kw">in</span> <span class="va">week</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">0.25</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">## итерирование по списку</span></span>
+<span><span class="va">persons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Alexey"</span>, age <span class="op">=</span> <span class="fl">36</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Justin"</span>, age <span class="op">=</span> <span class="fl">27</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Piter"</span>,  age <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Sergey"</span>, age <span class="op">=</span> <span class="fl">39</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## оператор next позволяет переходить на следующую итерацию</span></span>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">person</span> <span class="kw">in</span> <span class="va">persons</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span> <span class="va">person</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;</span> <span class="fl">30</span> <span class="op">)</span> <span class="kw">next</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span> <span class="va">person</span><span class="op">$</span><span class="va">name</span>, <span class="st">" is "</span>, <span class="va">person</span><span class="op">$</span><span class="va">age</span>, <span class="st">" years old"</span><span class="op">)</span> <span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span> </span>
+<span></span>
+<span><span class="co">## итерирование по таблицам</span></span>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">col</span> <span class="kw">in</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">## итерирование по строкам таблицы</span></span>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">row</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="va">row</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'cyl'</span>, <span class="st">'gear'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">## вложенные циклы for</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span>  </span>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">int</span> <span class="kw">in</span> <span class="va">x</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw">for</span> <span class="op">(</span> <span class="va">let</span> <span class="kw">in</span> <span class="va">y</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">int</span>, <span class="st">": "</span>, <span class="va">let</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">## как поступить если мне надо на каждой итерации объединять таблицы</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">'docs'</span><span class="op">)</span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">file</span> <span class="kw">in</span> <span class="va">files</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">temp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="va">result</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">temp_df</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># объединяем результаты в одну таблицу</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">'rbind'</span>, <span class="va">result</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># while -------------------------------------------------------------------</span></span>
+<span><span class="co">## итерируется до тех пор,</span></span>
+<span><span class="co">## пока истинно заданное условие</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="kw">while</span> <span class="op">(</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">10</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># оператор break</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="kw">while</span> <span class="op">(</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">20</span> <span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span> <span class="va">x</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span> <span class="op">)</span> <span class="kw">break</span></span>
+<span>  </span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># repeate -----------------------------------------------------------------</span></span>
+<span><span class="co">## итерируется до тех пор,</span></span>
+<span><span class="co">## пока не встретит break</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="kw">repeat</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span> <span class="kw">break</span></span>
+<span>  </span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div id="презентация" class="section level2" number="1.5">
 <h2>
@@ -292,7 +292,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-03-30.</p>
+    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-08-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

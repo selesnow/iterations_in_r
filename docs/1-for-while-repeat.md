@@ -16,7 +16,7 @@
 Данный урок расчитан на начальный уровень подготовки, и является достаточно базовым.
 
 ## Видео
-<iframe width="560" height="315" src="https://www.youtube.com/embed/w3v-Gqwxzcc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w3v-Gqwxzcc?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Тайм коды
 00:00 Введение.<Br>

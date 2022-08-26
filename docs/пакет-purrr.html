@@ -7,7 +7,7 @@
 <title>Урок 4 Пакет purrr | Курс ‘Циклы и функционалы в языке R’</title>
 <meta name="author" content="Алексей Селезнёв">
 <meta name="description" content="4.1 Описание Рассмотренные в прошлом уроке функции семейства apply действительно полноценно могут заменить цикл for, и повысить производительность вашего кода. Но есть и более продвинутые...">
-<meta name="generator" content="bookdown 0.25 with bs4_book()">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
 <meta property="og:title" content="Урок 4 Пакет purrr | Курс ‘Циклы и функционалы в языке R’">
 <meta property="og:type" content="book">
 <meta property="og:image" content="/img/cover.png">
@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="/img/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -88,7 +88,7 @@
 <h2>
 <span class="header-section-number">4.2</span> Видео<a class="anchor" aria-label="anchor" href="#%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-3"><i class="fas fa-link"></i></a>
 </h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tFXYQwVUXY8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tFXYQwVUXY8?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
 </div>
 <div id="тайм-коды-3" class="section level2" number="4.3">
@@ -116,188 +116,188 @@
 <span class="header-section-number">4.4</span> Код<a class="anchor" aria-label="anchor" href="#%D0%BA%D0%BE%D0%B4-3"><i class="fas fa-link"></i></a>
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages('purrr')</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-
-<span class="co"># функции map_*------------------------------------------------------------</span>
-<span class="co">## Генерируем случайные выборки с нормальным распределением</span>
-<span class="va">v_sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">v_sizes</span>, <span class="va">rnorm</span><span class="op">)</span>
-
-<span class="co"># используем доп аргументы</span>
-<span class="va">rnd_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">v_sizes</span>, <span class="va">runif</span>, min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">25</span><span class="op">)</span>
-<span class="co"># получаем вектора</span>
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">rnd_list</span>, <span class="va">mean</span><span class="op">)</span>
-<span class="co"># аналог в цикле</span>
-<span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="va">rnd_list</span> <span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>, <span class="st">" "</span><span class="op">)</span>
-
-<span class="co"># пример с таблицами</span>
-<span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  product_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,
-  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Notebook'</span>,
-           <span class="st">'Smarthphone'</span>,
-           <span class="st">'Smart watch'</span>,
-           <span class="st">'PC'</span>,
-           <span class="st">'Playstation'</span>,
-           <span class="st">'TV'</span>,
-           <span class="st">'XBox'</span>,
-           <span class="st">'Wifi router'</span>,
-           <span class="st">'Air conditioning'</span>,
-           <span class="st">'Tablet'</span><span class="op">)</span>,
-  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">850</span>, <span class="fl">380</span>, <span class="fl">1500</span>, <span class="fl">1000</span>, <span class="fl">700</span>, <span class="fl">870</span>, <span class="fl">80</span>, <span class="fl">500</span>, <span class="fl">150</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">managers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Svetlana"</span>, <span class="st">"Andrey"</span>, <span class="st">"Ivan"</span><span class="op">)</span>
-<span class="va">clients</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'client '</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span>
-
-<span class="va">create_transaction</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-  <span class="va">transaction_id</span>,
-  <span class="va">products_number</span> <span class="op">=</span> <span class="fl">3</span>,
-  <span class="va">product_dict</span>,
-  <span class="va">counts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,
-  <span class="va">dates</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
-  <span class="va">managers</span>,
-  <span class="va">clients</span>
-<span class="op">)</span> <span class="op">{</span>
-
-  <span class="va">transaction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html">sample_n</a></span><span class="op">(</span><span class="va">product_dict</span>, size <span class="op">=</span> <span class="va">products_number</span>, replace <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">dates</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">'day'</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1</span> <span class="op">)</span>,
-                         manager  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">managers</span>, <span class="fl">1</span><span class="op">)</span>,
-                         clients  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">clients</span>, <span class="fl">1</span><span class="op">)</span>,
-                         count    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">counts</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="va">products_number</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,
-                         sale_sum <span class="op">=</span> <span class="va">price</span> <span class="op">*</span> <span class="va">count</span>,
-                         <span class="va">transaction_id</span><span class="op">)</span>
-
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">transaction</span><span class="op">)</span>
-
-<span class="op">}</span>
-
-<span class="co"># генерируем 5 транзакций</span>
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,
-        <span class="va">create_transaction</span>,
-            products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,
-            product_dict <span class="op">=</span> <span class="va">products</span>,
-            counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,
-            dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
-            managers <span class="op">=</span> <span class="va">managers</span>,
-            clients <span class="op">=</span> <span class="va">clients</span>,
-        .id <span class="op">=</span> <span class="st">'transaction_id'</span><span class="op">)</span>
-
-<span class="co"># функции pmap_* ----------------------------------------------------------</span>
-<span class="co"># для итерации по двум объектам можно использовтаь функции map2_*</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>
-
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">+</span> <span class="va">.y</span><span class="op">)</span>
-
-<span class="co"># если необходимо итерировать более чем по двум объектам используйте pmap_*</span>
-<span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  transaction_id  <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,
-  products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span>,
-  product_dict    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">products</span>, <span class="va">products</span>, <span class="va">products</span><span class="op">)</span>,
-  counts          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span>,
-  dates           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-01'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-04'</span><span class="op">)</span><span class="op">)</span>,
-                         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-05'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-08'</span><span class="op">)</span><span class="op">)</span>,
-                         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-09'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-14'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-  managers        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">managers</span>, <span class="va">managers</span>, <span class="va">managers</span><span class="op">)</span>,
-  clients         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">clients</span>, <span class="va">clients</span>, <span class="va">clients</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">tranaction_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">create_transaction</span><span class="op">)</span>
-
-<span class="co"># функции walk ------------------------------------------------------------</span>
-<span class="co"># генерируем 7 транзакций</span>
-<span class="va">transactions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>,
-                    <span class="va">create_transaction</span>,
-                    products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,
-                    product_dict <span class="op">=</span> <span class="va">products</span>,
-                    counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,
-                    dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
-                    managers <span class="op">=</span> <span class="va">managers</span>,
-                    clients <span class="op">=</span> <span class="va">clients</span><span class="op">)</span>
-
-<span class="va">file_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'transaction_'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="st">".csv"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">walk2</a></span><span class="op">(</span>
-  .x <span class="op">=</span> <span class="va">transactions</span>,
-  .y <span class="op">=</span> <span class="va">file_names</span>,
-  <span class="va">write.csv</span>
-<span class="op">)</span>
-
-<span class="co"># функции keep и discard --------------------------------------------------</span>
-<span class="co"># смотрим количество товаров в транзакциях</span>
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">transactions</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># оставить транзакции с суммой более 3000</span>
-<span class="va">transactions</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">3000</span><span class="op">)</span>
-<span class="co"># исключить транзакции с суммой более 4000</span>
-<span class="va">transactions</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">discard</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">4000</span><span class="op">)</span>
-
-<span class="co"># теперь используем в конвейере функции keep и walk</span>
-<span class="va">transactions</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">3000</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">walk2</a></span><span class="op">(</span>
-    .x <span class="op">=</span> <span class="va">.</span>,
-    .y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'transaction_3k_'</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="st">".csv"</span><span class="op">)</span>,
-    <span class="va">write.csv</span>
-  <span class="op">)</span>
-
-
-<span class="co"># применяем несколько функций к объекту invoke ----------------------------</span>
-<span class="va">fun</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'mean'</span>, <span class="st">'sum'</span>, <span class="st">'length'</span><span class="op">)</span>
-<span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x   <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>... <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x   <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map_dbl</a></span><span class="op">(</span><span class="va">fun</span>, <span class="va">params</span><span class="op">)</span>
-
-
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"runif"</span>, <span class="st">"rpois"</span>, <span class="st">"rnorm"</span><span class="op">)</span>,
-  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, lambda <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">df</span>
-
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">f</span>, <span class="va">df</span><span class="op">$</span><span class="va">params</span><span class="op">)</span>
-
-
-<span class="co"># функции reduce и accumulate ---------------------------------------------</span>
-<span class="co"># допустим что у нас каждый менеджер имеет индивидуальный процент от продаж</span>
-<span class="co"># А каждый клиент персональную скидку по договору</span>
-<span class="va">managers_dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  manager <span class="op">=</span> <span class="va">managers</span>,
-  department <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Sale'</span>, <span class="st">'Sale'</span>, <span class="st">'Marketing'</span><span class="op">)</span>,
-  salary_percent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.12</span>, <span class="fl">0.2</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">clients_dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  clients <span class="op">=</span> <span class="va">clients</span>,
-  discount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">clients</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">data_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">tranaction_df</span>, <span class="va">managers_dict</span>, <span class="va">clients_dict</span><span class="op">)</span>
-
-<span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">transaction_data</span>, <span class="va">left_join</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>manager_bonus <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">*</span> <span class="va">salary_percent</span>,
-         total_sum <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">-</span> <span class="op">(</span><span class="va">sale_sum</span> <span class="op">*</span> <span class="va">discount</span><span class="op">)</span>,
-         cumulate_minuses <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/accumulate.html">accumulate</a></span><span class="op">(</span><span class="va">sale_sum</span> <span class="op">-</span> <span class="va">total_sum</span> <span class="op">+</span> <span class="va">manager_bonus</span>, <span class="va">sum</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># эквивалент на чистом dplyr</span>
-<span class="va">tranaction_df</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">managers_dict</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">clients_dict</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>manager_bonus <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">*</span> <span class="va">salary_percent</span>,
-         total_sum <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">-</span> <span class="op">(</span><span class="va">sale_sum</span> <span class="op">*</span> <span class="va">discount</span><span class="op">)</span>,
-         cumulate_minuses <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">sale_sum</span> <span class="op">-</span> <span class="va">total_sum</span> <span class="op">+</span> <span class="va">manager_bonus</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages('purrr')</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># функции map_*------------------------------------------------------------</span></span>
+<span><span class="co">## Генерируем случайные выборки с нормальным распределением</span></span>
+<span><span class="va">v_sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">v_sizes</span>, <span class="va">rnorm</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># используем доп аргументы</span></span>
+<span><span class="va">rnd_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">v_sizes</span>, <span class="va">runif</span>, min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
+<span><span class="co"># получаем вектора</span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">rnd_list</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="co"># аналог в цикле</span></span>
+<span><span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="va">rnd_list</span> <span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>, <span class="st">" "</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># пример с таблицами</span></span>
+<span><span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  product_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Notebook'</span>,</span>
+<span>           <span class="st">'Smarthphone'</span>,</span>
+<span>           <span class="st">'Smart watch'</span>,</span>
+<span>           <span class="st">'PC'</span>,</span>
+<span>           <span class="st">'Playstation'</span>,</span>
+<span>           <span class="st">'TV'</span>,</span>
+<span>           <span class="st">'XBox'</span>,</span>
+<span>           <span class="st">'Wifi router'</span>,</span>
+<span>           <span class="st">'Air conditioning'</span>,</span>
+<span>           <span class="st">'Tablet'</span><span class="op">)</span>,</span>
+<span>  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">850</span>, <span class="fl">380</span>, <span class="fl">1500</span>, <span class="fl">1000</span>, <span class="fl">700</span>, <span class="fl">870</span>, <span class="fl">80</span>, <span class="fl">500</span>, <span class="fl">150</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">managers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Svetlana"</span>, <span class="st">"Andrey"</span>, <span class="st">"Ivan"</span><span class="op">)</span></span>
+<span><span class="va">clients</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'client '</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">create_transaction</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
+<span>  <span class="va">transaction_id</span>,</span>
+<span>  <span class="va">products_number</span> <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  <span class="va">product_dict</span>,</span>
+<span>  <span class="va">counts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  <span class="va">dates</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">managers</span>,</span>
+<span>  <span class="va">clients</span></span>
+<span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="va">transaction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html">sample_n</a></span><span class="op">(</span><span class="va">product_dict</span>, size <span class="op">=</span> <span class="va">products_number</span>, replace <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>                  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">dates</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">'day'</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1</span> <span class="op">)</span>,</span>
+<span>                         manager  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">managers</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                         clients  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">clients</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                         count    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">counts</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">counts</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="va">products_number</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>                         sale_sum <span class="op">=</span> <span class="va">price</span> <span class="op">*</span> <span class="va">count</span>,</span>
+<span>                         <span class="va">transaction_id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">transaction</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># генерируем 5 транзакций</span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
+<span>        <span class="va">create_transaction</span>,</span>
+<span>            products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>            product_dict <span class="op">=</span> <span class="va">products</span>,</span>
+<span>            counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>            dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            managers <span class="op">=</span> <span class="va">managers</span>,</span>
+<span>            clients <span class="op">=</span> <span class="va">clients</span>,</span>
+<span>        .id <span class="op">=</span> <span class="st">'transaction_id'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># функции pmap_* ----------------------------------------------------------</span></span>
+<span><span class="co"># для итерации по двум объектам можно использовтаь функции map2_*</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">+</span> <span class="va">.y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># если необходимо итерировать более чем по двум объектам используйте pmap_*</span></span>
+<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  transaction_id  <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>  products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  product_dict    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">products</span>, <span class="va">products</span>, <span class="va">products</span><span class="op">)</span>,</span>
+<span>  counts          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  dates           <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-01'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-04'</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-05'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-08'</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-09'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">'2021-11-14'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  managers        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">managers</span>, <span class="va">managers</span>, <span class="va">managers</span><span class="op">)</span>,</span>
+<span>  clients         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">clients</span>, <span class="va">clients</span>, <span class="va">clients</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tranaction_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">create_transaction</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># функции walk ------------------------------------------------------------</span></span>
+<span><span class="co"># генерируем 7 транзакций</span></span>
+<span><span class="va">transactions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>,</span>
+<span>                    <span class="va">create_transaction</span>,</span>
+<span>                    products_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                    product_dict <span class="op">=</span> <span class="va">products</span>,</span>
+<span>                    counts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>                    dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                    managers <span class="op">=</span> <span class="va">managers</span>,</span>
+<span>                    clients <span class="op">=</span> <span class="va">clients</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">file_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'transaction_'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="st">".csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">walk2</a></span><span class="op">(</span></span>
+<span>  .x <span class="op">=</span> <span class="va">transactions</span>,</span>
+<span>  .y <span class="op">=</span> <span class="va">file_names</span>,</span>
+<span>  <span class="va">write.csv</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># функции keep и discard --------------------------------------------------</span></span>
+<span><span class="co"># смотрим количество товаров в транзакциях</span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">transactions</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># оставить транзакции с суммой более 3000</span></span>
+<span><span class="va">transactions</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">3000</span><span class="op">)</span></span>
+<span><span class="co"># исключить транзакции с суммой более 4000</span></span>
+<span><span class="va">transactions</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">discard</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">4000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># теперь используем в конвейере функции keep и walk</span></span>
+<span><span class="va">transactions</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">3000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">walk2</a></span><span class="op">(</span></span>
+<span>    .x <span class="op">=</span> <span class="va">.</span>,</span>
+<span>    .y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'transaction_3k_'</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="st">".csv"</span><span class="op">)</span>,</span>
+<span>    <span class="va">write.csv</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># применяем несколько функций к объекту invoke ----------------------------</span></span>
+<span><span class="va">fun</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'mean'</span>, <span class="st">'sum'</span>, <span class="st">'length'</span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x   <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>... <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x   <span class="op">=</span> <span class="va">tranaction_df</span><span class="op">$</span><span class="va">sale_sum</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map_dbl</a></span><span class="op">(</span><span class="va">fun</span>, <span class="va">params</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"runif"</span>, <span class="st">"rpois"</span>, <span class="st">"rnorm"</span><span class="op">)</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, lambda <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/invoke.html">invoke_map</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">f</span>, <span class="va">df</span><span class="op">$</span><span class="va">params</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># функции reduce и accumulate ---------------------------------------------</span></span>
+<span><span class="co"># допустим что у нас каждый менеджер имеет индивидуальный процент от продаж</span></span>
+<span><span class="co"># А каждый клиент персональную скидку по договору</span></span>
+<span><span class="va">managers_dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  manager <span class="op">=</span> <span class="va">managers</span>,</span>
+<span>  department <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Sale'</span>, <span class="st">'Sale'</span>, <span class="st">'Marketing'</span><span class="op">)</span>,</span>
+<span>  salary_percent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.12</span>, <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">clients_dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  clients <span class="op">=</span> <span class="va">clients</span>,</span>
+<span>  discount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">clients</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">tranaction_df</span>, <span class="va">managers_dict</span>, <span class="va">clients_dict</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">transaction_data</span>, <span class="va">left_join</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>manager_bonus <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">*</span> <span class="va">salary_percent</span>,</span>
+<span>         total_sum <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">-</span> <span class="op">(</span><span class="va">sale_sum</span> <span class="op">*</span> <span class="va">discount</span><span class="op">)</span>,</span>
+<span>         cumulate_minuses <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/accumulate.html">accumulate</a></span><span class="op">(</span><span class="va">sale_sum</span> <span class="op">-</span> <span class="va">total_sum</span> <span class="op">+</span> <span class="va">manager_bonus</span>, <span class="va">sum</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># эквивалент на чистом dplyr</span></span>
+<span><span class="va">tranaction_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">managers_dict</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">clients_dict</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>manager_bonus <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">*</span> <span class="va">salary_percent</span>,</span>
+<span>         total_sum <span class="op">=</span> <span class="va">sale_sum</span> <span class="op">-</span> <span class="op">(</span><span class="va">sale_sum</span> <span class="op">*</span> <span class="va">discount</span><span class="op">)</span>,</span>
+<span>         cumulate_minuses <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">sale_sum</span> <span class="op">-</span> <span class="va">total_sum</span> <span class="op">+</span> <span class="va">manager_bonus</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="презентация-2" class="section level2" number="4.5">
 <h2>
@@ -356,7 +356,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-03-30.</p>
+    <p>"<strong>Курс ‘Циклы и функционалы в языке R’</strong>" was written by Алексей Селезнёв. It was last built on 2022-08-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -3,7 +3,7 @@
 В заключительном уроке этого курса мы познакомимся с наиболее продвинутым интерйесом параллельного программирования на языке R, который предоставляет пакет `future`.
 
 ## Видео
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WV_f6GQkDhs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WV_f6GQkDhs?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Тайм коды
 00:00 Вступление.<Br>
