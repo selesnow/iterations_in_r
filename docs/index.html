@@ -10,12 +10,12 @@
 <meta name="generator" content="bookdown 0.28 with bs4_book()">
 <meta property="og:title" content="Введение | Курс ‘Циклы и функционалы в языке R’">
 <meta property="og:type" content="book">
-<meta property="og:image" content="/img/cover.png">
+<meta property="og:image" content="https://alexey-seleznev.pro/iterations_in_r/img/cover.png">
 <meta property="og:description" content="Бесплатный видео мини курс по итерационным операциям и многопоточности в языке R">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Введение | Курс ‘Циклы и функционалы в языке R’">
 <meta name="twitter:description" content="Бесплатный видео мини курс по итерационным операциям и многопоточности в языке R">
-<meta name="twitter:image" content="/img/cover.png">
+<meta name="twitter:image" content="https://alexey-seleznev.pro/iterations_in_r/img/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -75,14 +75,14 @@
 <div id="о-курсе" class="section level2 unnumbered">
 <h2>О курсе<a class="anchor" aria-label="anchor" href="#%D0%BE-%D0%BA%D1%83%D1%80%D1%81%D0%B5"><i class="fas fa-link"></i></a>
 </h2>
-<p><a href="https://selesnow.github.io"><img src="img/cover.png" align="right" alt="Cover image" class="cover" width="230" height="366"></a>Если вы недавно начали изучать язык R, то наверняка неоднократно слышали от более опытных коллег фразу “В R не принято использовать циклы”. Связано это негласное правило с тем, что большинство функций в языке R поддерживают векторизацию, т.е. они уже под капотом имеют встроенный механизм итерирования. Даже если нужная вам функция не поддерживает векторизацию, вы всегда можете использовать функциональный стиль программирования.</p>
+<p><a href="https://alexey-seleznev.pro"><img src="img/cover.png" align="right" alt="Cover image" class="cover" width="230" height="366"></a>Если вы недавно начали изучать язык R, то наверняка неоднократно слышали от более опытных коллег фразу “В R не принято использовать циклы”. Связано это негласное правило с тем, что большинство функций в языке R поддерживают векторизацию, т.е. они уже под капотом имеют встроенный механизм итерирования. Даже если нужная вам функция не поддерживает векторизацию, вы всегда можете использовать функциональный стиль программирования.</p>
 <p>Циклы, и в целом итерационные конструкции, позволяют избегать излишнего дублирования кода. Основная проблема новичков, которые только начинают учить язык R заключаются в том, что в неумелых руках циклы в R используются не эффективно, и зачастую применяются там, где они вообще не нужны. Цель этого курса научить вас эффективно использовать итерационные конструкции в языке R, и познакомить с функциональным стилем программирования, и многопоточным режимом выполнения скриптов.</p>
 <p>Этот курс поможет вам погрузиться в тему итерационных конструкций языка R и разобраться во всём их многообразии. Первая лекция даст вам вводную информацию о базовых циклах языка R: <code>for</code>, <code>while</code>, <code>repeate</code>. Второй урок прольёт свет на обработку ошибок, с которыми могут столкнуться написанные вами циклы. В третьем уроке мы познакомимся с функциональным стилем программирования и семейством функций <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>. Четвёртый урок продолжает тему функционального стиля программирования, в нём мы рассмотрим возможности пакета <code>purrr</code>, который входит в ядро библиотеки <code>tidyverse</code> и предоставляет вам более продвинутые функционалы по сравнению с семейством функций <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>. Следующим шагом мы разберёмся с тем, как перехватывать и обрабатывать ошибки при использовании функционалов. Затем мы узнаем как распараллеливать выполнение итераций ваших циклов и функционалов с помощью многопоточного программирования, изучим конструкцию <code>foreach</code>, пакеты <code>pbapply</code> и <code>furrr</code>. Завершающий урок будет продолжением темы параллельного программирования в R, в котором мы разберём более низкоуровневый интерфейс многопоточности предоставляемый пакетом <code>future</code>.</p>
 </div>
 <div id="для-кого-этот-курс" class="section level2 unnumbered">
 <h2>Для кого этот курс<a class="anchor" aria-label="anchor" href="#%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D0%B3%D0%BE-%D1%8D%D1%82%D0%BE%D1%82-%D0%BA%D1%83%D1%80%D1%81"><i class="fas fa-link"></i></a>
 </h2>
-<p>Особых требований к уровню подготовки для прохождения данного курса нет, но всё-таки в качестве первого курса для знакомства с языком R я бы его не рекомендовал. Приступать к прохождению курса “Циклы и функционалы в R” я советую тем, кто уже имеет базовые навыки работы в R. Т.е. изначально я рекомендую вам пройти курс <a href="https://selesnow.github.io/r4excel_users/">“Язык R для пользователей Excel”</a>, и потом приступать к прохождению данного курса.</p>
+<p>Особых требований к уровню подготовки для прохождения данного курса нет, но всё-таки в качестве первого курса для знакомства с языком R я бы его не рекомендовал. Приступать к прохождению курса “Циклы и функционалы в R” я советую тем, кто уже имеет базовые навыки работы в R. Т.е. изначально я рекомендую вам пройти курс <a href="https://alexey-seleznev.pro/r4excel_users/">“Язык R для пользователей Excel”</a>, и потом приступать к прохождению данного курса.</p>
 </div>
 <div id="рекомендации-по-прохождению-курса" class="section level2 unnumbered">
 <h2>Рекомендации по прохождению курса<a class="anchor" aria-label="anchor" href="#%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D0%B8-%D0%BF%D0%BE-%D0%BF%D1%80%D0%BE%D1%85%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8E-%D0%BA%D1%83%D1%80%D1%81%D0%B0"><i class="fas fa-link"></i></a>
@@ -101,13 +101,13 @@
 </ul>
 <p>Отдельного чата со студентами непосредственно этого курса не существует, но при желании вы самостоятельно можете его организовать, и я с радостью добавлю на него ссылку.</p>
 <p>К тому же, если у вас есть вопросы по одной из лекций курса, вы можете задавать его под видео лекции на YouTube, это приветствуется, и на такие комментарии я с радостью отвечу.</p>
-<p>Буду рад любой конструктивной критике, и предложениям по улучшению курса “Циклы и функционалы в R”, направлять их можно мне на почту <a href="mailto:selesnow@gmail.com" class="email">selesnow@gmail.com</a>. Если вы хотите выразить благодарность мне за курс, то в конце раздела описано как это можно сделать.</p>
+<p>Буду рад любой конструктивной критике, и предложениям по улучшению курса “Циклы и функционалы в R”, направлять их можно мне на почту <a href="mailto:me@alexey-seleznev.pro" class="email">me@alexey-seleznev.pro</a>. Если вы хотите выразить благодарность мне за курс, то в конце раздела описано как это можно сделать.</p>
 </div>
 <div id="об-авторе" class="section level2 unnumbered">
 <h2>Об авторе<a class="anchor" aria-label="anchor" href="#%D0%BE%D0%B1-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B5"><i class="fas fa-link"></i></a>
 </h2>
 <p>Меня зовут Алексей Селезнёв, с 2008 года я являюсь практикующим аналитиком. На данный момент основной моей деятельностью является развитие отдела аналитики в агентстве интернет-маркетинга <a href="https://https://netpeak.group/">Netpeak</a>.
-<a href="https://selesnow.github.io"><img src="img/author.png" width="200" height="200" align="left" alt="Алексей Селезнёв" hspace="20" vspace="7"></a></p>
+<a href="https://alexey-seleznev.pro"><img src="img/author.png" width="200" height="200" align="left" alt="Алексей Селезнёв" hspace="20" vspace="7"></a></p>
 <p>Мною были разработаны такие R пакеты как: <code>rgoogleads</code>, <code>ryandexdirect</code>, <code>rfacebookstat</code>, <code>timeperiodsR</code>, <code>rvkstat</code> и некоторые другие. На данный момент написанные мной пакеты только с CRAN были установленны более 150 000 раз.</p>
 <p>Также я являюсь автором курса <a href="https://needfordata.ru/r">“Язык R для интернет-маркетинга”</a> и лектором академии <a href="https://webpromoexperts.net/">Web Promo Experts</a>.</p>
 <p>Веду свой авторский <a href="https://t.me/R4marketing">Telegram</a> и <a href="https://www.youtube.com/R4marketing/?sub_confirmation=1">YouTube</a> канал R4marketing. Буду рад видеть вас в рядах подписчиков.</p>
